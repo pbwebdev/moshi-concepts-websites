@@ -39,23 +39,28 @@ Design tokens live as CSS custom properties at the top of `styles.css`
 (colors, fonts). Fonts are loaded from Google Fonts:
 `Zen Kaku Gothic New` (500, 700) and `Inter` (400, 500).
 
-## Placeholders to replace
+## Images
 
-The images in `assets/` are neutral placeholders. Replace each file in place
-(keep the same filename) with the client-supplied artwork:
+Client artwork is in `assets/`. Raster images are downscaled and compressed for
+the web (hero and escrow as WebP; icons as palette PNG) — the whole image
+payload is ~150 KB. Fits are tuned per image in `styles.css`: the globe is a
+right-anchored `cover` crop (keeps the city labels), the escrow diagram shows
+whole (its captions must not be cropped), and the icons use `contain`.
 
-| File | Slot | Target size |
+| File | Slot | Status |
 | --- | --- | --- |
-| `assets/hero.svg` | Hero image | 600×520 (desktop), full-width 220h (mobile) |
-| `assets/draper-dragon.svg` | "Backed by Draper Dragon" logo | 32×32 |
-| `assets/escrow.svg` | Escrow product visual | 600:210 aspect |
-| `assets/icon-blockchain.svg` | "Blockchain infrastructure" icon | square |
-| `assets/icon-ai.svg` | "AI escrow and payments" icon | square |
-| `assets/icon-stablecoin.svg` | "Stablecoin payments" icon | square |
-| `assets/cat.svg` | Cat illustration | 360×360 (desktop), 240×240 (mobile) |
+| `assets/hero.webp` | Hero image | ✅ supplied |
+| `assets/escrow.webp` | Escrow product visual | ✅ supplied |
+| `assets/icon-blockchain.png` | "Blockchain infrastructure" icon | ✅ supplied |
+| `assets/icon-ai.png` | "AI escrow and payments" icon | ✅ supplied |
+| `assets/icon-stablecoin.png` | "Stablecoin payments" icon | ✅ supplied |
+| `assets/draper-dragon.svg` | "Backed by Draper Dragon" logo | ⏳ placeholder (32×32) |
+| `assets/cat.svg` | Cat illustration | ⏳ placeholder (360×360 / 240×240 mobile) |
 
-Raster files (`.png`/`.jpg`/`.webp`) are fine too — just update the matching
-`src` in `index.html` to the new extension.
+To swap a placeholder: drop the real file into `assets/` and, if the extension
+differs, update the matching `src` in `index.html`. Keep large raster art
+optimized (resize to ~2× display size; WebP for photos, palette PNG for flat art
+with transparency).
 
 ## Still to confirm
 
