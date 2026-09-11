@@ -24,6 +24,11 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
+## Deployment
+
+Hosted on **Cloudflare Pages** (static, no build step). Production branch is
+`main`; pushes auto-deploy. See [`DEPLOY.md`](DEPLOY.md) for the one-time setup.
+
 ## Design fidelity
 
 Recreated pixel-for-pixel from the two designed breakpoints — desktop (1440)
