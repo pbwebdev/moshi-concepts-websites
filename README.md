@@ -41,26 +41,28 @@ Design tokens live as CSS custom properties at the top of `styles.css`
 
 ## Images
 
-Client artwork is in `assets/`. Raster images are downscaled and compressed for
-the web (hero and escrow as WebP; icons as palette PNG) — the whole image
-payload is ~150 KB. Fits are tuned per image in `styles.css`: the globe is a
-right-anchored `cover` crop (keeps the city labels), the escrow diagram shows
-whole (its captions must not be cropped), and the icons use `contain`.
+All client artwork is in `assets/` and supplied — no placeholders remain. Raster
+images are downscaled and compressed for the web (photos as WebP; flat art with
+transparency as palette PNG); the whole image payload is ~210 KB. Fits are tuned
+per image in `styles.css`: the globe is a right-anchored `cover` crop (keeps the
+city labels), the escrow diagram shows whole (its captions must not be cropped),
+and the icons, the Draper Dragon shield, and the founder photo use `contain`.
 
-| File | Slot | Status |
-| --- | --- | --- |
-| `assets/hero.webp` | Hero image | ✅ supplied |
-| `assets/escrow.webp` | Escrow product visual | ✅ supplied |
-| `assets/icon-blockchain.png` | "Blockchain infrastructure" icon | ✅ supplied |
-| `assets/icon-ai.png` | "AI escrow and payments" icon | ✅ supplied |
-| `assets/icon-stablecoin.png` | "Stablecoin payments" icon | ✅ supplied |
-| `assets/draper-dragon.svg` | "Backed by Draper Dragon" logo | ⏳ placeholder (32×32) |
-| `assets/cat.svg` | Cat illustration | ⏳ placeholder (360×360 / 240×240 mobile) |
+| File | Slot |
+| --- | --- |
+| `assets/hero.webp` | Hero image |
+| `assets/escrow.webp` | Escrow product visual |
+| `assets/icon-blockchain.png` | "Blockchain infrastructure" icon |
+| `assets/icon-ai.png` | "AI escrow and payments" icon |
+| `assets/icon-stablecoin.png` | "Stablecoin payments" icon |
+| `assets/draper-dragon.png` | "Backed by Draper Dragon" logo (red shield) |
+| `assets/founder.webp` | Founder photo in "Who we are" |
+| `assets/favicon.svg` | Browser tab icon (cat mark) |
 
-To swap a placeholder: drop the real file into `assets/` and, if the extension
-differs, update the matching `src` in `index.html`. Keep large raster art
-optimized (resize to ~2× display size; WebP for photos, palette PNG for flat art
-with transparency).
+To swap an image: drop the new file into `assets/` and, if the extension differs,
+update the matching `src` in `index.html`. Keep large raster art optimized
+(resize to ~2× display size; WebP for photos, palette PNG for flat art with
+transparency).
 
 ## Still to confirm
 

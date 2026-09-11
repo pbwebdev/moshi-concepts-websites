@@ -117,7 +117,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   font-size: 13px;
   color: var(--body);
 }
-.backed img { width: 32px; height: 32px; flex: none; }
+.backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 
 /* CTA button */
 .btn {
