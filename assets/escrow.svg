@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 210" role="img" aria-label="Product visual placeholder" preserveAspectRatio="xMidYMid slice">
+  <rect width="600" height="210" fill="#FAFAF9"/>
+  <rect x="0.5" y="0.5" width="599" height="209" fill="none" stroke="#E7E5E4"/>
+  <text x="300" y="105" font-family="Inter, system-ui, sans-serif" font-size="16" fill="#A8A29E" text-anchor="middle" dominant-baseline="central">Product visual · 600×210</text>
+</svg>

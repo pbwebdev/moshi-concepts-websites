@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Moshi Concepts">
+  <path d="M18,50 L21.5,14 Q22,11 24,14 L45,33 Z" fill="#000000"></path>
+  <path d="M82,50 L78.5,14 Q78,11 76,14 L55,33 Z" fill="#000000"></path>
+  <path d="M50,27 C68,27 83,39 83,56 C83,73 69,89 50,89 C31,89 17,73 17,56 C17,39 32,27 50,27 Z" fill="#000000"></path>
+  <path d="M24,37 L25.5,19 L36,32 Z" fill="#FFFFFF"></path>
+  <path d="M76,37 L74.5,19 L64,32 Z" fill="#FFFFFF"></path>
+  <path d="M50,29 C52,40 54,48 57,54 C65,56 72,63 72,72 C72,81 62,87.5 50,87.5 C38,87.5 28,81 28,72 C28,63 35,56 43,54 C46,48 48,40 50,29 Z" fill="#FFFFFF"></path>
+  <path d="M50,67 l-5,-6 h10 Z" fill="#000000"></path>
+  <circle cx="34" cy="55" r="8.5" fill="#F5A623"></circle>
+  <circle cx="66" cy="55" r="8.5" fill="#F5A623"></circle>
+  <ellipse cx="34" cy="55" rx="3" ry="6.5" fill="#000000"></ellipse>
+  <ellipse cx="66" cy="55" rx="3" ry="6.5" fill="#000000"></ellipse>
+</svg>
