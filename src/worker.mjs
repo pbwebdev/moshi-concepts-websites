@@ -85,7 +85,14 @@ export async function handleContact(request, env, fetchImpl = fetch) {
     }),
   });
   if (!r.ok) {
-    return respond(request, json, false, { ok: false, error: 'Something went wrong sending that. Please try again in a moment.', status: 502 }, ERR_URL);
+    // Pass Resend's own reason through (e.g. "domain is not verified") —
+    // it's a plain explanation with nothing sensitive in it, and it turns a
+    // dead end into a fixable one. Logged too, for the Worker's logs.
+    let reason = '';
+    try { const e = await r.json(); reason = String(e.message || e.error || '').slice(0, 200); } catch {}
+    console.error('resend rejected the send: HTTP ' + r.status + (reason ? ' — ' + reason : ''));
+    const detail = reason ? ' (Resend: ' + reason + ')' : ' (Resend replied HTTP ' + r.status + ')';
+    return respond(request, json, false, { ok: false, error: 'Something went wrong sending that. Please try again in a moment.' + detail, status: 502 }, ERR_URL);
   }
   return respond(request, json, true, { ok: true }, OK_URL);
 }

@@ -72,9 +72,11 @@ test('plain form POST with bad input: redirects to the error anchor', async () =
   assert.equal(r.status, 303); assert.equal(r.headers.get('location'), 'https://site.test/#contact-error');
 });
 
-test('Resend failure: 502', async () => {
-  const r = await handleContact(jsonReq(valid), ENV, async () => new Response('x', { status: 500 }));
-  assert.equal(r.status, 502);
+test('Resend failure: 502 that passes Resend\'s reason through', async () => {
+  const r = await handleContact(jsonReq(valid), ENV, async () => new Response(JSON.stringify({ statusCode: 403, message: 'The example.test domain is not verified.' }), { status: 403 }));
+  assert.equal(r.status, 502); assert.match((await r.json()).error, /Resend: The example.test domain is not verified/);
+  const r2 = await handleContact(jsonReq(valid), ENV, async () => new Response('x', { status: 500 }));
+  assert.equal(r2.status, 502); assert.match((await r2.json()).error, /HTTP 500/);
 });
 
 test('router: GET /api/contact is 405; other paths go to ASSETS', async () => {
