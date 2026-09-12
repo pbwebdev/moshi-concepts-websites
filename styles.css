@@ -119,24 +119,6 @@ a { color: var(--accent-hover); text-decoration: none; }
 }
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 
-/* CTA button */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 24px;
-  background: var(--accent);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 16px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-.btn:hover { background: var(--accent-hover); color: var(--ink); }
-.btn:active { background: var(--accent-hover); color: #FFFFFF; }
-
 .hero__media {
   height: 220px;
   margin-top: 16px;
@@ -148,17 +130,6 @@ a { color: var(--accent-hover); text-decoration: none; }
 /* ===================== Shared section chrome ===================== */
 .section { border-top: 1px solid var(--hairline); }
 
-.link-arrow {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--accent-hover);
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.link-arrow:hover { color: var(--ink); }
-
 /* ===================== What we're building ===================== */
 .build {
   display: grid;
@@ -166,8 +137,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   grid-template-areas:
     "heading"
     "media"
-    "body"
-    "link";
+    "body";
   gap: 20px;
   padding: 56px 24px;
 }
@@ -180,7 +150,6 @@ a { color: var(--accent-hover); text-decoration: none; }
 /* Escrow diagram carries captions at its edges — show it whole, no crop. */
 .build__media img { width: 100%; height: auto; }
 .build__body { grid-area: body; margin: 0; font-size: 16px; line-height: 1.65; }
-.build .link-arrow { grid-area: link; }
 
 /* ===================== Where we're looking ===================== */
 .looking {
@@ -277,7 +246,6 @@ a { color: var(--accent-hover); text-decoration: none; }
   .lead { font-size: 21px; line-height: 1.55; max-width: 62ch; }
   .hero__cta { gap: 28px; }
   .backed { font-size: 14px; }
-  .btn { min-height: 0; padding: 16px 28px; font-size: 17px; }
   .hero__media { height: 520px; margin-top: 0; }
 
   /* What we're building */
@@ -285,8 +253,7 @@ a { color: var(--accent-hover); text-decoration: none; }
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     grid-template-areas:
       "heading media"
-      "body    media"
-      "link    media";
+      "body    media";
     column-gap: 80px;
     row-gap: 22px;
     align-items: center;
@@ -295,7 +262,6 @@ a { color: var(--accent-hover); text-decoration: none; }
   .build h2 { font-size: 40px; }
   .build__media { grid-area: media; align-self: center; padding: 40px 32px; }
   .build__body { font-size: 18px; }
-  .link-arrow { font-size: 17px; }
 
   /* Where we're looking */
   .looking { gap: 56px; padding: 104px 96px; }
