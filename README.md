@@ -66,7 +66,5 @@ transparency).
 
 ## Still to confirm
 
-- **Footer GitHub link** currently points to `https://github.com/pbwebdev`.
-  Update to the real Moshi Concepts organization URL.
 - The "Read more about the escrow platform" link and the hero CTA both anchor to
   the on-page escrow section. Point them at a dedicated page once one exists.

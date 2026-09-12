@@ -212,7 +212,10 @@ a { color: var(--accent-hover); text-decoration: none; }
 .who h2 { font-weight: 700; font-size: 28px; line-height: 1.15; }
 .who p { margin: 0; font-size: 16px; line-height: 1.65; }
 .who__media { display: flex; justify-content: center; }
-.who__media img { width: 240px; height: 240px; object-fit: contain; }
+.who__figure { margin: 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.who__media img { width: 240px; height: 240px; object-fit: cover; }
+.who__caption { font-size: 14px; color: var(--body); }
+.who__name { color: var(--ink); font-weight: 500; }
 
 /* ===================== Footer ===================== */
 .footer {
