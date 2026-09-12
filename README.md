@@ -8,7 +8,7 @@ Built as a static, dependency-free site (plain HTML + CSS) from the v2 design
 handoff. No build step and no JavaScript required.
 
 Sections, in order: nav · hero · **01** Our first product (escrow flow card) ·
-**02** The trust layer (ecosystem diagram) · **03** Where we're looking (three
+**02** The bigger picture (trust-layer diagram) · **03** Where we're looking (three
 cards) · **04** Who we are (founder) · dark CTA · footer.
 
 ## Structure
@@ -47,21 +47,21 @@ Fonts are loaded from Google Fonts: `Zen Kaku Gothic New` (500, 700) and
 The escrow flow diagram and its arrows are built in HTML/CSS (not an image),
 so the copy and spacing stay editable.
 
-**The trust layer (02)** is built from design's asset-pack reference (the
-`trust_layer_ecosystem` mockup crop): a black Moshi hub with seven use-case
-nodes on a gold dotted orbit. It is real HTML/SVG rather than the low-res PNG —
-the seven line icons are inline SVG, the orbit is a generated SVG, and on
-desktop each node is placed on the ring with a rotate → translate → rotate-back
-transform (no trig). Below 960px it stacks to hub + a two-column grid.
+**The bigger picture (02)** follows design's mockup for the trust layer:
+copy on the left (eyebrow, headline, intro, and a "Global use cases" list) and
+the ecosystem diagram on the right — a black Moshi hub with a soft halo and
+seven use-case nodes on a gold dotted orbit, each labelled with a white pill
+placed to its outer side. It is real HTML/SVG rather than the low-res mockup
+crop: the seven line icons are inline SVG and the orbit is a generated SVG. The
+diagram's geometry is a 780×560 reference expressed in container-query units
+(`cqw`), so it scales with whatever column it sits in; each node is placed on
+the ring with a rotate → translate → rotate-back transform. From 1200px the text
+sits beside the diagram; from 960–1199px the diagram sits full-width below the
+text; under 960px it stacks to hub + a two-column grid.
 
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,
 over a generated dotted network wave (`assets/cta-wave.svg`).
-
-> **Placeholder copy:** the trust-layer headline and intro ("One trust layer
-> for every way people get paid." / "Escrow is where we start…") were drafted
-> to fit the seven use-case labels and have not yet been supplied by the
-> client — confirm or replace them in `index.html`.
 
 ## Images
 
