@@ -55,8 +55,12 @@ placed to its outer side. It is real HTML/SVG rather than the low-res mockup
 crop: the seven line icons are inline SVG and the orbit is a generated SVG. The
 diagram's geometry is a 780×560 reference expressed in container-query units
 (`cqw`), so it scales with whatever column it sits in; each node sits at a
-precomputed ring position given as percentages of the box (`--x`/`--y`),
-because some browsers resolve `cqw` to zero inside `transform`. From 1200px the text
+precomputed ring position given as percentage `left`/`top` in the CSS
+(`:nth-child` rules), because some browsers resolve `cqw` to zero inside
+`transform`. Keeping the positions in the stylesheet also means a stale
+HTML/CSS pairing after a deploy can never leave the nodes unplaced; the page
+and stylesheet are served `no-cache` (see `_headers`) and the generated SVGs
+carry a `?v=` stamp so regenerated art isn't served stale. From 1200px the text
 sits beside the diagram; from 960–1199px the diagram sits full-width below the
 text; under 960px it becomes a vertical list of use-case cards (ringed icon,
 title, one-line description, gold arrow chip) in reading order, with the hub

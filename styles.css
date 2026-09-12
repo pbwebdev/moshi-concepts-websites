@@ -618,14 +618,12 @@ a { color: var(--accent-hover); text-decoration: none; }
   }
   .eco__hub svg { width: 7.7cqw; height: 7.7cqw; }
   .eco__nodes { position: absolute; inset: 0; display: block; width: auto; gap: 0; }
-  /* Nodes sit at precomputed ring positions (--x/--y, % of the box) —
+  /* Nodes sit at precomputed ring positions (% of the box, below) —
      plain percentages rather than a cqw translate, which some browsers
      resolve to zero inside transform. */
   .eco__node {
     order: 0;
     position: absolute;
-    left: var(--x);
-    top: var(--y);
     width: 9.23cqw;
     height: 9.23cqw;
     padding: 0;
@@ -635,6 +633,15 @@ a { color: var(--accent-hover); text-decoration: none; }
     box-shadow: none;
     transform: translate(-50%, -50%);
   }
+  /* Ring positions by DOM order (self-contained in the CSS so a stale
+     HTML/CSS pairing can never leave the nodes unplaced) */
+  .eco__node:nth-child(1) { left: 50.00%; top: 18.57%; }
+  .eco__node:nth-child(2) { left: 67.64%; top: 30.40%; }
+  .eco__node:nth-child(3) { left: 72.00%; top: 56.99%; }
+  .eco__node:nth-child(4) { left: 59.79%; top: 78.32%; }
+  .eco__node:nth-child(5) { left: 40.21%; top: 78.32%; }
+  .eco__node:nth-child(6) { left: 28.00%; top: 56.99%; }
+  .eco__node:nth-child(7) { left: 32.36%; top: 30.40%; }
   .eco__icon { width: 9.23cqw; height: 9.23cqw; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
   .eco__icon svg { width: 3.6cqw; height: 3.6cqw; }
   /* The label pill */

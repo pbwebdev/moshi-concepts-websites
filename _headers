@@ -10,3 +10,12 @@
 # Fonts and images swap by filename, so cache for a day rather than forever.
 /assets/*
   Cache-Control: public, max-age=86400
+
+# The page and stylesheet are tiny: always revalidate so an HTML/CSS
+# pairing can never go stale against each other after a deploy.
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/styles.css
+  Cache-Control: no-cache
