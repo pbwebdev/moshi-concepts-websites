@@ -603,7 +603,15 @@ a { color: var(--accent-hover); text-decoration: none; }
     margin: 0 auto;
     gap: 0;
   }
-  .eco__orbit { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .eco__orbit {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform: translate(calc(var(--px, 0px) * 0.6), calc(var(--py, 0px) * 0.6));
+  }
   .eco__hub {
     display: flex;
     position: absolute;
@@ -611,7 +619,7 @@ a { color: var(--accent-hover); text-decoration: none; }
     top: 50%;
     width: 23.08cqw;
     height: 23.08cqw;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translate(calc(var(--px, 0px) * 0.35), calc(var(--py, 0px) * 0.35));
     box-shadow: 0 0 0 4.1cqw rgba(255, 255, 255, 0.55);
     gap: 0.77cqw;
     font-size: clamp(14px, 2.31cqw, 18px);
@@ -631,17 +639,20 @@ a { color: var(--accent-hover); text-decoration: none; }
     background: none;
     border-radius: 0;
     box-shadow: none;
-    transform: translate(-50%, -50%);
+    /* placement, then the cursor parallax nudge (--px/--py set by eco.js,
+       scaled per node by --depth) */
+    transform: translate(-50%, -50%)
+               translate(calc(var(--px, 0px) * var(--depth, 1)), calc(var(--py, 0px) * var(--depth, 1)));
   }
   /* Ring positions by DOM order (self-contained in the CSS so a stale
      HTML/CSS pairing can never leave the nodes unplaced) */
-  .eco__node:nth-child(1) { left: 50.00%; top: 18.57%; }
-  .eco__node:nth-child(2) { left: 67.64%; top: 30.40%; }
-  .eco__node:nth-child(3) { left: 72.00%; top: 56.99%; }
-  .eco__node:nth-child(4) { left: 59.79%; top: 78.32%; }
-  .eco__node:nth-child(5) { left: 40.21%; top: 78.32%; }
-  .eco__node:nth-child(6) { left: 28.00%; top: 56.99%; }
-  .eco__node:nth-child(7) { left: 32.36%; top: 30.40%; }
+  .eco__node:nth-child(1) { left: 50.00%; top: 18.57%; --depth: 1.15; }
+  .eco__node:nth-child(2) { left: 67.64%; top: 30.40%; --depth: 0.9; }
+  .eco__node:nth-child(3) { left: 72.00%; top: 56.99%; --depth: 1.1; }
+  .eco__node:nth-child(4) { left: 59.79%; top: 78.32%; --depth: 0.95; }
+  .eco__node:nth-child(5) { left: 40.21%; top: 78.32%; --depth: 1.05; }
+  .eco__node:nth-child(6) { left: 28.00%; top: 56.99%; --depth: 0.85; }
+  .eco__node:nth-child(7) { left: 32.36%; top: 30.40%; --depth: 1.2; }
   .eco__icon { width: 9.23cqw; height: 9.23cqw; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
   .eco__icon svg { width: 3.6cqw; height: 3.6cqw; }
   /* The label pill */
@@ -666,6 +677,26 @@ a { color: var(--accent-hover); text-decoration: none; }
   .eco__node--below .eco__text { top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1.03cqw; }
   .eco__node--right .eco__text { left: 100%; top: 50%; transform: translateY(-50%); margin-left: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; }
   .eco__node--left  .eco__text { right: 100%; top: 50%; transform: translateY(-50%); margin-right: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; text-align: right; }
+
+  /* Interaction: hover lifts a node with a gold ring; a slow idle float
+     gives the ring life. Uses the individual `scale`/`translate` properties
+     so hover, float and parallax compose instead of overwriting each other. */
+  .eco__node { cursor: default; }
+  .eco__icon, .eco__text { transition: scale 0.25s ease, box-shadow 0.25s ease; }
+  .eco__node:hover .eco__icon {
+    scale: 1.08;
+    box-shadow: 0 0 0 2px var(--accent), 0 8px 22px rgba(0, 0, 0, 0.10);
+  }
+  .eco__node:hover .eco__text { box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10); }
+  @media (prefers-reduced-motion: no-preference) {
+    .eco__icon { animation: eco-float 6s ease-in-out infinite alternate; }
+    .eco__node:nth-child(2) .eco__icon { animation-delay: -1s; }
+    .eco__node:nth-child(3) .eco__icon { animation-delay: -2s; }
+    .eco__node:nth-child(4) .eco__icon { animation-delay: -3s; }
+    .eco__node:nth-child(5) .eco__icon { animation-delay: -4s; }
+    .eco__node:nth-child(6) .eco__icon { animation-delay: -5s; }
+    .eco__node:nth-child(7) .eco__icon { animation-delay: -1.5s; }
+  }
 
   /* Dark CTA: pillars take the right column; the wave spans the width */
   .cta { gap: 64px; }
@@ -692,6 +723,11 @@ a { color: var(--accent-hover); text-decoration: none; }
     align-items: center;
   }
   .trust__text { max-width: none; }
+}
+
+@keyframes eco-float {
+  from { translate: 0 0; }
+  to   { translate: 0 -5px; }
 }
 
 /* Respect reduced-motion preference */

@@ -16,6 +16,7 @@ cards) · **04** Who we are (founder) · dark CTA · footer.
 ```
 index.html      # the page
 styles.css      # all styles (mobile-first; desktop from 960px up)
+eco.js          # trust-layer ring parallax (progressive enhancement)
 _headers        # Cloudflare security + caching headers
 assets/         # images
 ```
@@ -65,6 +66,13 @@ sits beside the diagram; from 960–1199px the diagram sits full-width below the
 text; under 960px it becomes a vertical list of use-case cards (ringed icon,
 title, one-line description, gold arrow chip) in reading order, with the hub
 and the "Global use cases" block hidden, per the mobile mockup.
+
+The ring is interactive on desktop as a progressive enhancement: `eco.js`
+(same-origin, so it passes the CSP) nudges the nodes, orbit and hub toward the
+cursor at different depths for a parallax feel, hovering a node lifts it with a
+gold ring, and the nodes float slowly at rest. All of it is skipped on touch
+devices and when the OS asks for reduced motion; the diagram is complete and
+correctly placed with JavaScript off.
 
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,
