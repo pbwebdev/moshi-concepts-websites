@@ -39,7 +39,7 @@ test('unconfigured env: 503 naming the missing variables, sends nothing', async 
   const r = await handleContact(jsonReq(valid), { RESEND_API_KEY: 'k' }, f);
   assert.equal(r.status, 503); assert.equal(f.calls.length, 0);
   const { error } = await r.json();
-  assert.match(error, /CONTACT_TO, CONTACT_FROM/); assert.doesNotMatch(error, /RESEND_API_KEY/); assert.doesNotMatch(error, /\bk\b/);
+  assert.match(error, /missing CONTACT_TO, CONTACT_FROM; bound: RESEND_API_KEY/); assert.doesNotMatch(error, /\bk\b/);
 });
 
 test('valid JSON submit: calls Resend correctly and returns ok', async () => {

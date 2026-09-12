@@ -62,8 +62,11 @@ export async function handleContact(request, env, fetchImpl = fetch) {
   // undeployed secret is obvious from the form itself.
   const missing = ['RESEND_API_KEY', 'CONTACT_TO', 'CONTACT_FROM'].filter((k) => !env[k]);
   if (missing.length) {
-    console.error('contact form not configured; missing: ' + missing.join(', '));
-    return respond(request, json, false, { ok: false, error: "The contact form isn't configured yet (missing " + missing.join(', ') + ').', status: 503 }, ERR_URL);
+    // Also list which bindings the deployed version *does* have (names only),
+    // so a secret saved on the wrong Worker or version is obvious.
+    const bound = Object.keys(env).sort().join(', ') || 'none';
+    console.error('contact form not configured; missing: ' + missing.join(', ') + '; bound: ' + bound);
+    return respond(request, json, false, { ok: false, error: "The contact form isn't configured yet (missing " + missing.join(', ') + '; bound: ' + bound + ').', status: 503 }, ERR_URL);
   }
 
   const name = String(data.name).trim().replace(/[\r\n]+/g, ' ');
