@@ -54,8 +54,9 @@ seven use-case nodes on a gold dotted orbit, each labelled with a white pill
 placed to its outer side. It is real HTML/SVG rather than the low-res mockup
 crop: the seven line icons are inline SVG and the orbit is a generated SVG. The
 diagram's geometry is a 780×560 reference expressed in container-query units
-(`cqw`), so it scales with whatever column it sits in; each node is placed on
-the ring with a rotate → translate → rotate-back transform. From 1200px the text
+(`cqw`), so it scales with whatever column it sits in; each node sits at a
+precomputed ring position given as percentages of the box (`--x`/`--y`),
+because some browsers resolve `cqw` to zero inside `transform`. From 1200px the text
 sits beside the diagram; from 960–1199px the diagram sits full-width below the
 text; under 960px it becomes a vertical list of use-case cards (ringed icon,
 title, one-line description, gold arrow chip) in reading order, with the hub

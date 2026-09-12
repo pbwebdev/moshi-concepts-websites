@@ -581,9 +581,9 @@ a { color: var(--accent-hover); text-decoration: none; }
   .cta .btn--lg { margin-top: 8px; }
 
 
-  /* 02 · The trust layer — ring diagram. Geometry is the 780x560 reference
+  /* 02 · The trust layer — ring diagram. Sizes are the 780x560 reference
      expressed in cqw (1cqw = 7.8px at full size) so the ring scales with
-     its column; each node is rotated out to the ring and back upright. */
+     its column; node positions are percentages of the box. */
   .trust { gap: 48px; padding: 104px 96px; }
   .trust__text { gap: 18px; max-width: 62ch; }
   .trust h2 { font-size: 44px; }
@@ -598,7 +598,8 @@ a { color: var(--accent-hover); text-decoration: none; }
     position: relative;
     width: 100%;
     max-width: 780px;
-    aspect-ratio: 780 / 560;
+    height: 0;
+    padding-bottom: 71.79%; /* 560 / 780 — a definite padding-box height so % top resolves */
     margin: 0 auto;
     gap: 0;
   }
@@ -617,12 +618,14 @@ a { color: var(--accent-hover); text-decoration: none; }
   }
   .eco__hub svg { width: 7.7cqw; height: 7.7cqw; }
   .eco__nodes { position: absolute; inset: 0; display: block; width: auto; gap: 0; }
+  /* Nodes sit at precomputed ring positions (--x/--y, % of the box) —
+     plain percentages rather than a cqw translate, which some browsers
+     resolve to zero inside transform. */
   .eco__node {
-    --angle: calc(var(--i) * (360deg / 7) - 90deg);
     order: 0;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: var(--x);
+    top: var(--y);
     width: 9.23cqw;
     height: 9.23cqw;
     padding: 0;
@@ -630,8 +633,7 @@ a { color: var(--accent-hover); text-decoration: none; }
     background: none;
     border-radius: 0;
     box-shadow: none;
-    transform-origin: 50% 50%;
-    transform: translate(-50%, -50%) rotate(var(--angle)) translate(22.56cqw) rotate(calc(-1 * var(--angle)));
+    transform: translate(-50%, -50%);
   }
   .eco__icon { width: 9.23cqw; height: 9.23cqw; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
   .eco__icon svg { width: 3.6cqw; height: 3.6cqw; }
