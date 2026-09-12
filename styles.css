@@ -1,16 +1,16 @@
 /* ============================================================
-   Moshi Concepts — landing page
+   Moshi Concepts — landing page (v2)
    Recreated from the design handoff as one responsive page.
-   Mobile-first; desktop styles apply from 900px up.
+   Mobile-first; desktop styles apply from 960px up.
    ============================================================ */
 
 :root {
-  --page-bg: #F5F5F4;   /* outside the site */
-  --site-bg: #FFFFFF;   /* site background */
+  --page-bg: #FFFFFF;
   --ink: #000000;       /* headings */
   --body: #57534E;      /* body text */
+  --body-dark: #D6D3D1; /* body text on the dark section */
   --hairline: #E7E5E4;  /* borders */
-  --accent: #F5A623;    /* CTA, logo eyes */
+  --accent: #F5A623;
   --accent-hover: #C97B0A;
   --tint: #FDF6E9;      /* "Who we are" */
 
@@ -35,21 +35,63 @@ img { max-width: 100%; display: block; }
 
 h1, h2, h3 {
   font-family: var(--font-head);
+  font-weight: 700;
   color: var(--ink);
   margin: 0;
   text-wrap: pretty;
 }
+p { margin: 0; text-wrap: pretty; }
 
 a { color: var(--accent-hover); text-decoration: none; }
 
-/* Site canvas: white, centered, capped at the 1440 artboard width */
+/* Site canvas: capped at the 1440 artboard width */
 .site {
-  background: var(--site-bg);
+  background: var(--page-bg);
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
+
+/* ===================== Shared pieces ===================== */
+
+/* Eyebrow labels: "RESEARCH / BUILD / ON CARDANO", "01 / OUR FIRST PRODUCT" */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body);
+}
+.eyebrow__num { color: var(--accent-hover); }
+.eyebrow--accent { color: var(--accent); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--accent-hover); color: var(--ink); }
+.btn:active { background: var(--accent-hover); color: #FFFFFF; }
+.btn--nav { min-height: 44px; padding: 0 16px; font-size: 14px; }
+.btn--nav .btn__arrow { display: none; }
+.btn--lg { min-height: 48px; padding: 0 24px; font-size: 16px; }
+.btn--dark:hover { background: #FFFFFF; color: var(--ink); }
+
+/* Section header: eyebrow + h2 on the left, intro paragraph on the right (desktop) */
+.section { border-top: 1px solid var(--hairline); }
+.sec-head { display: flex; flex-direction: column; gap: 24px; }
+.sec-head__text { display: flex; flex-direction: column; gap: 24px; }
+.sec-head h2 { font-size: 30px; line-height: 1.12; }
+.sec-head__intro { font-size: 16px; line-height: 1.65; }
+.sec-head__intro--desktop { display: none; }
 
 /* ===================== Nav ===================== */
 .nav {
@@ -58,7 +100,6 @@ a { color: var(--accent-hover); text-decoration: none; }
   justify-content: space-between;
   padding: 18px 24px;
 }
-
 .brand {
   display: flex;
   align-items: center;
@@ -72,43 +113,26 @@ a { color: var(--accent-hover); text-decoration: none; }
   font-size: 18px;
   letter-spacing: -0.01em;
 }
-
-/* Text nav is hidden on mobile; a mail icon takes its place */
+.nav__right { display: flex; align-items: center; gap: 36px; flex: none; }
 .nav__links { display: none; }
-
-.nav__mail-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  color: var(--accent);
-}
-.nav__mail-icon:hover { color: var(--ink); }
 
 /* ===================== Hero ===================== */
 .hero {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 20px;
   padding: 40px 24px 0;
   overflow: hidden;
 }
-.hero__text { display: flex; flex-direction: column; gap: 22px; }
+.hero__text { display: flex; flex-direction: column; gap: 20px; }
 .hero h1 {
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 1.12;
+  font-size: 40px;
+  line-height: 1.08;
   letter-spacing: -0.01em;
 }
-.lead { margin: 0; font-size: 17px; line-height: 1.6; }
-
-.hero__cta {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  align-items: flex-start;
-}
+.lead { font-size: 17px; line-height: 1.6; }
+.hero__actions { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.link-underline { display: none; }
 
 .backed {
   display: flex;
@@ -119,115 +143,178 @@ a { color: var(--accent-hover); text-decoration: none; }
 }
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 
-.hero__media {
-  height: 220px;
-  margin-top: 16px;
-}
+.hero__media { height: 220px; margin-top: 16px; }
 /* Globe sits on the right of the artwork with whitespace on the left,
    so anchor the crop right to keep the city labels in frame. */
 .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 
-/* ===================== Shared section chrome ===================== */
-.section { border-top: 1px solid var(--hairline); }
-
-/* ===================== What we're building ===================== */
+/* ===================== 01 · Our first product ===================== */
 .build {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "heading"
-    "media"
-    "body";
-  gap: 20px;
-  padding: 56px 24px;
-}
-.build h2 { grid-area: heading; font-weight: 700; font-size: 28px; line-height: 1.15; }
-.build__media {
-  grid-area: media;
-  padding: 20px 12px;
-  border: 1px solid var(--hairline);
-}
-/* Escrow diagram carries captions at its edges — show it whole, no crop. */
-.build__media img { width: 100%; height: auto; }
-.build__body { grid-area: body; margin: 0; font-size: 16px; line-height: 1.65; }
-
-/* ===================== Where we're looking ===================== */
-.looking {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 24px;
   padding: 56px 24px;
 }
-.looking h2 { font-weight: 700; font-size: 28px; line-height: 1.15; }
-.looking__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
-}
-.focus { display: flex; flex-direction: column; gap: 14px; }
-.focus__icon { width: 80px; height: 80px; object-fit: contain; }
-.focus h3 { font-weight: 500; font-size: 21px; }
-.focus p { margin: 0; font-size: 16px; line-height: 1.6; }
 
-/* ===================== Who we are ===================== */
+.flow { border: 1px solid var(--hairline); background: #FFFFFF; }
+
+/* Steps: stacked rows on mobile, a 4-across row with arrows on desktop */
+.flow__steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+}
+.step { display: flex; align-items: center; gap: 16px; width: 100%; }
+/* The step artwork draws its own ring, with a badge overhanging it —
+   so show it unclipped rather than masking to a circle. */
+.step__icon {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  object-fit: contain;
+}
+.step__text { display: flex; flex-direction: column; gap: 4px; }
+.step h3 { font-size: 18px; }
+.step p { font-size: 14px; line-height: 1.5; }
+.flow__arrow--h { display: none; }
+.flow__arrow--v { align-self: flex-start; margin-left: 24px; }
+
+/* Spec strip: 2×2 on mobile, 4 across on desktop */
+.flow__specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--hairline);
+}
+.spec { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; }
+.spec:nth-child(1) { border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.spec:nth-child(2) { border-bottom: 1px solid var(--hairline); }
+.spec:nth-child(3) { border-right: 1px solid var(--hairline); }
+.spec__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.spec__value { font-size: 16px; font-weight: 500; color: var(--ink); }
+.spec__long { display: none; }
+
+/* ===================== 02 · Where we're looking ===================== */
+.look {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 56px 24px;
+}
+.cards { display: flex; flex-direction: column; gap: 16px; }
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px 24px;
+  border: 1px solid var(--hairline);
+}
+.card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.card__heading { display: flex; flex-direction: column; gap: 8px; }
+.card__num { font-size: 13px; font-weight: 500; color: var(--accent-hover); }
+.card h3 { font-size: 22px; line-height: 1.2; }
+.card__icon { width: 72px; height: 72px; flex: none; object-fit: contain; }
+.card p { font-size: 15px; line-height: 1.6; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+}
+
+/* ===================== 03 · Who we are ===================== */
 .who {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 56px 24px 0;
+  gap: 24px;
+  padding: 56px 24px;
   background: var(--tint);
 }
-.who__text { display: flex; flex-direction: column; gap: 28px; }
-.who h2 { font-weight: 700; font-size: 28px; line-height: 1.15; }
-.who p { margin: 0; font-size: 16px; line-height: 1.65; }
-.who__media { display: flex; justify-content: center; }
-.who__figure { margin: 0; display: flex; flex-direction: column; gap: 12px; align-items: center; }
-.who__media img { width: 240px; height: 240px; object-fit: cover; }
-.who__caption { font-size: 14px; color: var(--body); }
-.who__name { color: var(--ink); font-weight: 500; }
+.who__text { display: flex; flex-direction: column; gap: 24px; }
+.who h2 { font-size: 30px; line-height: 1.12; }
+.who__text p { font-size: 16px; line-height: 1.65; }
+
+.founder { display: flex; gap: 20px; align-items: center; margin-top: 8px; }
+.founder__photo {
+  width: 140px;
+  height: 170px;
+  flex: none;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.founder__details { display: flex; flex-direction: column; gap: 14px; }
+.founder__id { display: flex; flex-direction: column; gap: 2px; }
+.founder__name { font-family: var(--font-head); font-weight: 700; font-size: 20px; color: var(--ink); }
+.founder__role { font-size: 14px; }
+.creds {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+}
+.creds li { display: flex; align-items: center; gap: 10px; }
+.creds li::before { content: ""; width: 7px; height: 7px; background: var(--accent); flex: none; }
+
+/* ===================== Dark CTA ===================== */
+.cta {
+  padding: 56px 24px;
+  background: #000000;
+  color: #FFFFFF;
+}
+.cta__text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.cta h2 { font-size: 34px; line-height: 1.1; color: #FFFFFF; }
+.cta__accent { color: var(--accent); }
+.cta p { font-size: 16px; line-height: 1.6; color: var(--body-dark); }
 
 /* ===================== Footer ===================== */
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 24px;
+  gap: 16px;
+  padding: 28px 24px;
   border-top: 1px solid var(--hairline);
   font-size: 13px;
 }
-.footer__links { display: flex; align-items: center; gap: 20px; }
+.footer__brand { display: none; }
+.footer__links { display: flex; flex-direction: column; gap: 2px; }
 .footer__links a {
-  color: var(--accent-hover);
+  color: var(--ink);
   min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
-.footer__links a:hover { color: var(--ink); }
+.footer__links a:hover { color: var(--accent-hover); }
+.footer__links .footer__mail { color: var(--accent-hover); }
+.footer__links .footer__mail:hover { color: var(--ink); }
 
 /* ============================================================
-   Desktop — from 960px up (matches the 1440 artboard).
-   960 is the point where the full text nav fits without wrapping.
+   Desktop — from 960px up (matches the 1440 artboard)
    ============================================================ */
 @media (min-width: 960px) {
 
+  .eyebrow { font-size: 13px; }
+
   /* Nav */
-  .nav { padding: 28px 96px; }
+  .nav { padding: 24px 96px; }
   .brand { gap: 12px; }
   .brand__mark { width: 36px; height: 36px; }
   .brand__word { font-size: 20px; }
-
-  .nav__links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    font-size: 15px;
-    flex: none;
-  }
+  .nav__links { display: flex; align-items: center; gap: 36px; font-size: 15px; }
   .nav__links a { color: var(--ink); white-space: nowrap; }
   .nav__links a:hover { color: var(--accent-hover); }
-  .nav__mail { color: var(--accent) !important; }
-  .nav__mail:hover { color: var(--ink) !important; }
-  .nav__mail-icon { display: none; }
+  .btn--nav { min-height: 0; padding: 12px 22px; font-size: 15px; gap: 8px; }
+  .btn--nav .btn__arrow { display: inline; }
 
   /* Hero */
   .hero {
@@ -235,70 +322,119 @@ a { color: var(--accent-hover); text-decoration: none; }
     grid-template-columns: minmax(0, 1fr) 600px;
     gap: 48px;
     align-items: end;
-    padding: 96px 96px 0;
+    padding: 88px 96px 0;
   }
-  .hero__text {
-    gap: 32px;
-    padding-bottom: 120px;
-    align-self: center;
+  .hero__text { gap: 28px; padding-bottom: 104px; align-self: center; }
+  .hero h1 { font-size: 68px; line-height: 1.06; letter-spacing: -0.015em; }
+  .lead { font-size: 21px; line-height: 1.55; max-width: 58ch; }
+  .hero__actions { flex-direction: row; align-items: center; gap: 28px; }
+  .btn--lg { min-height: 0; padding: 16px 28px; font-size: 17px; }
+  .link-underline {
+    display: inline;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
   }
-  .hero h1 { font-size: 64px; line-height: 1.08; letter-spacing: -0.015em; }
-  .lead { font-size: 21px; line-height: 1.55; max-width: 62ch; }
-  .hero__cta { gap: 28px; }
-  .backed { font-size: 14px; }
+  .link-underline:hover { color: var(--accent-hover); }
+  .backed { font-size: 14px; margin-top: 8px; }
   .hero__media { height: 520px; margin-top: 0; }
 
-  /* What we're building */
-  .build {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    grid-template-areas:
-      "heading media"
-      "body    media";
-    column-gap: 80px;
-    row-gap: 22px;
+  /* Section headers */
+  .sec-head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 64px;
+    align-items: end;
+  }
+  .sec-head__text { gap: 18px; }
+  .sec-head h2 { font-size: 44px; }
+  .sec-head__intro { font-size: 18px; }
+  .sec-head__intro--desktop { display: block; }
+
+  /* 01 · Our first product */
+  .build { gap: 48px; padding: 104px 96px; }
+  .flow__steps {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr) 72px minmax(0, 1fr) 72px minmax(0, 1fr);
+    align-items: start;
+    gap: 0;
+    padding: 48px 40px 40px;
+  }
+  .step { flex-direction: column; align-items: center; text-align: center; gap: 8px; width: auto; }
+  .step__icon { width: 96px; height: 96px; margin-bottom: 12px; }
+  .step h3 { font-size: 20px; }
+  .step p { font-size: 15px; }
+  .flow__arrow--h { display: block; margin-top: 36px; }
+  .flow__arrow--v { display: none; }
+
+  .flow__specs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .spec { gap: 6px; padding: 24px 40px; }
+  .spec:nth-child(1), .spec:nth-child(2), .spec:nth-child(3) {
+    border-right: 1px solid var(--hairline);
+    border-bottom: 0;
+  }
+  .spec__label { font-size: 12px; }
+  .spec__value { font-size: 18px; }
+  .spec__long { display: inline; }
+
+  /* 02 · Where we're looking */
+  .look { gap: 48px; padding: 104px 96px; }
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .card { gap: 20px; padding: 36px 32px; }
+  .card__heading { gap: 10px; }
+  .card h3 { font-size: 26px; }
+  .card__icon { width: 96px; height: 96px; }
+  .card p { font-size: 16px; }
+  .chips { margin-top: auto; }
+  .chip { font-size: 13px; }
+
+  /* 03 · Who we are */
+  .who {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    gap: 80px;
     align-items: center;
     padding: 104px 96px;
   }
-  .build h2 { font-size: 40px; }
-  .build__media { grid-area: media; align-self: center; padding: 40px 32px; }
-  .build__body { font-size: 18px; }
-
-  /* Where we're looking */
-  .looking { gap: 56px; padding: 104px 96px; }
-  .looking h2 { font-size: 40px; }
-  .looking__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 56px;
+  .who__text { gap: 18px; }
+  .who h2 { font-size: 44px; }
+  .who__text p { font-size: 18px; max-width: 56ch; }
+  .founder {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 32px;
+    margin-top: 0;
   }
-  .focus { gap: 20px; }
-  .focus__icon { width: 96px; height: 96px; }
-  .focus h3 { font-size: 24px; }
-  .focus p { font-size: 17px; line-height: 1.65; }
+  .founder__photo { width: 280px; height: 340px; }
+  .founder__details { gap: 20px; }
+  .founder__id { gap: 4px; }
+  .founder__name { font-size: 24px; }
+  .founder__role { font-size: 15px; }
+  .creds { gap: 12px; font-size: 15px; }
+  .creds li { gap: 12px; }
+  .creds li::before { width: 8px; height: 8px; }
 
-  /* Who we are */
-  .who {
+  /* Dark CTA — text occupies the left 7fr; the optional visual slot is unused */
+  .cta {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: 64px;
     align-items: center;
     padding: 104px 96px;
   }
-  .who__text { gap: 22px; }
-  .who h2 { font-size: 40px; }
-  .who p { font-size: 18px; max-width: 58ch; }
-  .who__media { justify-content: flex-end; }
-  .who__media img { width: 360px; height: 360px; }
+  .cta__text { gap: 24px; }
+  .cta h2 { font-size: 52px; line-height: 1.08; }
+  .cta p { font-size: 19px; max-width: 52ch; }
+  .cta .btn--lg { margin-top: 8px; }
 
   /* Footer */
-  .footer {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 32px;
-    padding: 28px 96px;
-    font-size: 14px;
-  }
-  .footer__links { gap: 28px; }
+  .footer { gap: 24px; padding: 36px 96px; font-size: 14px; }
+  .footer__row { display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+  .footer__brand { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+  .footer__brand span { font-family: var(--font-head); font-weight: 700; font-size: 16px; }
+  .footer__links { flex-direction: row; align-items: center; gap: 28px; }
   .footer__links a { min-height: 0; }
 }
 
