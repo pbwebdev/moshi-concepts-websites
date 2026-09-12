@@ -1,35 +1,53 @@
 # Deploying to Cloudflare
 
-This static site is deployed on **Cloudflare Workers** using the **Static Assets**
-model (Cloudflare merged Pages into Workers; the "import a repository" flow now
-uses `npx wrangler deploy` rather than the old Pages build-output-directory flow).
+The site runs on **Cloudflare Workers**. `wrangler.jsonc` describes the
+deployment: `src/worker.mjs` is the Worker and `public/` is served as static
+assets (the Worker only runs for `POST /api/contact`; everything else is served
+straight from the assets). The connected Git integration runs
+`npx wrangler deploy` on every push to **`main`**.
 
-- **Live (workers.dev):** https://moshi-concepts-websites.mail-e4c.workers.dev
-- **Serves from:** the repo **root** (`index.html`, `styles.css`, `assets/`,
-  `_headers`). The assets directory is configured in the Cloudflare dashboard,
-  so no `wrangler.jsonc` is required in the repo.
-- **Deploy command (dashboard):** `npx wrangler deploy`
-- **Build command:** none · **Root directory:** `/`
+- **Production branch:** `main` · **Build command:** none ·
+  **Deploy command:** `npx wrangler deploy` · **Root directory:** `/`
+- Live (workers.dev): https://moshi-concepts-websites.mail-e4c.workers.dev
+
+## One-time: configure the contact form
+
+The form sends through [Resend](https://resend.com). Nothing sensitive is in the
+repo; set these in the dashboard under the Worker → **Settings → Variables and
+Secrets** (add each as type **Secret** so they're encrypted and survive deploys):
+
+| Name | Value |
+| --- | --- |
+| `RESEND_API_KEY` | An API key from Resend → **API Keys** (sending access is enough) |
+| `CONTACT_TO` | The address that should receive messages |
+| `CONTACT_FROM` | The sender, e.g. `Moshi Concepts <hello@yourdomain>` — must be on a domain **verified in Resend** |
+
+In Resend, verify the sending domain first (Resend → **Domains** → add the
+domain → create the DNS records it lists — easy if the DNS is on Cloudflare).
+Until the domain is verified, Resend only delivers from `onboarding@resend.dev`
+to the account owner's own address, which is fine for a first test.
+
+After saving the secrets there's nothing to redeploy: the running Worker reads
+them on the next request. Test by submitting the form on the live site.
 
 ## Ongoing deploys
 
-Pushing to the connected branch triggers an automatic build and redeploy.
-No build step, no secrets, no environment variables.
+Push to `main`. Cloudflare clones, runs `npx wrangler deploy`, and the new
+version is live in about a minute. No build step, no environment variables in
+the repo. `keep_vars` in `wrangler.jsonc` stops deploys from wiping variables
+set in the dashboard.
 
 ## Custom domain
 
-In the Cloudflare dashboard → the **moshi-concepts-websites** Worker →
-**Domains** (or **Settings → Domains & Routes**) → **Add** → enter the hostname
-(e.g. `moshiconcepts.com` and `www.moshiconcepts.com`). If the domain's DNS is
-already on this Cloudflare account, records and SSL are provisioned
-automatically; otherwise Cloudflare shows the DNS record to add at your
-registrar.
+Worker → **Domains** (or **Settings → Domains & Routes**) → **Add** → enter the
+hostname. If the domain's DNS is on this Cloudflare account, records and SSL are
+automatic; otherwise Cloudflare shows the record to add at your registrar.
 
 ## Notes
 
-- `public/`-style restructuring is **not** used — the dashboard expects the site
-  at the repo root. Moving files into a subfolder would require also updating the
-  Worker's assets directory setting, or adding a `wrangler.jsonc` with
-  `assets.directory` pointing at the new folder.
-- `_headers` (security headers + a 1-day cache on `/assets/*`) is honored by
-  Workers Static Assets, the same as it was under Pages.
+- Moving the site into `public/` is what lets the Worker source, config and
+  docs stay out of what's served.
+- `public/_headers` sets security headers (CSP allows same-origin form posts and
+  fetches for the contact form), caches `/assets/*` for a day, and serves the
+  page, stylesheet and scripts `no-cache` so a deploy can never leave them out of
+  step with each other.

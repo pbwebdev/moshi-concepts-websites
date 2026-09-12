@@ -1,0 +1,12 @@
+{
+  // Cloudflare Worker: serves the static site from public/ and handles
+  // POST /api/contact (Resend). Deployed by `npx wrangler deploy`.
+  "name": "moshi-concepts-websites",
+  "main": "src/worker.mjs",
+  "compatibility_date": "2025-08-01",
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+  // Don't let deploys wipe variables set in the dashboard.
+  "keep_vars": true
+  // Set in the Cloudflare dashboard (Worker → Settings → Variables and Secrets),
+  // never in this file: RESEND_API_KEY (secret), CONTACT_TO, CONTACT_FROM.
+}

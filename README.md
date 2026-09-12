@@ -4,8 +4,9 @@ Single-page marketing site for **Moshi Concepts**, a research and product studio
 working at the intersection of blockchain, applied AI, and stablecoin payments.
 Its first product is an on-chain escrow platform built on Cardano.
 
-Built as a static, dependency-free site (plain HTML + CSS) from the v2 design
-handoff. No build step and no JavaScript required.
+Built as a static site (plain HTML + CSS) from the v2 design handoff, with a
+tiny Cloudflare Worker behind it for the contact form. No build step; the
+JavaScript on the page is progressive enhancement only.
 
 Sections, in order: nav · hero · **01** Our first product (escrow flow card) ·
 **02** The bigger picture (trust-layer diagram) · **03** Where we're looking (three
@@ -14,26 +15,36 @@ cards) · **04** Who we are (founder) · dark CTA · footer.
 ## Structure
 
 ```
-index.html      # the page
-styles.css      # all styles (mobile-first; desktop from 960px up)
-eco.js          # trust-layer ring parallax (progressive enhancement)
-_headers        # Cloudflare security + caching headers
-assets/         # images
+public/             # the static site (served as-is)
+  index.html        #   the page
+  styles.css        #   all styles (mobile-first; desktop from 960px up)
+  eco.js            #   trust-layer ring parallax (progressive enhancement)
+  contact.js        #   contact form submit-in-place (progressive enhancement)
+  _headers          #   Cloudflare security + caching headers
+  assets/           #   images
+src/worker.mjs      # Cloudflare Worker: serves public/, handles POST /api/contact
+test/               # worker unit tests (`node --test test/worker.test.mjs`)
+wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
 ## Running locally
 
-Open `index.html` directly in a browser, or serve the folder:
+Serve the `public/` folder (the form needs an HTTP origin, not `file://`):
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory public
 # then visit http://localhost:8000
 ```
 
+To run the worker too (contact form included), use `npx wrangler dev` with the
+three variables below in a local `.dev.vars` file (git-ignored).
+
 ## Deployment
 
-Hosted on **Cloudflare Workers** (static assets, served from the repo root).
-Pushes to the connected branch auto-deploy. See [`DEPLOY.md`](DEPLOY.md).
+Hosted on **Cloudflare Workers**: `wrangler.jsonc` deploys `src/worker.mjs`
+with `public/` as its static assets. Pushes to `main` auto-deploy. The contact
+form needs three variables set in the Cloudflare dashboard — see
+[`DEPLOY.md`](DEPLOY.md).
 
 ## Design fidelity
 
@@ -77,6 +88,28 @@ correctly placed with JavaScript off.
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,
 over a generated dotted network wave (`assets/cta-wave.svg`).
+
+## Contact form
+
+The page never exposes an email address. The form in the dark CTA section
+(`#contact`) POSTs to `/api/contact`, handled by `src/worker.mjs`, which
+validates the submission and sends it through [Resend](https://resend.com)
+with the submitter's address as `Reply-To`.
+
+- **Configuration** lives only in the Cloudflare dashboard (Worker → Settings →
+  Variables and Secrets): `RESEND_API_KEY` (secret), `CONTACT_TO` (where
+  messages go) and `CONTACT_FROM` (a sender on a domain verified in Resend).
+  Until they're set the endpoint answers 503 and the form shows a friendly
+  "not configured yet" message.
+- **Spam:** a honeypot field bots fill and people can't see, and a timing check
+  (`contact.js` stamps the form on load; a submit within 3 s is dropped). Both
+  answer with a fake success so bots learn nothing. Add Cloudflare Turnstile if
+  volume ever warrants it.
+- **Without JavaScript** the form still works: a plain POST, and the worker
+  redirects back to `/#contact-sent` or `/#contact-error`, which reveal a
+  `:target` message in the form.
+- The CSP allows same-origin `form-action` and `connect-src` for this; the
+  Resend key never reaches the browser.
 
 ## Images
 

@@ -395,6 +395,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   position: relative;
   z-index: 1;
   align-self: flex-start;
+  margin-top: 8px;
 }
 .cta__pillars::before {
   content: "";
@@ -428,6 +429,56 @@ a { color: var(--accent-hover); text-decoration: none; }
 .cta__accent { color: var(--accent); }
 .cta p { font-size: 16px; line-height: 1.6; color: var(--body-dark); }
 
+/* Contact form (in the dark CTA). Posts to /api/contact; contact.js
+   submits in place and shows the result in .form__status; without JS the
+   worker redirects back and a .form__note:target message shows instead. */
+.cta__form {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form__row { display: flex; flex-direction: column; gap: 16px; }
+.form__field { display: flex; flex-direction: column; gap: 8px; }
+.form__label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body-dark);
+}
+.form__input {
+  width: 100%;
+  padding: 12px 14px;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 16px; /* keeps iOS from zooming the field */
+  line-height: 1.4;
+}
+.form__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.3);
+}
+textarea.form__input { resize: vertical; min-height: 140px; }
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form__actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.form__status { font-size: 14px; line-height: 1.5; color: var(--body-dark); min-height: 1.5em; }
+.form__status--ok, .form__note--ok { color: var(--accent); }
+.form__status--err, .form__note--err { color: #F87171; }
+.form__note { display: none; font-size: 14px; line-height: 1.5; }
+.form__note:target { display: block; }
+.btn:disabled { opacity: 0.7; cursor: wait; }
+
 /* ===================== Footer ===================== */
 .footer {
   display: flex;
@@ -446,8 +497,6 @@ a { color: var(--accent-hover); text-decoration: none; }
   align-items: center;
 }
 .footer__links a:hover { color: var(--accent-hover); }
-.footer__links .footer__mail { color: var(--accent-hover); }
-.footer__links .footer__mail:hover { color: var(--ink); }
 
 /* ============================================================
    Desktop — from 960px up (matches the 1440 artboard)
@@ -701,7 +750,10 @@ a { color: var(--accent-hover); text-decoration: none; }
 
   /* Dark CTA: pillars take the right column; the wave spans the width */
   .cta { gap: 64px; }
-  .cta__pillars { align-self: center; gap: 18px; }
+  .cta__pillars { gap: 18px; }
+  .cta__form { align-self: center; padding: 28px; }
+  .form__row { flex-direction: row; }
+  .form__row .form__field { flex: 1; min-width: 0; }
   .cta__pillar { font-size: 13px; }
 
   /* Footer */
