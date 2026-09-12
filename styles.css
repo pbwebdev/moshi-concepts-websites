@@ -675,6 +675,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   }
   .eco__sub, .eco__go { display: none; }
   .eco__node--below .eco__text { top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1.03cqw; }
+  .eco__node--above .eco__text { bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 1.03cqw; }
   .eco__node--right .eco__text { left: 100%; top: 50%; transform: translateY(-50%); margin-left: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; }
   .eco__node--left  .eco__text { right: 100%; top: 50%; transform: translateY(-50%); margin-right: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; text-align: right; }
 
