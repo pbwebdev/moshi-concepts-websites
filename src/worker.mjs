@@ -58,8 +58,12 @@ export async function handleContact(request, env, fetchImpl = fetch) {
   const err = validate(data);
   if (err) return respond(request, json, false, { ok: false, error: err, status: 400 }, ERR_URL);
 
-  if (!env.RESEND_API_KEY || !env.CONTACT_TO || !env.CONTACT_FROM) {
-    return respond(request, json, false, { ok: false, error: "The contact form isn't configured yet.", status: 503 }, ERR_URL);
+  // Name (never the value) any missing configuration so a misnamed or
+  // undeployed secret is obvious from the form itself.
+  const missing = ['RESEND_API_KEY', 'CONTACT_TO', 'CONTACT_FROM'].filter((k) => !env[k]);
+  if (missing.length) {
+    console.error('contact form not configured; missing: ' + missing.join(', '));
+    return respond(request, json, false, { ok: false, error: "The contact form isn't configured yet (missing " + missing.join(', ') + ').', status: 503 }, ERR_URL);
   }
 
   const name = String(data.name).trim().replace(/[\r\n]+/g, ' ');

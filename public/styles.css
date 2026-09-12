@@ -437,8 +437,8 @@ a { color: var(--accent-hover); text-decoration: none; }
   z-index: 1;
   width: 100%;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #141414;                       /* solid: the wave must not show through */
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -457,7 +457,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   width: 100%;
   padding: 12px 14px;
   background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 4px;
   color: #FFFFFF;
   font: inherit;

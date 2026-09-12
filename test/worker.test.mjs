@@ -34,10 +34,12 @@ test('invalid input: 400 with a message, sends nothing', async () => {
   assert.equal(r.status, 400); assert.match((await r.json()).error, /email/); assert.equal(f.calls.length, 0);
 });
 
-test('unconfigured env: 503, sends nothing', async () => {
+test('unconfigured env: 503 naming the missing variables, sends nothing', async () => {
   const f = okFetch();
-  const r = await handleContact(jsonReq(valid), {}, f);
+  const r = await handleContact(jsonReq(valid), { RESEND_API_KEY: 'k' }, f);
   assert.equal(r.status, 503); assert.equal(f.calls.length, 0);
+  const { error } = await r.json();
+  assert.match(error, /CONTACT_TO, CONTACT_FROM/); assert.doesNotMatch(error, /RESEND_API_KEY/); assert.doesNotMatch(error, /\bk\b/);
 });
 
 test('valid JSON submit: calls Resend correctly and returns ok', async () => {
