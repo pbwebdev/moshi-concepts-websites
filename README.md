@@ -57,7 +57,9 @@ diagram's geometry is a 780×560 reference expressed in container-query units
 (`cqw`), so it scales with whatever column it sits in; each node is placed on
 the ring with a rotate → translate → rotate-back transform. From 1200px the text
 sits beside the diagram; from 960–1199px the diagram sits full-width below the
-text; under 960px it stacks to hub + a two-column grid.
+text; under 960px it becomes a vertical list of use-case cards (ringed icon,
+title, one-line description, gold arrow chip) in reading order, with the hub
+and the "Global use cases" block hidden, per the mobile mockup.
 
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,

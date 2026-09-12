@@ -240,7 +240,7 @@ a { color: var(--accent-hover); text-decoration: none; }
 .trust__text { display: flex; flex-direction: column; gap: 24px; }
 .trust h2 { font-size: 30px; line-height: 1.12; }
 .trust__intro { font-size: 16px; line-height: 1.65; }
-.trust__uses { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.trust__uses { display: none; flex-direction: column; gap: 10px; margin-top: 8px; }
 .trust__uses-label {
   font-size: 12px;
   font-weight: 500;
@@ -260,70 +260,79 @@ a { color: var(--accent-hover); text-decoration: none; }
   color: var(--body);
 }
 
-/* Ecosystem diagram: black hub + seven use-case nodes with pill labels.
-   Stacked (hub over a 2-col grid) on mobile; a ring on desktop, sized in
-   container-query units so it scales with whatever column it sits in. */
-.eco { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+/* Ecosystem: on mobile a vertical list of use-case cards (icon, title,
+   description, arrow chip) in reading order; on desktop the ring diagram —
+   black hub, gold orbit, and nodes with pill labels (see the desktop block). */
+.eco { display: flex; flex-direction: column; gap: 12px; }
 .eco__orbit { display: none; }
 .eco__hub {
+  display: none;
   width: 140px;
   height: 140px;
   border-radius: 50%;
   background: #000000;
   color: #FFFFFF;
-  box-shadow: 0 0 0 22px rgba(255, 255, 255, 0.55);
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: 14px;
   line-height: 1.15;
   text-align: center;
 }
-.eco__hub svg { width: 46px; height: 46px; }
 .eco__nodes {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px 16px;
+  flex-direction: column;
+  gap: 12px;
   width: 100%;
 }
 .eco__node {
+  order: var(--o);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  width: calc(50% - 8px);
-  text-align: center;
+  gap: 16px;
+  padding: 16px 18px;
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 .eco__icon {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
+  flex: none;
   border-radius: 50%;
   background: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--hairline);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink);
 }
 .eco__icon svg { width: 26px; height: 26px; }
+.eco__text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
 .eco__label {
-  display: inline-block;
-  background: #FFFFFF;
-  padding: 7px 12px;
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.3;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
   color: var(--ink);
+}
+.eco__sub { font-size: 13px; line-height: 1.4; color: var(--body); }
+.eco__go {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* ===================== 04 · Who we are ===================== */
@@ -579,7 +588,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   .trust__text { gap: 18px; max-width: 62ch; }
   .trust h2 { font-size: 44px; }
   .trust__intro { font-size: 18px; }
-  .trust__uses { margin-top: 32px; gap: 12px; }
+  .trust__uses { display: flex; margin-top: 32px; gap: 12px; }
   .trust__uses-label { font-size: 13px; }
   .trust__uses-list { font-size: 18px; }
 
@@ -591,9 +600,11 @@ a { color: var(--accent-hover); text-decoration: none; }
     max-width: 780px;
     aspect-ratio: 780 / 560;
     margin: 0 auto;
+    gap: 0;
   }
   .eco__orbit { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   .eco__hub {
+    display: flex;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -605,29 +616,48 @@ a { color: var(--accent-hover); text-decoration: none; }
     font-size: clamp(14px, 2.31cqw, 18px);
   }
   .eco__hub svg { width: 7.7cqw; height: 7.7cqw; }
-  .eco__nodes { position: absolute; inset: 0; display: block; width: auto; }
+  .eco__nodes { position: absolute; inset: 0; display: block; width: auto; gap: 0; }
   .eco__node {
     --angle: calc(var(--i) * (360deg / 7) - 90deg);
+    order: 0;
     position: absolute;
     left: 50%;
     top: 50%;
     width: 9.23cqw;
     height: 9.23cqw;
+    padding: 0;
     gap: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
     transform-origin: 50% 50%;
     transform: translate(-50%, -50%) rotate(var(--angle)) translate(22.56cqw) rotate(calc(-1 * var(--angle)));
   }
-  .eco__icon { width: 9.23cqw; height: 9.23cqw; }
+  .eco__icon { width: 9.23cqw; height: 9.23cqw; border: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06); }
   .eco__icon svg { width: 3.6cqw; height: 3.6cqw; }
-  .eco__label {
+  /* The label pill */
+  .eco__text {
     position: absolute;
-    font-size: clamp(12px, 1.79cqw, 14px);
+    display: block;
+    flex: none;
+    min-width: 0;
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     padding: clamp(6px, 1.03cqw, 8px) clamp(10px, 1.79cqw, 14px);
     white-space: nowrap;
   }
-  .eco__node--below .eco__label { top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1.03cqw; }
-  .eco__node--right .eco__label { left: 100%; top: 50%; transform: translateY(-50%); margin-left: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; }
-  .eco__node--left  .eco__label { right: 100%; top: 50%; transform: translateY(-50%); margin-right: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; text-align: right; }
+  .eco__label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(12px, 1.79cqw, 14px);
+    line-height: 1.3;
+  }
+  .eco__sub, .eco__go { display: none; }
+  .eco__node--below .eco__text { top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1.03cqw; }
+  .eco__node--right .eco__text { left: 100%; top: 50%; transform: translateY(-50%); margin-left: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; }
+  .eco__node--left  .eco__text { right: 100%; top: 50%; transform: translateY(-50%); margin-right: 1.28cqw; white-space: normal; width: max-content; max-width: 22cqw; text-align: right; }
+
   /* Dark CTA: pillars take the right column; the wave spans the width */
   .cta { gap: 64px; }
   .cta__pillars { align-self: center; gap: 18px; }
