@@ -200,7 +200,7 @@ a { color: var(--accent-hover); text-decoration: none; }
 .spec__value { font-size: 16px; font-weight: 500; color: var(--ink); }
 .spec__long { display: none; }
 
-/* ===================== 02 · Where we're looking ===================== */
+/* ===================== 03 · Where we're looking ===================== */
 .look {
   display: flex;
   flex-direction: column;
@@ -229,7 +229,70 @@ a { color: var(--accent-hover); text-decoration: none; }
   color: var(--ink);
 }
 
-/* ===================== 03 · Who we are ===================== */
+/* ===================== 02 · The trust layer ===================== */
+.trust {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 56px 24px;
+  background: var(--tint);
+}
+
+/* Ecosystem diagram: hub + use-case nodes. Stacked on mobile; a radial
+   ring on desktop (see the desktop block). */
+.eco { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.eco__orbit { display: none; }
+.eco__hub {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #000000;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.15;
+  text-align: center;
+}
+.eco__hub svg { width: 44px; height: 44px; }
+.eco__nodes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+.eco__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: calc(50% - 8px);
+  text-align: center;
+}
+.eco__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.eco__icon svg { width: 26px; height: 26px; }
+.eco__label { font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); }
+
+/* ===================== 04 · Who we are ===================== */
 .who {
   display: flex;
   flex-direction: column;
@@ -268,11 +331,56 @@ a { color: var(--accent-hover); text-decoration: none; }
 
 /* ===================== Dark CTA ===================== */
 .cta {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   padding: 56px 24px;
   background: #000000;
   color: #FFFFFF;
 }
-.cta__text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.cta__text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; position: relative; z-index: 1; }
+.cta__pillars {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 24px;
+  border-left: 2px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+}
+.cta__pillars::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.cta__pillar {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+/* Decorative dotted network wave along the bottom of the section */
+.cta__wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.85;
+}
 .cta h2 { font-size: 34px; line-height: 1.1; color: #FFFFFF; }
 .cta__accent { color: var(--accent); }
 .cta p { font-size: 16px; line-height: 1.6; color: var(--body-dark); }
@@ -428,6 +536,50 @@ a { color: var(--accent-hover); text-decoration: none; }
   .cta h2 { font-size: 52px; line-height: 1.08; }
   .cta p { font-size: 19px; max-width: 52ch; }
   .cta .btn--lg { margin-top: 8px; }
+
+  /* 02 · The trust layer — radial ring: each node is rotated out to the
+     ring and rotated back upright, so no trig is needed. */
+  .trust { gap: 48px; padding: 104px 96px; }
+  .eco { display: block; position: relative; width: 640px; height: 640px; margin: 0 auto; }
+  .eco__orbit { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .eco__hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 180px;
+    height: 180px;
+    transform: translate(-50%, -50%);
+    gap: 6px;
+    font-size: 18px;
+  }
+  .eco__hub svg { width: 56px; height: 56px; }
+  .eco__nodes { position: absolute; inset: 0; display: block; width: auto; }
+  .eco__node {
+    --angle: calc(var(--i) * (360deg / 7) - 90deg);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 72px;
+    height: 72px;
+    gap: 0;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translate(250px) rotate(calc(-1 * var(--angle)));
+  }
+  .eco__icon { width: 72px; height: 72px; }
+  .eco__icon svg { width: 28px; height: 28px; }
+  .eco__label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    white-space: nowrap;
+  }
+
+  /* Dark CTA: pillars take the right column; the wave spans the width */
+  .cta { gap: 64px; }
+  .cta__pillars { align-self: center; gap: 18px; }
+  .cta__pillar { font-size: 13px; }
 
   /* Footer */
   .footer { gap: 24px; padding: 36px 96px; font-size: 14px; }

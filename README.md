@@ -8,8 +8,8 @@ Built as a static, dependency-free site (plain HTML + CSS) from the v2 design
 handoff. No build step and no JavaScript required.
 
 Sections, in order: nav · hero · **01** Our first product (escrow flow card) ·
-**02** Where we're looking (three cards) · **03** Who we are (founder) ·
-dark CTA · footer.
+**02** The trust layer (ecosystem diagram) · **03** Where we're looking (three
+cards) · **04** Who we are (founder) · dark CTA · footer.
 
 ## Structure
 
@@ -45,9 +45,23 @@ Fonts are loaded from Google Fonts: `Zen Kaku Gothic New` (500, 700) and
 `Inter` (400, 500).
 
 The escrow flow diagram and its arrows are built in HTML/CSS (not an image),
-so the copy and spacing stay editable. The optional abstract visual on the dark
-CTA section is omitted (no asset supplied); the text block keeps the design's
-7/12 column width.
+so the copy and spacing stay editable.
+
+**The trust layer (02)** is built from design's asset-pack reference (the
+`trust_layer_ecosystem` mockup crop): a black Moshi hub with seven use-case
+nodes on a gold dotted orbit. It is real HTML/SVG rather than the low-res PNG —
+the seven line icons are inline SVG, the orbit is a generated SVG, and on
+desktop each node is placed on the ring with a rotate → translate → rotate-back
+transform (no trig). Below 960px it stacks to hub + a two-column grid.
+
+**The dark CTA** carries the three pillars from the same reference — Open
+systems / Real utility / Global impact — on a gold rule in the right column,
+over a generated dotted network wave (`assets/cta-wave.svg`).
+
+> **Placeholder copy:** the trust-layer headline and intro ("One trust layer
+> for every way people get paid." / "Escrow is where we start…") were drafted
+> to fit the seven use-case labels and have not yet been supplied by the
+> client — confirm or replace them in `index.html`.
 
 ## Images
 
@@ -66,6 +80,8 @@ as WebP; flat art as palette PNG). Fits are tuned per image in `styles.css`.
 | `assets/icon-ai.png` | Card 02 icon | `contain` |
 | `assets/icon-stablecoin.png` | Card 03 icon | `contain` |
 | `assets/founder.webp` | Founder photo | Square source, `cover`-cropped to the 280×340 portrait (140×170 mobile), radius 8 |
+| `assets/eco-orbit.svg` | Trust-layer orbit ring, spokes, dots | Generated, decorative (`alt=""`) |
+| `assets/cta-wave.svg` | Dark CTA dotted network wave | Generated, decorative (`alt=""`) |
 | `assets/favicon.svg` | Browser tab icon | Cat mark |
 
 **Step icons:** the four escrow-step icons were cut from the original composite
