@@ -1,36 +1,35 @@
-# Deploying to Cloudflare Pages
+# Deploying to Cloudflare
 
-This is a static site (no build step), deployed via Cloudflare Pages' Git
-integration. Production branch: **`main`**. Every push to `main` auto-deploys.
+This static site is deployed on **Cloudflare Workers** using the **Static Assets**
+model (Cloudflare merged Pages into Workers; the "import a repository" flow now
+uses `npx wrangler deploy` rather than the old Pages build-output-directory flow).
 
-## One-time setup (Cloudflare dashboard)
-
-1. Go to the Cloudflare dashboard → **Workers & Pages** → **Create** →
-   **Pages** → **Connect to Git**.
-2. Authorize GitHub if prompted, then select the repository
-   **`pbwebdev/moshi-concepts-websites`**.
-3. Configure the build:
-   - **Production branch:** `main`
-   - **Framework preset:** `None`
-   - **Build command:** *(leave empty)*
-   - **Build output directory:** `/`
-4. Click **Save and Deploy**. The first build publishes to a
-   `*.pages.dev` URL (e.g. `moshi-concepts-websites.pages.dev`).
-
-## Custom domain
-
-In the new Pages project → **Custom domains** → **Set up a domain** → enter
-the production hostname (e.g. `moshiconcepts.com` and/or `www.moshiconcepts.com`).
-If the domain's DNS is already on Cloudflare, records are added automatically.
+- **Live (workers.dev):** https://moshi-concepts-websites.mail-e4c.workers.dev
+- **Serves from:** the repo **root** (`index.html`, `styles.css`, `assets/`,
+  `_headers`). The assets directory is configured in the Cloudflare dashboard,
+  so no `wrangler.jsonc` is required in the repo.
+- **Deploy command (dashboard):** `npx wrangler deploy`
+- **Build command:** none · **Root directory:** `/`
 
 ## Ongoing deploys
 
-Push to `main` and Cloudflare rebuilds and republishes automatically. Pushes to
-other branches produce preview deployments at their own URLs.
+Pushing to the connected branch triggers an automatic build and redeploy.
+No build step, no secrets, no environment variables.
+
+## Custom domain
+
+In the Cloudflare dashboard → the **moshi-concepts-websites** Worker →
+**Domains** (or **Settings → Domains & Routes**) → **Add** → enter the hostname
+(e.g. `moshiconcepts.com` and `www.moshiconcepts.com`). If the domain's DNS is
+already on this Cloudflare account, records and SSL are provisioned
+automatically; otherwise Cloudflare shows the DNS record to add at your
+registrar.
 
 ## Notes
 
-- `_headers` sets security headers (CSP, `X-Content-Type-Options`, etc.) and a
-  1-day cache on `/assets/*`. Adjust there if you enable extra Cloudflare
-  features. The CSP already allows Cloudflare Web Analytics if you turn it on.
-- No secrets or environment variables are required for this site.
+- `public/`-style restructuring is **not** used — the dashboard expects the site
+  at the repo root. Moving files into a subfolder would require also updating the
+  Worker's assets directory setting, or adding a `wrangler.jsonc` with
+  `assets.directory` pointing at the new folder.
+- `_headers` (security headers + a 1-day cache on `/assets/*`) is honored by
+  Workers Static Assets, the same as it was under Pages.
