@@ -14,7 +14,11 @@ straight from the assets). The connected Git integration runs
 
 The form sends through [Resend](https://resend.com). Nothing sensitive is in the
 repo; set these in the dashboard under the Worker → **Settings → Variables and
-Secrets** (add each as type **Secret** so they're encrypted and survive deploys):
+Secrets** (add each as type **Secret** so they're encrypted and survive deploys).
+**Use the top-level "Variables and Secrets" panel — not the one inside
+Settings → Builds.** The Builds panel holds *build-time* secrets for
+`npx wrangler deploy`; the running Worker never sees those, and the form will
+report all three as missing:
 
 | Name | Value |
 | --- | --- |

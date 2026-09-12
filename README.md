@@ -111,6 +111,29 @@ with the submitter's address as `Reply-To`.
 - The CSP allows same-origin `form-action` and `connect-src` for this; the
   Resend key never reaches the browser.
 
+## SEO and social sharing
+
+The page targets *on-chain escrow contracts*, *Cardano* and *VC-backed
+(Draper Dragon)* through the metadata layer, leaving the designed copy intact:
+
+- `<title>`, meta description, canonical URL (`https://moshiconcepts.com/`),
+  `robots` hints, and a full Open Graph + Twitter card set pointing at an
+  absolute 1200×630 image (`public/assets/og.jpg`).
+- JSON-LD structured data: `Organization` (founder, funded by Draper Dragon,
+  logo `assets/logo.png`), `WebSite`, `WebPage`, and the escrow platform as a
+  `Product`. It's a data block, so the strict CSP doesn't affect it. Validate
+  with Google's Rich Results Test after changes.
+- `public/robots.txt` (blocks `/api/`) and `public/sitemap.xml`.
+- The hero image carries `fetchpriority="high"` (it's the LCP element).
+
+**Social card:** `tools/og-card.html` is the source. Regenerate by screenshotting
+it at 1200×630 (e.g. with Playwright) and saving as `public/assets/og.jpg`. It
+uses the site's own hero art and tokens; when Google Fonts aren't available to
+the renderer it falls back to a system sans, so for a pixel-perfect card render
+it on a machine with `Zen Kaku Gothic New` installed — or drop in a designer-made
+1200×630 JPG under the same filename. If the live domain changes, update the
+`https://moshiconcepts.com` URLs in `index.html`, `robots.txt` and `sitemap.xml`.
+
 ## Images
 
 All artwork lives in `assets/`, downscaled and compressed for the web (photos

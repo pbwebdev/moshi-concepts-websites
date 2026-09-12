@@ -3,15 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Moshi Concepts — Building trust into digital payments</title>
-  <meta name="description" content="Moshi Concepts is a research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Our first product is an on-chain escrow platform built on Cardano.">
+  <title>Moshi Concepts | On-Chain Escrow Contracts on Cardano</title>
+  <meta name="description" content="On-chain escrow contracts on Cardano: funds locked by smart contract, released when both sides agree. VC-backed by Draper Dragon; building stablecoin payments.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="canonical" href="https://moshiconcepts.com/">
 
-  <!-- Open Graph / social -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Moshi Concepts — Building trust into digital payments">
-  <meta property="og:description" content="A research and product studio at the intersection of blockchain, applied AI, and stablecoin payments. First product: an on-chain escrow platform on Cardano.">
-  <meta property="og:image" content="assets/hero.webp">
+  <meta property="og:site_name" content="Moshi Concepts">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://moshiconcepts.com/">
+  <meta property="og:title" content="Moshi Concepts — On-chain escrow contracts on Cardano">
+  <meta property="og:description" content="Escrow contracts on Cardano, without a middleman: funds locked by a smart contract and released when both sides agree. Backed by Draper Dragon.">
+  <meta property="og:image" content="https://moshiconcepts.com/assets/og.jpg">
+  <meta property="og:image:secure_url" content="https://moshiconcepts.com/assets/og.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Moshi Concepts — Building trust into digital payments. On-chain escrow contracts on Cardano, backed by Draper Dragon.">
+
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Moshi Concepts — On-chain escrow contracts on Cardano">
+  <meta name="twitter:description" content="Escrow contracts on Cardano, without a middleman: funds locked by a smart contract and released when both sides agree. Backed by Draper Dragon.">
+  <meta name="twitter:image" content="https://moshiconcepts.com/assets/og.jpg">
+  <meta name="twitter:image:alt" content="Moshi Concepts — Building trust into digital payments. On-chain escrow contracts on Cardano, backed by Draper Dragon.">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
@@ -21,7 +38,55 @@
 
   <link rel="stylesheet" href="styles.css?v=5">
 
-  <!-- build: 2026-09-12 · deploy-trigger check #3 (repo access granted) -->
+  <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://moshiconcepts.com/#organization",
+        "name": "Moshi Concepts",
+        "legalName": "Moshi Concepts Inc.",
+        "url": "https://moshiconcepts.com/",
+        "logo": { "@type": "ImageObject", "url": "https://moshiconcepts.com/assets/logo.png", "width": 512, "height": 512 },
+        "description": "A research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Its first product is an on-chain escrow platform built on Cardano.",
+        "founder": { "@type": "Person", "name": "Peter Bui", "jobTitle": "Founder" },
+        "funder": { "@type": "Organization", "name": "Draper Dragon" },
+        "knowsAbout": ["On-chain escrow", "Escrow smart contracts", "Cardano", "Stablecoin payments", "AI agent payments", "Blockchain infrastructure"],
+        "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": "https://moshiconcepts.com/#contact" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://moshiconcepts.com/#website",
+        "url": "https://moshiconcepts.com/",
+        "name": "Moshi Concepts",
+        "publisher": { "@id": "https://moshiconcepts.com/#organization" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://moshiconcepts.com/#webpage",
+        "url": "https://moshiconcepts.com/",
+        "name": "Moshi Concepts | On-Chain Escrow Contracts on Cardano",
+        "description": "On-chain escrow contracts on Cardano: funds locked by smart contract, released when both sides agree. VC-backed by Draper Dragon; building stablecoin payments.",
+        "isPartOf": { "@id": "https://moshiconcepts.com/#website" },
+        "about": { "@id": "https://moshiconcepts.com/#organization" },
+        "primaryImageOfPage": { "@type": "ImageObject", "url": "https://moshiconcepts.com/assets/og.jpg", "width": 1200, "height": 630 },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Product",
+        "@id": "https://moshiconcepts.com/#escrow",
+        "name": "Moshi Concepts on-chain escrow",
+        "description": "An on-chain escrow platform on Cardano. Funds are locked by a smart contract and released when both sides agree the work is done — built for teams paying contributors across borders.",
+        "category": "Escrow smart contracts",
+        "url": "https://moshiconcepts.com/#build",
+        "brand": { "@id": "https://moshiconcepts.com/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="site">
@@ -71,7 +136,7 @@
         </div>
       </div>
       <div class="hero__media">
-        <img src="assets/hero.webp" alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco" width="1200" height="800">
+        <img src="assets/hero.webp" fetchpriority="high" alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco" width="1200" height="800">
       </div>
     </header>
 
