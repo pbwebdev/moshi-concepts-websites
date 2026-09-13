@@ -497,6 +497,19 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   align-items: center;
 }
 .footer__links a:hover { color: var(--accent-hover); }
+.footer__bottom { display: flex; flex-direction: column; gap: 14px; }
+.footer__social { display: flex; align-items: center; gap: 4px; }
+.footer__social-label { margin-right: 8px; }
+.footer__social a {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.footer__social a:hover { color: var(--accent-hover); }
+.footer__social svg { width: 20px; height: 20px; }
 
 /* ============================================================
    Desktop — from 960px up (matches the 1440 artboard)
@@ -763,6 +776,10 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   .footer__brand span { font-family: var(--font-head); font-weight: 700; font-size: 16px; }
   .footer__links { flex-direction: row; align-items: center; gap: 28px; }
   .footer__links a { min-height: 0; }
+  .footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; }
+  .footer__legal { order: 1; }
+  .footer__social { order: 2; }
+  .footer__social a { width: 36px; height: 36px; }
 }
 
 /* ============================================================
