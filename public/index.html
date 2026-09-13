@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 
   <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
   <script type="application/ld+json">
@@ -137,7 +137,10 @@
         </div>
       </div>
       <div class="hero__media">
-        <img src="assets/hero.webp" fetchpriority="high" alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco" width="1200" height="800">
+        <picture>
+          <source srcset="assets/hero.avif?v=2" type="image/avif">
+          <img src="assets/hero.webp?v=2" fetchpriority="high" alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco" width="1184" height="980">
+        </picture>
       </div>
     </header>
 

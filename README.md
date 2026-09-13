@@ -139,9 +139,21 @@ it on a machine with `Zen Kaku Gothic New` installed — or drop in a designer-m
 All artwork lives in `assets/`, downscaled and compressed for the web (photos
 as WebP; flat art as palette PNG). Fits are tuned per image in `styles.css`.
 
+The hero is the page's LCP element, so it ships as a `<picture>`: an AVIF that
+modern browsers take, and a WebP fallback for the rest. Both are the same
+1184x980 art, which is 2x its largest display size (600px wide, in the desktop
+hero column). The source export carries a wide white margin either side; that
+margin is trimmed in the asset so the globe fills the column, and because the
+art's background and the page are both white, the margin that remains is
+invisible. The image is never cropped by CSS: it scales with its column at its
+own aspect ratio, so no edge of the composition can be cut off. Its intrinsic
+`width`/`height` are on the `<img>` so the layout does not shift while it
+loads.
+
 | File | Slot | Notes |
 | --- | --- | --- |
-| `assets/hero.webp` | Hero image | Right-anchored `cover` crop keeps the city labels in frame |
+| `assets/hero.avif` | Hero image | Served first; AVIF is ~30% smaller than the WebP at the same quality |
+| `assets/hero.webp` | Hero image fallback | Same art, for browsers without AVIF |
 | `assets/draper-dragon.png` | "Backed by Draper Dragon" logo | Red shield on white; `contain` |
 | `assets/step-payee.png` | Escrow step 1 · Payee | Shown unclipped — the art draws its own ring + badge |
 | `assets/step-lock.png` | Escrow step 2 · Funds locked | " |

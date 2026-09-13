@@ -143,10 +143,13 @@ a { color: var(--accent-hover); text-decoration: none; }
 }
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 
-.hero__media { height: 220px; margin-top: 16px; }
-/* Globe sits on the right of the artwork with whitespace on the left,
-   so anchor the crop right to keep the city labels in frame. */
-.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+/* The artwork is a complete composition: the globe with all three city
+   labels inside its own margins. It is never cropped, so nothing can be
+   cut off at an edge; it simply scales with the column. The art sits on
+   white, like the page, so its margins are invisible. */
+.hero__media { margin-top: 16px; }
+.hero__media picture { display: block; }
+.hero__media img { display: block; width: 100%; height: auto; }
 
 /* ===================== 01 · Our first product ===================== */
 .build {
@@ -552,7 +555,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   }
   .link-underline:hover { color: var(--accent-hover); }
   .backed { font-size: 14px; margin-top: 8px; }
-  .hero__media { height: 520px; margin-top: 0; }
+  .hero__media { margin-top: 0; }
 
   /* Section headers */
   .sec-head {
