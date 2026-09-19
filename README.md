@@ -7,6 +7,13 @@ more chains to follow. Hokan has its own site at
 [usehokan.com](https://usehokan.com/), which this page links out to from the nav,
 from section 01, and from the footer.
 
+**Outbound links.** Everything leaving the site opens in a new tab with
+`rel="noopener"`. Text links get a corner arrow; the Draper Dragon credit is a
+logo lockup and goes without one. The credit appears twice, in the hero and the
+footer, and both point at draperdragon.com. Its shield image is marked
+decorative (`alt=""`) because the link's own text already names the firm, so a
+screen reader announces it once rather than twice.
+
 Built as a static site (plain HTML + CSS) from the v2 design handoff, with a
 tiny Cloudflare Worker behind it for the contact form. No build step; the
 JavaScript on the page is progressive enhancement only.
@@ -164,7 +171,7 @@ loads.
 | --- | --- | --- |
 | `assets/hero.avif` | Hero image | Served first; AVIF is ~30% smaller than the WebP at the same quality |
 | `assets/hero.webp` | Hero image fallback | Same art, for browsers without AVIF |
-| `assets/draper-dragon.png` | "Backed by Draper Dragon" logo | Red shield on white; `contain` |
+| `assets/draper-dragon.png` | "Backed by Draper Dragon" credit | Red shield on white; `contain`. Used twice, in the hero and the footer |
 | `assets/step-payee.png` | Escrow step 1 · Payee | Shown unclipped — the art draws its own ring + badge |
 | `assets/step-lock.png` | Escrow step 2 · Funds locked | " |
 | `assets/step-validate.png` | Escrow step 3 · Contract validates | " |

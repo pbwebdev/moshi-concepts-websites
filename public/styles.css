@@ -142,6 +142,7 @@ a { color: var(--accent-hover); text-decoration: none; }
   color: var(--body);
 }
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
+a.backed:hover { color: var(--accent-hover); }
 
 /* The artwork is a complete composition: the globe with all three city
    labels inside its own margins. It is never cropped, so nothing can be
@@ -210,7 +211,8 @@ a { color: var(--accent-hover); text-decoration: none; }
   color: var(--body);
   letter-spacing: 0.02em;
 }
-/* External links carry a corner arrow so the jump off-site is visible. */
+/* Text links that leave the site carry a corner arrow so the jump is visible.
+   The Draper Dragon credit is a logo lockup instead, so it goes without. */
 .nav__ext { display: inline-flex; align-items: center; gap: 5px; }
 .nav__ext span { font-size: 0.85em; line-height: 1; }
 
@@ -511,6 +513,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   align-items: center;
 }
 .footer__links a:hover { color: var(--accent-hover); }
+.footer__backed { align-self: flex-start; }
 .footer__bottom { display: flex; flex-direction: column; gap: 14px; }
 .footer__social { display: flex; align-items: center; gap: 4px; }
 .footer__social-label { margin-right: 8px; }
@@ -568,6 +571,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   }
   .link-underline:hover { color: var(--accent-hover); }
   .backed { font-size: 14px; margin-top: 8px; }
+  .footer__backed { margin-top: 0; }
   .hero__media { margin-top: 0; }
 
   /* Section headers */
