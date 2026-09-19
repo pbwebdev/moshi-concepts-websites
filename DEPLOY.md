@@ -47,6 +47,33 @@ Worker → **Domains** (or **Settings → Domains & Routes**) → **Add** → en
 hostname. If the domain's DNS is on this Cloudflare account, records and SSL are
 automatic; otherwise Cloudflare shows the record to add at your registrar.
 
+## Letting AI crawlers in
+
+The repo says everything is open: `public/robots.txt` names the AI crawlers and
+allows them, the page carries `index, follow, max-snippet:-1`, and no header
+sets `X-Robots-Tag`. **Cloudflare can still block them at the edge, before any
+of that is read.** Check these in the dashboard for the zone, not the Worker:
+
+| Where | Setting | Wanted |
+| --- | --- | --- |
+| Security → Bots | **Block AI bots** / AI Scrapers and Crawlers | Off |
+| Security → Bots | **Bot Fight Mode** | Off, or AI crawlers allowed |
+| Security → WAF | Managed rules and custom rules matching bot traffic | No rule blocking these user agents |
+| Security → Settings | **AI Labyrinth** | Off |
+
+Cloudflare turns AI crawler blocking on by default for some new zones, so the
+answer is not obviously "we never enabled it" — look rather than assume.
+
+To confirm from outside, request the page as a crawler and expect `200`:
+
+```sh
+curl -sI -A "ClaudeBot/1.0" https://moshiconcepts.com/ | head -1
+curl -sI -A "GPTBot/1.1"   https://moshiconcepts.com/llms.txt | head -1
+```
+
+A `403`, a `503`, or an HTML challenge page means the edge is blocking, and
+nothing in this repo can undo that.
+
 ## Notes
 
 - Moving the site into `public/` is what lets the Worker source, config and

@@ -23,3 +23,15 @@
   Cache-Control: no-cache
 /contact.js
   Cache-Control: no-cache
+
+# Machine-readable copies of the page. Served as UTF-8 text so the em dashes
+# and middots survive, and revalidated so they never trail the page.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-cache
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-cache
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-cache

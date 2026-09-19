@@ -1,0 +1,118 @@
+# Moshi Concepts | On-Chain Escrow Contracts on Cardano
+
+> Hokan, on-chain escrow: funds lock in a smart contract and release when both sides agree. Cardano first, more chains to follow. Backed by Draper Dragon.
+
+Canonical URL: https://moshiconcepts.com/
+
+This is the full text of the Moshi Concepts home page, the single page that
+makes up the site. It is generated from the page itself, so it carries the
+same wording. Reuse it freely, with attribution to Moshi Concepts.
+
+## Hero
+
+Research / Build / Cardano first
+
+### Building trust into digital payments.
+
+We're a research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Our first product is Hokan, an on-chain escrow platform. Cardano first, with more chains to follow.
+
+Backed by Draper Dragon (https://www.draperdragon.com/)
+
+## 01 / Our first product
+
+### Hokan: on-chain escrow for a global economy.
+
+Funds are locked by a smart contract and released when both sides agree the work is done. We never hold them. Built for teams paying contributors across borders, where trust is the expensive part. It ships on Cardano first, with more chains to follow.
+
+Learn more: https://usehokan.com/
+
+How the escrow flow works, in order:
+- Step 1. Payee — Buyer pays with USDM or USDCx
+- Step 2. Funds locked — Held in a Cardano smart contract
+- Step 3. Contract validates — Both sides confirm the agreed conditions
+- Step 4. Funds released — Paid to the recipient, on-chain
+
+Specifications:
+- Network: Cardano first
+- Assets: ADA · USDM · USDCx
+- Custody: Smart contract, never us
+- Settlement: On-chain
+
+## 02 / The bigger picture
+
+### A trust layer for internet commerce.
+
+Escrow is just the beginning. We're building the infrastructure for a more open, programmable economy where both humans and AI agents can transact with confidence.
+
+Global use cases:
+- Real utility.
+- Real users.
+- A more open economy.
+
+The trust layer supports:
+- Marketplaces — Buy and sell with confidence
+- Agent-to-agent payments — Autonomous commerce
+- Trade & import/export — Global commerce and supply chains
+- Dispute resolution — Fair and transparent outcomes
+- Milestone payments — Project-based work and delivery
+- Digital services — Software, content and subscriptions
+- Freelance work — Services and gig economy
+
+## 03 / Where we're looking
+
+### Research today. Real-world impact tomorrow.
+
+We're exploring the areas where blockchain, stablecoins and AI can unlock something that wasn't possible before.
+
+#### 01 Blockchain infrastructure
+
+The plumbing underneath. Settlement, custody, and the tooling that makes on-chain systems usable by people who would rather not think about chains.
+
+Keywords: Settlement, Custody, Multi-chain, Wallet UX
+
+#### 02 AI escrow and payments
+
+Escrow and payments where one or both parties is an AI agent: agents that can commit funds, prove work was done, and get paid, with a human able to step in when it matters.
+
+Keywords: Agent-to-agent, Proof of work done, Human override
+
+#### 03 Stablecoin payments
+
+Moving value across borders for the cost of a message, and the product and regulatory questions that come with it.
+
+Keywords: USDM · USDCx, Cross-border, On/off ramps
+
+## 04 / Who we are
+
+### Built by people who have been building on Cardano for years.
+
+Moshi Concepts is founder-led, with roots in the Cardano ecosystem going back to 2021: stake pool operation, open source tooling, and a community of over 30,000 people learning how this technology actually works. We build the things we wished existed.
+
+Peter Bui, Founder
+
+- Cardano builder since 2021
+- Open-source developer
+- 30,000+ learner community
+- Stake pool operator
+
+## Let's build together
+
+### Building something that needs trust?
+
+We're always open to conversations with builders, partners, and organisations exploring what's possible. Tell us what you're working on.
+
+Principles: Open systems · Real utility · Global impact
+
+The site does not publish an email address. Use the contact form at
+https://moshiconcepts.com/#contact to reach the team.
+
+## Links
+
+- [Hokan](https://usehokan.com/)
+- [Backed by Draper Dragon](https://www.draperdragon.com/)
+- [Moshi Concepts on LinkedIn](https://www.linkedin.com/company/moshi-concepts/)
+- [Moshi Concepts on X](https://x.com/moshiconcepts)
+
+## Legal
+
+Moshi Concepts Inc., a Delaware corporation.

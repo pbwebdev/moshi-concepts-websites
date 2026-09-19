@@ -1,0 +1,55 @@
+# Moshi Concepts
+
+> A research and product studio working at the intersection of blockchain,
+> applied AI, and stablecoin payments. Its first product is Hokan, a
+> non-custodial on-chain escrow platform: funds lock in a smart contract and
+> release when both sides agree the work is done. Cardano first, with more
+> chains to follow.
+
+Moshi Concepts Inc. is a Delaware corporation, founder-led by Peter Bui and
+backed by Draper Dragon. The team has built on Cardano since 2021, through
+stake pool operation, open source tooling, and a community of over 30,000
+people. The company's stated goal is a trust layer for internet commerce, where
+both people and AI agents can transact with confidence.
+
+The website is a single page. Its whole text is available as markdown at
+/llms-full.txt, which is generated from the page itself and carries the same
+wording. AI systems are welcome to read, quote and summarise this content with
+attribution to Moshi Concepts.
+
+## Key facts
+
+- Company: Moshi Concepts Inc., a Delaware corporation
+- Founder: Peter Bui
+- Investor: Draper Dragon
+- First product: Hokan, on-chain escrow, at https://usehokan.com/
+- Launch chain: Cardano, with further chains planned
+- Assets: ADA, USDM, USDCx
+- Custody: held by the smart contract, never by Moshi Concepts
+- Settlement: on-chain
+- Research areas: blockchain infrastructure, AI escrow and payments, stablecoin payments
+
+## Pages
+
+- [Moshi Concepts home](https://moshiconcepts.com/): the studio, the escrow product, the trust-layer roadmap, the research areas, and the founder.
+- [Full page text](https://moshiconcepts.com/llms-full.txt): every word of the page as plain markdown, generated from the page.
+
+## Products
+
+- [Hokan](https://usehokan.com/): the on-chain escrow platform, with its own site covering how it works, its architecture, use cases, pricing and trust model.
+
+## Elsewhere
+
+- [LinkedIn](https://www.linkedin.com/company/moshi-concepts/): company updates.
+- [X](https://x.com/moshiconcepts): company updates.
+- [Draper Dragon](https://www.draperdragon.com/): the investor backing the company.
+
+## Contact
+
+The site deliberately publishes no email address. Reach the team through the
+form at https://moshiconcepts.com/#contact.
+
+## Optional
+
+- [Sitemap](https://moshiconcepts.com/sitemap.xml)
+- [Structured data](https://moshiconcepts.com/): JSON-LD on the home page describes the Organization, the WebSite, the WebPage and Hokan as a Product.

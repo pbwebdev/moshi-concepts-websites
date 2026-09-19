@@ -32,8 +32,12 @@ public/             # the static site (served as-is)
   contact.js        #   contact form submit-in-place (progressive enhancement)
   _headers          #   Cloudflare security + caching headers
   assets/           #   images
+  llms.txt          #   summary for language models (hand-written)
+  llms-full.txt     #   the page as markdown (generated: node tools/llms.mjs)
 src/worker.mjs      # Cloudflare Worker: serves public/, handles POST /api/contact
-test/               # worker unit tests (`node --test test/worker.test.mjs`)
+test/               # unit tests (`node --test test/*.test.mjs`)
+  worker.test.mjs   #   the contact-form worker
+  discoverability.test.mjs # robots, llms.txt, indexing meta
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
@@ -149,6 +153,28 @@ The page targets *on-chain escrow contracts*, *Cardano* and *VC-backed
   changes.
 - `public/robots.txt` (blocks `/api/`) and `public/sitemap.xml`.
 - The hero image carries `fetchpriority="high"` (it's the LCP element).
+
+### Reading by AI
+
+Everything is open to AI crawlers, and the page is plain server-rendered HTML,
+so nothing has to run JavaScript to read it.
+
+- `public/llms.txt` is the summary written for language models: what the
+  company is, the key facts, and where to go next. Hand-written.
+- `public/llms-full.txt` is the whole page as markdown. **Generated** — run
+  `node tools/llms.mjs` after changing page copy, or the drift check in
+  `test/discoverability.test.mjs` fails.
+- `robots.txt` names the AI crawlers explicitly and allows them. A crawler that
+  finds its own name ignores the wildcard group, so each group repeats the same
+  rules, with `Disallow` before `Allow` so first-match parsers reach the same
+  answer as longest-match ones.
+- The robots meta sets `max-snippet:-1`, so nothing caps how much may be quoted.
+- `test/discoverability.test.mjs` guards all of the above, since none of it
+  changes the rendered page when it breaks.
+
+**The repo can't open the edge.** Cloudflare's AI crawler blocking, Bot Fight
+Mode or a WAF rule will stop crawlers before robots.txt is read. See
+[`DEPLOY.md`](DEPLOY.md) for what to check and how to verify with curl.
 
 **Social card:** `tools/og-card.html` is the source. Regenerate by screenshotting
 it at 1200×630 (e.g. with Playwright) and saving as `public/assets/og.jpg`. It
