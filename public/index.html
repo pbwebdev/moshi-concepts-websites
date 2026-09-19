@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Moshi Concepts | On-Chain Escrow Contracts on Cardano</title>
-  <meta name="description" content="On-chain escrow contracts on Cardano: funds locked by smart contract, released when both sides agree. VC-backed by Draper Dragon; building stablecoin payments.">
+  <meta name="description" content="Hokan, on-chain escrow: funds lock in a smart contract and release when both sides agree. Cardano first, more chains to follow. Backed by Draper Dragon.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#FFFFFF">
   <link rel="canonical" href="https://moshiconcepts.com/">
@@ -15,7 +15,7 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://moshiconcepts.com/">
   <meta property="og:title" content="Moshi Concepts — On-chain escrow contracts on Cardano">
-  <meta property="og:description" content="Escrow contracts on Cardano, without a middleman: funds locked by a smart contract and released when both sides agree. Backed by Draper Dragon.">
+  <meta property="og:description" content="Hokan, on-chain escrow without a middleman: funds lock in a smart contract and release when both sides agree. Cardano first, more chains to follow.">
   <meta property="og:image" content="https://moshiconcepts.com/assets/og.jpg">
   <meta property="og:image:secure_url" content="https://moshiconcepts.com/assets/og.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -26,7 +26,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Moshi Concepts — On-chain escrow contracts on Cardano">
-  <meta name="twitter:description" content="Escrow contracts on Cardano, without a middleman: funds locked by a smart contract and released when both sides agree. Backed by Draper Dragon.">
+  <meta name="twitter:description" content="Hokan, on-chain escrow without a middleman: funds lock in a smart contract and release when both sides agree. Cardano first, more chains to follow.">
   <meta name="twitter:image" content="https://moshiconcepts.com/assets/og.jpg">
   <meta name="twitter:image:alt" content="Moshi Concepts — Building trust into digital payments. On-chain escrow contracts on Cardano, backed by Draper Dragon.">
 
@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 
   <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
   <script type="application/ld+json">
@@ -51,11 +51,12 @@
         "sameAs": ["https://www.linkedin.com/company/moshi-concepts/", "https://x.com/moshiconcepts"],
         "url": "https://moshiconcepts.com/",
         "logo": { "@type": "ImageObject", "url": "https://moshiconcepts.com/assets/logo.png", "width": 512, "height": 512 },
-        "description": "A research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Its first product is an on-chain escrow platform built on Cardano.",
+        "description": "A research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Its first product is Hokan, an on-chain escrow platform, on Cardano first with more chains to follow.",
         "founder": { "@type": "Person", "name": "Peter Bui", "jobTitle": "Founder" },
         "funder": { "@type": "Organization", "name": "Draper Dragon" },
-        "knowsAbout": ["On-chain escrow", "Escrow smart contracts", "Cardano", "Stablecoin payments", "AI agent payments", "Blockchain infrastructure"],
-        "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": "https://moshiconcepts.com/#contact" }
+        "knowsAbout": ["On-chain escrow", "Escrow smart contracts", "Cardano", "Multi-chain settlement", "Stablecoin payments", "AI agent payments", "Blockchain infrastructure"],
+        "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": "https://moshiconcepts.com/#contact" },
+        "owns": { "@id": "https://moshiconcepts.com/#hokan" }
       },
       {
         "@type": "WebSite",
@@ -78,11 +79,13 @@
       },
       {
         "@type": "Product",
-        "@id": "https://moshiconcepts.com/#escrow",
-        "name": "Moshi Concepts on-chain escrow",
-        "description": "An on-chain escrow platform on Cardano. Funds are locked by a smart contract and released when both sides agree the work is done — built for teams paying contributors across borders.",
+        "@id": "https://moshiconcepts.com/#hokan",
+        "name": "Hokan",
+        "alternateName": "Hokan on-chain escrow",
+        "description": "Non-custodial on-chain escrow. Funds lock in a smart contract and release when both sides agree the work is done, built for teams paying contributors across borders. On Cardano first, with more chains to follow.",
         "category": "Escrow smart contracts",
-        "url": "https://moshiconcepts.com/#build",
+        "url": "https://usehokan.com/",
+        "sameAs": ["https://usehokan.com/"],
         "brand": { "@id": "https://moshiconcepts.com/#organization" }
       }
     ]
@@ -113,6 +116,7 @@
 
       <div class="nav__right">
         <div class="nav__links">
+          <a class="nav__ext" href="https://usehokan.com/" target="_blank" rel="noopener">Hokan <span aria-hidden="true">&#8599;</span></a>
           <a href="#build">What we're building</a>
           <a href="#look">Where we're looking</a>
           <a href="#who">Who we are</a>
@@ -124,9 +128,9 @@
     <!-- ===================== Hero ===================== -->
     <header id="top" class="hero">
       <div class="hero__text">
-        <div class="eyebrow">Research / Build / On Cardano</div>
+        <div class="eyebrow">Research / Build / Cardano first</div>
         <h1>Building trust into digital payments.</h1>
-        <p class="lead">We're a research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Our first product is an on-chain escrow platform built on Cardano.</p>
+        <p class="lead">We're a research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Our first product is Hokan, an on-chain escrow platform. Cardano first, with more chains to follow.</p>
         <div class="hero__actions">
           <a class="btn btn--lg" href="#build">Explore what we're building <span aria-hidden="true">→</span></a>
           <a class="link-underline" href="#contact">Talk to us</a>
@@ -149,9 +153,9 @@
       <div class="sec-head">
         <div class="sec-head__text">
           <div class="eyebrow"><span class="eyebrow__num">01</span>&nbsp;&nbsp;/&nbsp;&nbsp;Our first product</div>
-          <h2>On-chain escrow for a global economy.</h2>
+          <h2>Hokan: on-chain escrow for a global economy.</h2>
         </div>
-        <p class="sec-head__intro">Funds are locked by a smart contract and released when both sides agree the work is done. We never hold them. Built for teams paying contributors across borders, where trust is the expensive part.</p>
+        <p class="sec-head__intro">Funds are locked by a smart contract and released when both sides agree the work is done. We never hold them. Built for teams paying contributors across borders, where trust is the expensive part. It ships on Cardano first, with more chains to follow.</p>
       </div>
 
       <div class="flow">
@@ -195,7 +199,7 @@
         <div class="flow__specs">
           <div class="spec">
             <div class="spec__label">Network</div>
-            <div class="spec__value">Cardano</div>
+            <div class="spec__value">Cardano<span class="spec__long"> first</span></div>
           </div>
           <div class="spec">
             <div class="spec__label">Assets</div>
@@ -210,6 +214,11 @@
             <div class="spec__value">On-chain</div>
           </div>
         </div>
+      </div>
+
+      <div class="build__more">
+        <a class="btn btn--lg" href="https://usehokan.com/" target="_blank" rel="noopener">Learn more about Hokan <span aria-hidden="true">&rarr;</span></a>
+        <span class="build__more-note">usehokan.com</span>
       </div>
     </section>
 
@@ -333,6 +342,7 @@
           <div class="chips">
             <span class="chip">Settlement</span>
             <span class="chip">Custody</span>
+            <span class="chip">Multi-chain</span>
             <span class="chip">Wallet UX</span>
           </div>
         </div>
@@ -453,6 +463,7 @@
           <span>Moshi Concepts</span>
         </a>
         <div class="footer__links">
+          <a class="nav__ext" href="https://usehokan.com/" target="_blank" rel="noopener">Hokan <span aria-hidden="true">&#8599;</span></a>
           <a href="#build">What we're building</a>
           <a href="#look">Where we're looking</a>
           <a href="#who">Who we are</a>

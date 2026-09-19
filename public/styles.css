@@ -203,6 +203,17 @@ a { color: var(--accent-hover); text-decoration: none; }
 .spec__value { font-size: 16px; font-weight: 500; color: var(--ink); }
 .spec__long { display: none; }
 
+/* Link out to the product's own site (usehokan.com). */
+.build__more { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.build__more-note {
+  font-size: 13px;
+  color: var(--body);
+  letter-spacing: 0.02em;
+}
+/* External links carry a corner arrow so the jump off-site is visible. */
+.nav__ext { display: inline-flex; align-items: center; gap: 5px; }
+.nav__ext span { font-size: 0.85em; line-height: 1; }
+
 /* ===================== 03 · Where we're looking ===================== */
 .look {
   display: flex;
@@ -526,7 +537,9 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   .brand { gap: 12px; }
   .brand__mark { width: 36px; height: 36px; }
   .brand__word { font-size: 20px; }
-  .nav__links { display: flex; align-items: center; gap: 36px; font-size: 15px; }
+  /* Gap scales with the viewport so the nav still fits at 960, where the
+     full text nav first appears; it lands on the designed 36px at 1440. */
+  .nav__links { display: flex; align-items: center; gap: clamp(20px, 2.5vw, 36px); font-size: 15px; }
   .nav__links a { color: var(--ink); white-space: nowrap; }
   .nav__links a:hover { color: var(--accent-hover); }
   .btn--nav { min-height: 0; padding: 12px 22px; font-size: 15px; gap: 8px; }
@@ -594,6 +607,8 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   .spec__label { font-size: 12px; }
   .spec__value { font-size: 18px; }
   .spec__long { display: inline; }
+
+  .build__more { flex-direction: row; align-items: center; gap: 16px; }
 
   /* 02 · Where we're looking */
   .look { gap: 48px; padding: 104px 96px; }

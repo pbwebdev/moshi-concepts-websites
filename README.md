@@ -2,7 +2,10 @@
 
 Single-page marketing site for **Moshi Concepts**, a research and product studio
 working at the intersection of blockchain, applied AI, and stablecoin payments.
-Its first product is an on-chain escrow platform built on Cardano.
+Its first product is **Hokan**, an on-chain escrow platform: Cardano first, with
+more chains to follow. Hokan has its own site at
+[usehokan.com](https://usehokan.com/), which this page links out to from the nav,
+from section 01, and from the footer.
 
 Built as a static site (plain HTML + CSS) from the v2 design handoff, with a
 tiny Cloudflare Worker behind it for the contact form. No build step; the
@@ -51,6 +54,12 @@ form needs three variables set in the Cloudflare dashboard — see
 Recreated from the two designed breakpoints — desktop (1440) and mobile (390)
 — as one responsive page with a single breakpoint at 960px (the point where the
 full text nav fits). The site canvas is capped at 1440px and centered.
+
+**Chain positioning.** Cardano is the launch chain, not the only one. The copy
+says so in three places rather than one: the hero eyebrow ("Cardano first"), the
+hero and section-01 intros ("with more chains to follow"), and the spec strip,
+where the network reads "Cardano first" on desktop and "Cardano" on mobile via
+`.spec__long`. Keep that phrasing in step if the roadmap changes.
 
 Design tokens live as CSS custom properties at the top of `styles.css`.
 Fonts are loaded from Google Fonts: `Zen Kaku Gothic New` (500, 700) and
@@ -120,9 +129,10 @@ The page targets *on-chain escrow contracts*, *Cardano* and *VC-backed
   `robots` hints, and a full Open Graph + Twitter card set pointing at an
   absolute 1200×630 image (`public/assets/og.jpg`).
 - JSON-LD structured data: `Organization` (founder, funded by Draper Dragon,
-  logo `assets/logo.png`), `WebSite`, `WebPage`, and the escrow platform as a
-  `Product`. It's a data block, so the strict CSP doesn't affect it. Validate
-  with Google's Rich Results Test after changes.
+  logo `assets/logo.png`, `owns` the product), `WebSite`, `WebPage`, and Hokan as
+  a `Product` whose `url` is `https://usehokan.com/`. It's a data block, so the
+  strict CSP doesn't affect it. Validate with Google's Rich Results Test after
+  changes.
 - `public/robots.txt` (blocks `/api/`) and `public/sitemap.xml`.
 - The hero image carries `fetchpriority="high"` (it's the LCP element).
 
