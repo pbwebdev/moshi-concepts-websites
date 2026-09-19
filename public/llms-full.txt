@@ -88,6 +88,8 @@ Keywords: USDM · USDCx, Cross-border, On/off ramps
 
 Moshi Concepts is founder-led, with roots in the Cardano ecosystem going back to 2021: stake pool operation, open source tooling, and a community of over 30,000 people learning how this technology actually works. We build the things we wished existed.
 
+The company is incorporated in Delaware, and its research and engineering are carried out in Australia by its Australian subsidiary.
+
 Peter Bui, Founder
 
 - Cardano builder since 2021
@@ -115,4 +117,4 @@ https://moshiconcepts.com/#contact to reach the team.
 
 ## Legal
 
-Moshi Concepts Inc., a Delaware corporation.
+Moshi Concepts Inc., a Delaware corporation. Research and development is carried out by its Australian subsidiary.

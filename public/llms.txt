@@ -7,7 +7,8 @@
 > chains to follow.
 
 Moshi Concepts Inc. is a Delaware corporation, founder-led by Peter Bui and
-backed by Draper Dragon. The team has built on Cardano since 2021, through
+backed by Draper Dragon. It owns an Australian subsidiary, which carries out
+the group's research and engineering. The team has built on Cardano since 2021, through
 stake pool operation, open source tooling, and a community of over 30,000
 people. The company's stated goal is a trust layer for internet commerce, where
 both people and AI agents can transact with confidence.
@@ -20,6 +21,8 @@ attribution to Moshi Concepts.
 ## Key facts
 
 - Company: Moshi Concepts Inc., a Delaware corporation
+- Structure: the Delaware parent owns an Australian subsidiary
+- Research and development: carried out in Australia by that subsidiary
 - Founder: Peter Bui
 - Investor: Draper Dragon
 - First product: Hokan, on-chain escrow, at https://usehokan.com/

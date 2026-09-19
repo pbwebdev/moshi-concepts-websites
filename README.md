@@ -66,6 +66,19 @@ Recreated from the two designed breakpoints — desktop (1440) and mobile (390)
 — as one responsive page with a single breakpoint at 960px (the point where the
 full text nav fits). The site canvas is capped at 1440px and centered.
 
+**Corporate structure.** The site shows that the Delaware parent owns an
+Australian subsidiary that does the research and engineering. It appears in
+three places, all of which have to move together if the wording changes: the
+footer legal line, the second paragraph of section 04, and the `location` on
+the `Organization` in the JSON-LD. `public/llms.txt` repeats it for machine
+readers, and `llms-full.txt` picks the first two up on regeneration.
+
+The Australian entity is described but **not named**, because its registered
+name and ACN were never supplied. Adding them is the more useful version for
+anyone doing diligence: put the name in the three places above, and add the
+entity to the JSON-LD as a `subOrganization` with `parentOrganization` pointing
+back at `#organization`, rather than leaving it as a bare `location`.
+
 **Chain positioning.** Cardano is the launch chain, not the only one. The copy
 says so in three places rather than one: the hero eyebrow ("Cardano first"), the
 hero and section-01 intros ("with more chains to follow"), and the spec strip,
