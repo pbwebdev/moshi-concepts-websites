@@ -11,6 +11,7 @@
   --body-dark: #D6D3D1; /* body text on the dark section */
   --hairline: #E7E5E4;  /* borders */
   --accent: #F5A623;
+  --accent-rgb: 245, 166, 35; /* keep in step with --accent */
   --accent-hover: #C97B0A;
   --tint: #FDF6E9;      /* "Who we are" */
 
@@ -243,6 +244,34 @@ a.backed:hover { color: var(--accent-hover); }
   padding: 6px 10px;
   border: 1px solid var(--hairline);
   color: var(--ink);
+}
+
+/* The cards and their chips answer the cursor in the brand colour: the card
+   picks up a gold edge and glow, each chip lights up on its own. Guarded by
+   (hover: hover) because on a touch screen the state sticks after a tap. */
+@media (hover: hover) {
+  .card {
+    transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow:
+      0 0 0 4px rgba(var(--accent-rgb), 0.12),
+      0 12px 32px rgba(var(--accent-rgb), 0.20);
+    transform: translateY(-2px);
+  }
+  .chip { transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease; }
+  .chip:hover {
+    border-color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.10);
+    color: var(--accent-hover);
+  }
+}
+
+/* Colour still responds; the lift and the fades do not. */
+@media (prefers-reduced-motion: reduce) {
+  .card, .chip { transition: none; }
+  .card:hover { transform: none; }
 }
 
 /* ===================== 02 · The trust layer ===================== */

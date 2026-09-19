@@ -101,6 +101,13 @@ gold ring, and the nodes float slowly at rest. All of it is skipped on touch
 devices and when the OS asks for reduced motion; the diagram is complete and
 correctly placed with JavaScript off.
 
+**Where we're looking (03)** answers the cursor: a card picks up a gold border,
+a soft gold glow and a 2px lift, and each chip lights up gold on its own. Both
+sit behind `@media (hover: hover)` so a tap on a phone doesn't leave the state
+stuck on, and `prefers-reduced-motion` drops the lift and the fades while
+keeping the colour change. The glow mixes `--accent-rgb`, which has to stay in
+step with `--accent` if the brand colour ever moves.
+
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,
 over a generated dotted network wave (`assets/cta-wave.svg`).
