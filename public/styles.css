@@ -749,13 +749,16 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   /* Hero */
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 600px;
+    /* Both columns share the width. A fixed media column held 600px all the
+       way down to 960px, which left the text 184px at 1024 and broke the
+       headline one word per line. At 1440 this still resolves to 600/600. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 48px;
     align-items: end;
     padding: 88px 96px 0;
   }
   .hero__text { gap: 28px; padding-bottom: 104px; align-self: center; }
-  .hero h1 { font-size: 68px; line-height: 1.06; letter-spacing: -0.015em; }
+  .hero h1 { font-size: clamp(42px, 4.72vw, 68px); line-height: 1.06; letter-spacing: -0.015em; }
   .lead { font-size: 21px; line-height: 1.55; max-width: 58ch; }
   .hero__actions { flex-direction: row; align-items: center; gap: 28px; }
   .btn--lg { min-height: 0; padding: 16px 28px; font-size: 17px; }
@@ -770,7 +773,11 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   .link-underline:hover { color: var(--accent-hover); }
   .backed { font-size: 14px; margin-top: 8px; }
   .footer__backed { margin-top: 0; }
-  .hero__media { margin-top: 0; }
+  .hero__media {
+    margin-top: 0;
+    align-self: center;
+    margin-bottom: 104px; /* matches .hero__text padding-bottom */
+  }
 
   /* Section headers */
   .sec-head {
