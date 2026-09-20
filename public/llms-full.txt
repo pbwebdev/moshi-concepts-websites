@@ -48,7 +48,7 @@ Specifications:
 
 Digital commerce increasingly happens between people, businesses, platforms and software agents that may have no existing relationship and no reason to trust one another. We are building infrastructure that lets those parties transact using rules they can verify before value moves.
 
-Hokan begins with escrow. The broader platform extends into embedded payments, stablecoin settlement, dispute tooling, payment APIs and infrastructure for human and agent-driven commerce.
+Hokan begins with non-custodial escrow. The broader platform extends into embedded payments, stablecoin settlement, dispute tooling, payment APIs and infrastructure for human and agent-driven commerce.
 
 The thesis:
 - Blockchain is good at moving value.

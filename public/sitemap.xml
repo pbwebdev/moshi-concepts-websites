@@ -6,7 +6,7 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://moshiconcepts.com/assets/og.jpg</image:loc>
+      <image:loc>https://moshiconcepts.com/assets/og.jpg?v=2</image:loc>
       <image:title>Moshi Concepts: programmable payment infrastructure</image:title>
     </image:image>
   </url>

@@ -1,3 +1,31 @@
+/* Fonts are served from this origin rather than Google's.
+   That removes a render-blocking third-party stylesheet and two extra
+   connections from the critical path, and lets the content policy drop
+   googleapis and gstatic entirely. Each file is subset to the Latin ranges
+   the page and the contact form need, and Inter is the variable cut, so one
+   file covers both weights. Regenerate with tools/fonts.md. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(assets/fonts/inter-var.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/zen-kaku-500.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Zen Kaku Gothic New';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/fonts/zen-kaku-700.woff2) format('woff2');
+}
+
 /* ============================================================
    Moshi Concepts — landing page (v2)
    Recreated from the design handoff as one responsive page.
@@ -142,6 +170,11 @@ a { color: var(--accent-hover); text-decoration: none; }
   font-size: 13px;
   color: var(--body);
 }
+/* The icons are wrapped in <picture> so AVIF can be offered ahead of the
+   PNG. display:contents removes the wrapper from layout, so every existing
+   rule that sizes the <img> as a flex or grid child still applies. */
+picture { display: contents; }
+
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 a.backed:hover { color: var(--accent-hover); }
 
@@ -174,7 +207,6 @@ a.backed:hover { color: var(--accent-hover); }
    cut off at an edge; it simply scales with the column. The art sits on
    white, like the page, so its margins are invisible. */
 .hero__media { margin-top: 16px; }
-.hero__media picture { display: block; }
 .hero__media img { display: block; width: 100%; height: auto; }
 
 /* ===================== 01 · Our first product ===================== */

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AU">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,8 +17,8 @@
   <meta property="og:url" content="https://moshiconcepts.com/">
   <meta property="og:title" content="Moshi Concepts | Programmable payment infrastructure">
   <meta property="og:description" content="Non-custodial payment infrastructure for marketplaces, businesses and software agents. Hokan, our Cardano-first programmable escrow platform, is in development.">
-  <meta property="og:image" content="https://moshiconcepts.com/assets/og.jpg">
-  <meta property="og:image:secure_url" content="https://moshiconcepts.com/assets/og.jpg">
+  <meta property="og:image" content="https://moshiconcepts.com/assets/og.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://moshiconcepts.com/assets/og.jpg?v=2">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -26,18 +26,21 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@moshiconcepts">
+  <meta name="twitter:creator" content="@moshiconcepts">
   <meta name="twitter:title" content="Moshi Concepts | Programmable payment infrastructure">
   <meta name="twitter:description" content="Non-custodial payment infrastructure for marketplaces, businesses and software agents. Hokan, our Cardano-first programmable escrow platform, is in development.">
-  <meta name="twitter:image" content="https://moshiconcepts.com/assets/og.jpg">
+  <meta name="twitter:image" content="https://moshiconcepts.com/assets/og.jpg?v=2">
   <meta name="twitter:image:alt" content="Moshi Concepts. Programmable trust for digital commerce: non-custodial payment infrastructure, launching on Cardano first.">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts are same-origin, so the two faces above the fold start loading
+       alongside the stylesheet instead of waiting for it to parse. -->
+  <link rel="preload" href="assets/fonts/zen-kaku-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=19">
 
   <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
   <script type="application/ld+json">
@@ -80,7 +83,7 @@
         "description": "Moshi Concepts builds non-custodial payment infrastructure for marketplaces, businesses and software agents. Hokan is our Cardano-first escrow platform.",
         "isPartOf": { "@id": "https://moshiconcepts.com/#website" },
         "about": { "@id": "https://moshiconcepts.com/#organization" },
-        "primaryImageOfPage": { "@type": "ImageObject", "url": "https://moshiconcepts.com/assets/og.jpg", "width": 1200, "height": 630 },
+        "primaryImageOfPage": { "@type": "ImageObject", "url": "https://moshiconcepts.com/assets/og.jpg?v=2", "width": 1200, "height": 630 },
         "inLanguage": "en"
       },
       {
@@ -90,6 +93,11 @@
         "alternateName": "Hokan programmable escrow",
         "description": "Hokan is designed as non-custodial escrow infrastructure that platforms can embed. Funds move from the payer's wallet into a smart contract, remain locked against agreed conditions, and settle directly to the receiver. Launching on Cardano first. The MVP is in active development.",
         "category": "Payment infrastructure",
+        "additionalProperty": {
+          "@type": "PropertyValue",
+          "name": "Development status",
+          "value": "MVP in active development"
+        },
         "url": "https://usehokan.com/",
         "sameAs": ["https://usehokan.com/"],
         "brand": { "@id": "https://moshiconcepts.com/#organization" }
@@ -143,7 +151,10 @@
           <a class="link-underline" href="#contact">Talk to us</a>
         </div>
         <a class="backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
-          <img src="assets/draper-dragon.png" alt="" width="128" height="142">
+          <picture>
+            <source srcset="assets/draper-dragon.avif" type="image/avif">
+            <img src="assets/draper-dragon.png" alt="" width="128" height="142">
+          </picture>
           <span>Backed by Draper Dragon</span>
         </a>
       </div>
@@ -169,7 +180,10 @@
       <div class="flow">
         <div class="flow__steps">
           <div class="step">
-            <img class="step__icon" src="assets/step-payer.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            <picture>
+              <source srcset="assets/step-payer.avif" type="image/avif">
+              <img class="step__icon" src="assets/step-payer.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            </picture>
             <div class="step__text">
               <h3>Payer / Depositor</h3>
               <p>Funds the escrow</p>
@@ -178,7 +192,10 @@
           <svg class="flow__arrow flow__arrow--h" viewBox="0 0 72 24" width="72" height="24" aria-hidden="true"><path d="M4,12 H60 M52,5 L60,12 L52,19" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
-            <img class="step__icon" src="assets/step-lock.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            <picture>
+              <source srcset="assets/step-lock.avif" type="image/avif">
+              <img class="step__icon" src="assets/step-lock.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            </picture>
             <div class="step__text">
               <h3>Funds locked</h3>
               <p>Assets are secured by the smart contract</p>
@@ -187,7 +204,10 @@
           <svg class="flow__arrow flow__arrow--h" viewBox="0 0 72 24" width="72" height="24" aria-hidden="true"><path d="M4,12 H60 M52,5 L60,12 L52,19" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
-            <img class="step__icon" src="assets/step-validate.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            <picture>
+              <source srcset="assets/step-validate.avif" type="image/avif">
+              <img class="step__icon" src="assets/step-validate.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            </picture>
             <div class="step__text">
               <h3>Conditions verified</h3>
               <p>Agreed release conditions are satisfied</p>
@@ -196,7 +216,10 @@
           <svg class="flow__arrow flow__arrow--h" viewBox="0 0 72 24" width="72" height="24" aria-hidden="true"><path d="M4,12 H60 M52,5 L60,12 L52,19" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
-            <img class="step__icon" src="assets/step-release.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            <picture>
+              <source srcset="assets/step-release.avif" type="image/avif">
+              <img class="step__icon" src="assets/step-release.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+            </picture>
             <div class="step__text">
               <h3>Receiver</h3>
               <p>Payment settles directly to the recipient</p>
@@ -236,7 +259,7 @@
         <div class="eyebrow"><span class="eyebrow__num">02</span>&nbsp;&nbsp;/&nbsp;&nbsp;The bigger picture</div>
         <h2>Escrow is the starting point. Programmable settlement is the platform.</h2>
         <p class="trust__intro">Digital commerce increasingly happens between people, businesses, platforms and software agents that may have no existing relationship and no reason to trust one another. We are building infrastructure that lets those parties transact using rules they can verify before value moves.</p>
-        <p class="trust__intro">Hokan begins with escrow. The broader platform extends into embedded payments, stablecoin settlement, dispute tooling, payment APIs and infrastructure for human and agent-driven commerce.</p>
+        <p class="trust__intro">Hokan begins with non-custodial escrow. The broader platform extends into embedded payments, stablecoin settlement, dispute tooling, payment APIs and infrastructure for human and agent-driven commerce.</p>
         <div class="trust__uses">
           <div class="trust__uses-label">The thesis</div>
           <ul class="trust__uses-list">
@@ -249,7 +272,7 @@
 
       <div class="trust__media">
         <div class="eco">
-          <img class="eco__orbit" src="assets/eco-orbit.svg?v=3" alt="" width="780" height="560">
+          <img class="eco__orbit" src="assets/eco-orbit.svg?v=3" loading="lazy" decoding="async" alt="" width="780" height="560">
           <div class="eco__hub" aria-label="Moshi Concepts">
             <svg viewBox="0 0 100 100" aria-hidden="true">
             <path d="M18,50 L21.5,14 Q22,11 24,14 L45,33 Z" fill="#000000"></path>
@@ -388,7 +411,10 @@
               <div class="card__num">01</div>
               <h3>Payment infrastructure</h3>
             </div>
-            <img class="card__icon" src="assets/icon-blockchain.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            <picture>
+              <source srcset="assets/icon-blockchain.avif" type="image/avif">
+              <img class="card__icon" src="assets/icon-blockchain.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            </picture>
           </div>
           <p>APIs, SDKs and settlement infrastructure that hide blockchain complexity from the products built on top.</p>
           <div class="chips">
@@ -404,7 +430,10 @@
               <div class="card__num">02</div>
               <h3>Stablecoin settlement</h3>
             </div>
-            <img class="card__icon" src="assets/icon-stablecoin.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            <picture>
+              <source srcset="assets/icon-stablecoin.avif" type="image/avif">
+              <img class="card__icon" src="assets/icon-stablecoin.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            </picture>
           </div>
           <p>Programmable movement of stable value across borders, applications and marketplaces.</p>
           <div class="chips">
@@ -419,7 +448,10 @@
               <div class="card__num">03</div>
               <h3>Agentic payments</h3>
             </div>
-            <img class="card__icon" src="assets/icon-ai.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            <picture>
+              <source srcset="assets/icon-ai.avif" type="image/avif">
+              <img class="card__icon" src="assets/icon-ai.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+            </picture>
           </div>
           <p>Payment infrastructure designed for a future where software agents increasingly negotiate, commission and coordinate economic activity.</p>
           <div class="chips">
@@ -512,7 +544,7 @@
         <p id="contact-error" class="form__note form__note--err">Something went wrong sending that. Please try again in a moment.</p>
       </form>
 
-      <img class="cta__wave" src="assets/cta-wave.svg?v=1" alt="" width="1440" height="260">
+      <img class="cta__wave" src="assets/cta-wave.svg?v=1" loading="lazy" decoding="async" alt="" width="1440" height="260">
     </section>
 
     <!-- ===================== Footer ===================== -->
@@ -539,7 +571,10 @@
         </div>
       </div>
       <a class="backed footer__backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
-        <img src="assets/draper-dragon.png" alt="" width="128" height="142" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/draper-dragon.avif" type="image/avif">
+          <img src="assets/draper-dragon.png" alt="" width="128" height="142" loading="lazy" decoding="async">
+        </picture>
         <span>Backed by Draper Dragon</span>
       </a>
 

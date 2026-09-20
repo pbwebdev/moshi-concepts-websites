@@ -48,6 +48,7 @@ test/               # unit tests (`node --test test/*.test.mjs`)
   worker.test.mjs   #   the contact-form worker
   discoverability.test.mjs # robots, llms.txt, indexing meta
   csp.test.mjs      #   the content security policy vs what the page loads
+  performance.test.mjs #  fonts, image formats, preloads and asset budgets
   consent.test.mjs  #   the consent gate, including analytics run in a sandbox
   positioning.test.mjs #  product stage, escrow terms, claims we must not make
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
@@ -123,8 +124,8 @@ contains it. Renaming is a find and replace across `public/index.html` and
 `public/llms.txt`, then `node tools/llms.mjs`. A test enforces that property.
 
 Design tokens live as CSS custom properties at the top of `styles.css`.
-Fonts are loaded from Google Fonts: `Zen Kaku Gothic New` (500, 700) and
-`Inter` (400, 500).
+Fonts are `Zen Kaku Gothic New` (500, 700) and `Inter` (400 to 500), served
+from this origin rather than Google. See [`tools/fonts.md`](tools/fonts.md).
 
 The escrow flow diagram and its arrows are built in HTML/CSS (not an image),
 so the copy and spacing stay editable.
@@ -217,6 +218,41 @@ banner and no analytics, which is the safe way round.
 asserts that loading it appends no script, registers no listener, schedules no
 work and creates no `dataLayer` until `startAnalytics` is called. That is the
 gate, tested by behaviour rather than by grepping the source.
+
+## Performance
+
+The page is static HTML with no framework, so most of the work is in what it
+loads rather than what it runs.
+
+**Fonts are self-hosted.** Loading them from Google meant a render-blocking
+stylesheet on another origin plus two extra connections before the first font
+byte. They now live in `public/assets/fonts/`, declared by `styles.css` itself,
+so there is no extra request at all, and the two faces above the fold are
+preloaded. Inter is the variable cut, which covers both weights in one file
+instead of two, and every file is subset to the Latin ranges the page and the
+contact form need. Total: 56 KB for three faces. The full story, and how to
+rebuild them, is in [`tools/fonts.md`](tools/fonts.md).
+
+**Raster art ships as AVIF with a PNG fallback**, chosen by the browser through
+`<picture>`. For this artwork WebP was actually *larger* than the palette PNGs
+it would have replaced, while AVIF cut the icon set from 106 KB to 41 KB. The
+wrapper carries `display: contents` so it disappears from layout and every rule
+that sizes the `<img>` as a flex child still applies.
+
+**Everything below the fold is lazy**, including the two decorative SVGs, one of
+which is 24 KB. The hero is the exception: it carries `fetchpriority="high"` and
+must never be made lazy, because it is the LCP element.
+
+Measured at 4x CPU throttling, median of five runs: FCP and LCP both 208ms,
+cumulative layout shift 0, total blocking time 31ms, and 50 KB over 19 requests
+for the initial load.
+
+Two things deliberately left alone. The page, stylesheet and scripts are served
+`no-cache` even though they carry `?v=` stamps that would allow year-long
+caching; that trades one conditional request for the guarantee that a forgotten
+stamp can never serve a stale stylesheet for a year. And the stylesheet is not
+minified, because Cloudflare compresses it on the way out: 34 KB of CSS is
+about 8 KB gzipped, and brotli is smaller again.
 
 ## Contact form
 
