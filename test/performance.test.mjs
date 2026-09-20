@@ -9,6 +9,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, statSync, existsSync, readdirSync } from "node:fs";
+import { minify } from "../tools/minify.mjs";
 import { fileURLToPath } from "node:url";
 
 const pub = (p) => fileURLToPath(new URL(`../public/${p}`, import.meta.url));
@@ -136,6 +137,20 @@ test("every asset the page loads carries a version stamp", () => {
     if (url.includes("/fonts/")) continue; // cached by filename instead
     assert.match(url, /\?v=\d+/, `asset referenced without a version stamp: ${url}`);
   }
+});
+
+test("the minified stylesheet is current and is the one the page loads", () => {
+  // Generated file. If styles.css changes and nobody reruns tools/minify.mjs,
+  // the page silently keeps the old design.
+  assert.match(html, /<link rel="stylesheet" href="styles\.min\.css\?v=\d+">/,
+    "the page should load the minified stylesheet");
+  const expected = minify(read("styles.css"));
+  assert.equal(read("styles.min.css"), expected,
+    "styles.min.css is out of date; run node tools/minify.mjs");
+  assert.ok(
+    kb("styles.min.css") < kb("styles.css"),
+    "the minified stylesheet is not smaller than its source",
+  );
 });
 
 test("the asset budgets still hold", () => {

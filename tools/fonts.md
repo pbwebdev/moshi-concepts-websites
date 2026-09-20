@@ -13,7 +13,6 @@ declared by the stylesheet the page already loads. No extra request.
 | File | Family | Weights |
 | --- | --- | --- |
 | `inter-var.woff2` | Inter | 400 to 500, variable |
-| `zen-kaku-500.woff2` | Zen Kaku Gothic New | 500 |
 | `zen-kaku-700.woff2` | Zen Kaku Gothic New | 700 |
 
 Two decisions worth knowing before you regenerate them.
@@ -21,6 +20,11 @@ Two decisions worth knowing before you regenerate them.
 **Inter is the variable cut.** Google will serve two static files for weights
 400 and 500, at about 47 KB each. The variable font covers the whole range in
 one file of the same size, so asking for `wght@400..500` halves the payload.
+
+**Only weight 700 of the heading font is used.** Every rule that asks for it
+asks at 700. A 500 face shipped briefly because one label was an `h3` and
+inherited the heading family; that label now uses the body font. Before adding
+a weight, check something actually renders in it.
 
 **Zen Kaku Gothic New is a Japanese family.** Its stylesheet offers more than a
 hundred subsets per weight. The site is English, so only the `latin` subset is
@@ -40,7 +44,7 @@ instead of WOFF2.
 ```sh
 UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
 curl -A "$UA" "https://fonts.googleapis.com/css2?family=Inter:wght@400..500&display=swap" -o inter.css
-curl -A "$UA" "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" -o zen.css
+curl -A "$UA" "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700&display=swap" -o zen.css
 ```
 
 From each stylesheet take only the `@font-face` block preceded by a

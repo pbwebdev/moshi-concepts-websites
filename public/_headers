@@ -26,6 +26,8 @@
   Cache-Control: no-cache
 /styles.css
   Cache-Control: no-cache
+/styles.min.css
+  Cache-Control: no-cache
 /eco.js
   Cache-Control: no-cache
 /contact.js
