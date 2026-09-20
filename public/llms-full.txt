@@ -31,7 +31,7 @@ Hokan is designed to give platforms the infrastructure to add conditional and mi
 Learn more: https://usehokan.com/
 
 How the escrow flow works, in order:
-- Step 1. Payer: Funds the escrow
+- Step 1. Payer / Depositor: Funds the escrow
 - Step 2. Funds locked: Assets are secured by the smart contract
 - Step 3. Conditions verified: Agreed release conditions are satisfied
 - Step 4. Receiver: Payment settles directly to the recipient

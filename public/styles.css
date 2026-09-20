@@ -446,6 +446,17 @@ a.backed:hover { color: var(--accent-hover); }
    each node until the content security policy, which forbids inline styles,
    started stripping it and quietly restoring DOM order. Same reason the ring
    positions below are in the stylesheet rather than on the elements. */
+/* Introduces the use-case list on mobile. The ring itself is self-evident
+   on desktop, where the hub sits in the middle, so it is hidden there. */
+.eco__label-mobile {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body);
+  margin-bottom: 4px;
+}
+
 .eco__node:nth-child(1) { order: 1; }
 .eco__node:nth-child(2) { order: 4; }
 .eco__node:nth-child(3) { order: 3; }
@@ -879,6 +890,8 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   .trust__uses { display: flex; margin-top: 32px; gap: 12px; }
   .trust__uses-label { font-size: 13px; }
   .trust__uses-list { font-size: 18px; }
+
+  .eco__label-mobile { display: none; }
 
   .eco {
     container-type: inline-size;
