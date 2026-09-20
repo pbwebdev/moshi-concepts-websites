@@ -30,7 +30,8 @@ public/             # the static site (served as-is)
   styles.css        #   all styles (mobile-first; desktop from 960px up)
   eco.js            #   trust-layer ring parallax (progressive enhancement)
   contact.js        #   contact form submit-in-place (progressive enhancement)
-  analytics.js      #   Google Analytics 4, loaded once the page is idle
+  analytics.js      #   Google Analytics 4, gated on consent, loaded when idle
+  consent.js        #   the cookie banner, and the only thing that starts GA
   _headers          #   Cloudflare security + caching headers
   assets/           #   images
   llms.txt          #   summary for language models (hand-written)
@@ -40,6 +41,7 @@ test/               # unit tests (`node --test test/*.test.mjs`)
   worker.test.mjs   #   the contact-form worker
   discoverability.test.mjs # robots, llms.txt, indexing meta
   csp.test.mjs      #   the content security policy vs what the page loads
+  consent.test.mjs  #   the consent gate, including analytics run in a sandbox
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
@@ -159,9 +161,32 @@ The trade is that a visitor who leaves within a second or two may never
 trigger the load. If precise bounce counting ever matters more than the
 score, drop the idle wait in `analytics.js` and let it fire on `load`.
 
-**Consent.** The site has no cookie banner and GA4 sets cookies. That is a
-question for visitors in the EU and UK rather than a technical one, but it is
-worth a decision rather than an oversight.
+### Consent
+
+The default is no tracking. `analytics.js` only defines `window.startAnalytics`
+and waits; `consent.js` calls it on an explicit accept and at no other time. So
+nothing Google-owned is fetched and no analytics cookie is set for a visitor
+who has declined or has not answered yet. With JavaScript off there is no
+banner and no analytics, which is the safe way round.
+
+- **The choice lives in `localStorage`**, not a cookie, so asking for consent
+  does not set the thing being asked about. Every access is wrapped: storage
+  throws rather than returning nothing in a locked-down browser, and a failed
+  read is treated as no answer rather than as a yes.
+- **Both answers are the same size** and equally reachable. A decline that is
+  harder to find than an accept is not a real choice.
+- **The banner is `position: fixed`**, so revealing it shifts nothing.
+  Measured cumulative layout shift with it showing is zero.
+- **"Cookie settings" in the footer** reopens it, so a decline can be undone.
+  It is always rendered rather than revealed by script, which is what keeps
+  the shift at zero.
+- A `version` on the stored record retires old answers, for when what is being
+  asked changes.
+
+`test/consent.test.mjs` runs `analytics.js` against a stand-in browser and
+asserts that loading it appends no script, registers no listener, schedules no
+work and creates no `dataLayer` until `startAnalytics` is called. That is the
+gate, tested by behaviour rather than by grepping the source.
 
 ## Contact form
 

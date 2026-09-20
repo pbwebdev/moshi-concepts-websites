@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=14">
 
   <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
   <script type="application/ld+json">
@@ -493,12 +493,28 @@
           </a>
         </div>
         <div class="footer__legal">Moshi Concepts Inc., a Delaware corporation. Research and development is carried out in Australia.</div>
+        <button class="footer__consent" type="button" id="consent-reopen">Cookie settings</button>
       </div>
     </footer>
 
   </div>
+
+  <!-- Cookie consent. Hidden until consent.js decides it is needed, and
+       fixed rather than in flow, so revealing it never shifts the page. -->
+  <div class="consent" id="consent" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-text" hidden>
+    <div>
+      <h2 class="consent__title" id="consent-title">Cookies</h2>
+      <p id="consent-text">We would like to use Google Analytics to see which parts of this page people find useful. It sets cookies in your browser. Nothing is loaded until you choose, and you can change your mind at any time from the footer.</p>
+    </div>
+    <div class="consent__actions">
+      <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
+      <button class="btn consent__btn consent__btn--no" type="button" data-consent="denied">Decline</button>
+    </div>
+  </div>
+
   <script src="eco.js?v=1" defer></script>
   <script src="contact.js?v=1" defer></script>
-  <script src="analytics.js?v=1" defer></script>
+  <script src="analytics.js?v=2" defer></script>
+  <script src="consent.js?v=1" defer></script>
 </body>
 </html>

@@ -1,18 +1,26 @@
 /*
-  Google Analytics 4, deliberately loaded late.
+  Google Analytics 4, gated behind consent and deliberately loaded late.
 
-  Google's own snippet puts an async tag in the head and configures it from an
-  inline <script>. Two problems here. The inline block would force
-  'unsafe-inline' into the script-src policy, which would also re-open the door
-  to every injected script. And gtag.js is a large file that runs on the main
-  thread, so fetching it during page load competes with the hero image for
-  bandwidth and adds work inside the window Lighthouse scores.
+  Nothing here runs on its own. It defines window.startAnalytics and waits;
+  consent.js calls it only once the visitor has accepted, so no Google script
+  is fetched and no analytics cookie is set for someone who has not agreed or
+  has not answered yet. With JavaScript off, nothing loads at all.
 
-  So the configuration lives here, same-origin, and Google's script is fetched
-  only once the page has loaded and the browser is idle, or the moment the
-  visitor interacts, whichever comes first. The pageview is still recorded,
-  because gtag.js drains anything already queued on dataLayer when it arrives.
-  It is simply sent a moment later than it would have been.
+  Two further departures from Google's own snippet:
+
+  - Their snippet configures gtag from an inline <script>. That would force
+    'unsafe-inline' into script-src, which would also admit every injected
+    script. The configuration lives here instead, same-origin, which 'self'
+    already covers.
+  - gtag.js is large and runs on the main thread, so fetching it during page
+    load competes with the hero image and adds work inside the window
+    Lighthouse scores. It is fetched once the page has loaded and the browser
+    is idle, or the moment the visitor interacts, whichever comes first.
+    gtag.js replays whatever is already queued on dataLayer when it arrives,
+    so the pageview survives the wait.
+
+  Load order matters: this file must come before consent.js in the HTML, so
+  that window.startAnalytics exists by the time consent.js looks for it.
 */
 (function () {
   var MEASUREMENT_ID = "G-L82FEFSKJE";
@@ -20,24 +28,14 @@
   var FALLBACK_DELAY = 2000;
   var WAKE_EVENTS = ["pointerdown", "keydown", "scroll"];
   var listenerOptions = { once: true, passive: true, capture: true };
+  var fetched = false;
   var started = false;
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    window.dataLayer.push(arguments);
-  }
-  window.gtag = gtag;
-
-  // Queue the pageview now. gtag.js replays the queue when it loads, so
-  // nothing is lost by sending the script for later.
-  gtag("js", new Date());
-  gtag("config", MEASUREMENT_ID);
-
-  function start() {
-    if (started) return;
-    started = true;
+  function fetchGtag() {
+    if (fetched) return;
+    fetched = true;
     WAKE_EVENTS.forEach(function (name) {
-      window.removeEventListener(name, start, listenerOptions);
+      window.removeEventListener(name, fetchGtag, listenerOptions);
     });
     var script = document.createElement("script");
     script.async = true;
@@ -45,21 +43,37 @@
     document.head.appendChild(script);
   }
 
-  // Someone who scrolls or clicks is worth measuring straight away.
-  WAKE_EVENTS.forEach(function (name) {
-    window.addEventListener(name, start, listenerOptions);
-  });
-
   function whenIdle() {
     // The timeout matters: requestIdleCallback may never fire on its own in a
     // background tab, and a visit that is never in the foreground still counts.
     if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(start, { timeout: IDLE_TIMEOUT });
+      window.requestIdleCallback(fetchGtag, { timeout: IDLE_TIMEOUT });
     } else {
-      window.setTimeout(start, FALLBACK_DELAY);
+      window.setTimeout(fetchGtag, FALLBACK_DELAY);
     }
   }
 
-  if (document.readyState === "complete") whenIdle();
-  else window.addEventListener("load", whenIdle, { once: true });
+  /** Called by consent.js, and only when the visitor has accepted. */
+  window.startAnalytics = function startAnalytics() {
+    if (started) return;
+    started = true;
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+
+    // Queue the pageview now; gtag.js will replay it when it loads.
+    gtag("js", new Date());
+    gtag("config", MEASUREMENT_ID);
+
+    // Someone who scrolls or clicks is worth measuring straight away.
+    WAKE_EVENTS.forEach(function (name) {
+      window.addEventListener(name, fetchGtag, listenerOptions);
+    });
+
+    if (document.readyState === "complete") whenIdle();
+    else window.addEventListener("load", whenIdle, { once: true });
+  };
 })();
