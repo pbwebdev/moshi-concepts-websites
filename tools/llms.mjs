@@ -59,11 +59,13 @@ const data = await page.evaluate(() => {
     canonical: document.querySelector('link[rel="canonical"]')?.href ?? "",
     hero: {
       ...section("header.hero"),
+      stage: txt(document.querySelector("header.hero .stage")),
       backing: txt(document.querySelector(".backed span")),
       backingUrl: document.querySelector("a.backed")?.href ?? "",
     },
     build: {
       ...section("#build"),
+      stage: txt(document.querySelector("#build .stage")),
       steps: [...document.querySelectorAll("#build .step")].map((s) => ({
         name: txt(s.querySelector("h3")),
         detail: txt(s.querySelector("p")),
@@ -74,25 +76,33 @@ const data = await page.evaluate(() => {
       })),
       productUrl: document.querySelector('#build a[href^="http"]')?.href ?? "",
     },
-    trust: {
-      ...section("#trust"),
-      uses: all(document, "#trust .trust__uses-list li"),
-      nodes: [...document.querySelectorAll("#trust .eco__node")].map((n) => ({
+    platform: {
+      ...section("#platform"),
+      uses: all(document, "#platform .trust__uses-list li"),
+      nodes: [...document.querySelectorAll("#platform .eco__node")].map((n) => ({
         name: txt(n.querySelector(".eco__label")),
         detail: txt(n.querySelector(".eco__sub")),
       })).filter((n) => n.name),
     },
-    look: {
-      ...section("#look"),
-      cards: [...document.querySelectorAll("#look .card")].map((c) => ({
+    rail: [...document.querySelectorAll(".rail__step")].map((r) => ({
+      label: txt(r.querySelector(".rail__label")),
+      when: txt(r.querySelector(".rail__when")),
+    })),
+    vision: {
+      ...section("#vision"),
+      cards: [...document.querySelectorAll("#vision .card")].map((c) => ({
         num: txt(c.querySelector(".card__num")),
         name: txt(c.querySelector("h3")),
         detail: txt(c.querySelector("p")),
         chips: all(c, ".chip"),
       })),
     },
-    who: {
-      ...section("#who"),
+    notes: [...document.querySelectorAll(".note")].map((n) => ({
+      label: txt(n.querySelector(".note__label")),
+      body: txt(n).replace(txt(n.querySelector(".note__label")), "").trim(),
+    })),
+    company: {
+      ...section("#company"),
       person: txt(document.querySelector(".founder__name")),
       role: txt(document.querySelector(".founder__role")),
       creds: all(document, ".creds li"),
@@ -131,43 +141,50 @@ push("## Hero");
 push(data.hero.eyebrow);
 push(`### ${data.hero.heading}`);
 data.hero.intro.forEach((p) => push(p));
+push(`Product stage: ${data.hero.stage}`);
 push(`${data.hero.backing} (${data.hero.backingUrl})`);
 
 push(`## ${data.build.eyebrow}`);
 push(`### ${data.build.heading}`);
+push(`Product stage: ${data.build.stage}`);
 data.build.intro.forEach((p) => push(p));
 push(`Learn more: ${data.build.productUrl}`);
 L.push("How the escrow flow works, in order:");
-list(data.build.steps.map((s, i) => `Step ${i + 1}. ${s.name} — ${s.detail}`));
+list(data.build.steps.map((s, i) => `Step ${i + 1}. ${s.name}: ${s.detail}`));
 L.push("");
 L.push("Specifications:");
 list(data.build.specs.map((s) => `${s.label}: ${s.value}`));
 L.push("");
 
-push(`## ${data.trust.eyebrow}`);
-push(`### ${data.trust.heading}`);
-data.trust.intro.forEach((p) => push(p));
-L.push("Global use cases:");
-list(data.trust.uses);
+push(`## ${data.platform.eyebrow}`);
+push(`### ${data.platform.heading}`);
+data.platform.intro.forEach((p) => push(p));
+L.push("The thesis:");
+list(data.platform.uses);
 L.push("");
-L.push("The trust layer supports:");
-list(data.trust.nodes.map((n) => `${n.name} — ${n.detail}`));
+L.push("Use cases:");
+list(data.platform.nodes.map((n) => `${n.name}: ${n.detail}`));
+L.push("");
+L.push("The platform, built in stages:");
+list(data.rail.map((r, i) => `${i + 1}. ${r.label} (${r.when.toLowerCase()})`));
 L.push("");
 
-push(`## ${data.look.eyebrow}`);
-push(`### ${data.look.heading}`);
-data.look.intro.forEach((p) => push(p));
-data.look.cards.forEach((c) => {
+push(`## ${data.vision.eyebrow}`);
+push(`### ${data.vision.heading}`);
+data.vision.intro.forEach((p) => push(p));
+data.vision.cards.forEach((c) => {
   push(`#### ${c.num} ${c.name}`);
   push(c.detail);
   push(`Keywords: ${c.chips.join(", ")}`);
 });
 
-push(`## ${data.who.eyebrow}`);
-push(`### ${data.who.heading}`);
-data.who.intro.forEach((p) => push(p));
-push(`${data.who.person}, ${data.who.role}`);
-list(data.who.creds);
+data.notes.forEach((n) => push(`**${n.label}.** ${n.body}`));
+
+push(`## ${data.company.eyebrow}`);
+push(`### ${data.company.heading}`);
+data.company.intro.forEach((p) => push(p));
+push(`${data.company.person}, ${data.company.role}`);
+list(data.company.creds);
 L.push("");
 
 push(`## ${data.contact.eyebrow}`);

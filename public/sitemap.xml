@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://moshiconcepts.com/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://moshiconcepts.com/assets/og.jpg</image:loc>
-      <image:title>Moshi Concepts — On-chain escrow contracts on Cardano</image:title>
+      <image:title>Moshi Concepts: programmable payment infrastructure</image:title>
     </image:image>
   </url>
 </urlset>

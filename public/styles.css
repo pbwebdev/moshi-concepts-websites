@@ -145,6 +145,30 @@ a { color: var(--accent-hover); text-decoration: none; }
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 a.backed:hover { color: var(--accent-hover); }
 
+/* Product stage. Stated wherever the product is described, because the site
+   has to read as pre-launch rather than as a shipped platform. */
+.stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  align-self: flex-start;
+  padding: 7px 14px 7px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--body);
+  background: var(--tint);
+}
+.stage__dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+}
+a.backed:hover { color: var(--accent-hover); }
+
 /* The artwork is a complete composition: the globe with all three city
    labels inside its own margins. It is never cropped, so nothing can be
    cut off at an edge; it simply scales with the column. The art sits on
@@ -217,7 +241,91 @@ a.backed:hover { color: var(--accent-hover); }
 .nav__ext { display: inline-flex; align-items: center; gap: 5px; }
 .nav__ext span { font-size: 0.85em; line-height: 1; }
 
-/* ===================== 03 · Where we're looking ===================== */
+/* The progression, so the roadmap reads as one thesis in stages rather
+   than a list of unrelated products. Vertical rail on mobile, horizontal
+   on desktop. No dates: only the first stage is claimed as underway. */
+.rail { margin-top: 40px; }
+.rail__title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body);
+}
+.rail__steps {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.rail__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: flex-start;
+  padding: 0 0 22px 26px;
+  border-left: 1px solid var(--hairline);
+}
+.rail__step:last-child { border-left-color: transparent; padding-bottom: 0; }
+.rail__dot {
+  position: absolute;
+  left: -5px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hairline);
+}
+.rail__step--now .rail__dot { background: var(--accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.18); }
+.rail__label { font-size: 15px; line-height: 1.35; color: var(--body); }
+.rail__step--now .rail__label { color: var(--ink); font-weight: 500; }
+.rail__when {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #A8A29E;
+}
+.rail__step--now .rail__when { color: var(--accent-hover); }
+.rail__note { margin-top: 18px; font-size: 13px; color: #A8A29E; }
+
+/* Short factual asides: network scope and how the product makes money. */
+.notes { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.note {
+  padding: 18px 20px;
+  border: 1px solid var(--hairline);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--body);
+}
+.note__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Secondary route out of the dark CTA, for people not ready to write. */
+.cta__alt {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  color: #FFFFFF;
+  font-size: 15px;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+}
+.cta__alt:hover { color: var(--accent); }
+
+/* ===================== 03 · Where we're going ===================== */
 .look {
   display: flex;
   flex-direction: column;
@@ -339,11 +447,11 @@ a.backed:hover { color: var(--accent-hover); }
    started stripping it and quietly restoring DOM order. Same reason the ring
    positions below are in the stylesheet rather than on the elements. */
 .eco__node:nth-child(1) { order: 1; }
-.eco__node:nth-child(2) { order: 3; }
-.eco__node:nth-child(3) { order: 5; }
+.eco__node:nth-child(2) { order: 4; }
+.eco__node:nth-child(3) { order: 3; }
 .eco__node:nth-child(4) { order: 7; }
-.eco__node:nth-child(5) { order: 6; }
-.eco__node:nth-child(6) { order: 4; }
+.eco__node:nth-child(5) { order: 5; }
+.eco__node:nth-child(6) { order: 6; }
 .eco__node:nth-child(7) { order: 2; }
 .eco__node {
   display: flex;
@@ -693,7 +801,24 @@ textarea.form__input { resize: vertical; min-height: 140px; }
 
   .build__more { flex-direction: row; align-items: center; gap: 16px; }
 
-  /* 02 · Where we're looking */
+  .rail { margin-top: 64px; }
+  .rail__steps { flex-direction: row; gap: 0; }
+  .rail__step {
+    flex: 1;
+    min-width: 0;
+    padding: 22px 16px 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .rail__step:last-child { border-top-color: var(--hairline); padding-right: 0; }
+  .rail__dot { left: 0; top: -5px; }
+  .rail__label { font-size: 14px; line-height: 1.4; }
+  .rail__when { margin-top: 4px; }
+
+  .notes { flex-direction: row; gap: 24px; }
+  .note { flex: 1; padding: 22px 24px; }
+
+  /* 02 · Where we're going */
   .look { gap: 48px; padding: 104px 96px; }
   .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .card { gap: 20px; padding: 36px 32px; }
@@ -899,6 +1024,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
     align-items: center;
   }
   .trust__text { max-width: none; }
+  .rail { grid-column: 1 / -1; }
 }
 
 @keyframes eco-float {

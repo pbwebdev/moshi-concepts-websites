@@ -1,6 +1,6 @@
-# Moshi Concepts | On-Chain Escrow Contracts on Cardano
+# Moshi Concepts | Programmable Payment Infrastructure
 
-> Hokan, on-chain escrow: funds lock in a smart contract and release when both sides agree. Cardano first, more chains to follow. Backed by Draper Dragon.
+> Moshi Concepts builds non-custodial payment infrastructure for marketplaces, businesses and software agents. Hokan is our Cardano-first escrow platform.
 
 Canonical URL: https://moshiconcepts.com/
 
@@ -10,107 +10,130 @@ same wording. Reuse it freely, with attribution to Moshi Concepts.
 
 ## Hero
 
-Research / Build / Cardano first
+Payments / Escrow / Programmable commerce
 
-### Building trust into digital payments.
+### Programmable trust for digital commerce.
 
-We're a research and product studio working at the intersection of blockchain, applied AI, and stablecoin payments. Our first product is Hokan, an on-chain escrow platform. Cardano first, with more chains to follow.
+Moshi Concepts builds non-custodial payment infrastructure for businesses, marketplaces and software agents. Our first product, Hokan, is a Cardano-first escrow platform designed to let applications lock, verify and release digital payments without taking custody of customer funds.
+
+Product stage: Hokan MVP in active development. Pilot partners welcome.
 
 Backed by Draper Dragon (https://www.draperdragon.com/)
 
 ## 01 / Our first product
 
-### Hokan: on-chain escrow for a global economy.
+### Hokan: escrow infrastructure, built to be embedded.
 
-Funds are locked by a smart contract and released when both sides agree the work is done. We never hold them. Built for teams paying contributors across borders, where trust is the expensive part. It ships on Cardano first, with more chains to follow.
+Product stage: MVP in active development
+
+Hokan is designed to give platforms the infrastructure to add conditional and milestone-based payments without becoming the custodian of customer funds. Funds move from the payer's wallet into a smart contract, remain locked against agreed conditions, and settle directly to the receiver. Hokan provides the API, SDK and supporting infrastructure. The contract provides the rules.
 
 Learn more: https://usehokan.com/
 
 How the escrow flow works, in order:
-- Step 1. Payee — Buyer pays with USDM or USDCx
-- Step 2. Funds locked — Held in a Cardano smart contract
-- Step 3. Contract validates — Both sides confirm the agreed conditions
-- Step 4. Funds released — Paid to the recipient, on-chain
+- Step 1. Payer: Funds the escrow
+- Step 2. Funds locked: Assets are secured by the smart contract
+- Step 3. Conditions verified: Agreed release conditions are satisfied
+- Step 4. Receiver: Payment settles directly to the recipient
 
 Specifications:
-- Network: Cardano first
-- Assets: ADA · USDM · USDCx
-- Custody: Smart contract, never us
+- Launch network: Cardano first
+- Initial planned assets: ADA · USDM · USDCx
+- Custody: Non-custodial by design
 - Settlement: On-chain
 
 ## 02 / The bigger picture
 
-### A trust layer for internet commerce.
+### Escrow is the starting point. Programmable settlement is the platform.
 
-Escrow is just the beginning. We're building the infrastructure for a more open, programmable economy where both humans and AI agents can transact with confidence.
+Digital commerce increasingly happens between people, businesses, platforms and software agents that may have no existing relationship and no reason to trust one another. We are building infrastructure that lets those parties transact using rules they can verify before value moves.
 
-Global use cases:
-- Real utility.
-- Real users.
-- A more open economy.
+Hokan begins with escrow. The broader platform extends into embedded payments, stablecoin settlement, dispute tooling, payment APIs and infrastructure for human and agent-driven commerce.
 
-The trust layer supports:
-- Marketplaces — Buy and sell with confidence
-- Agent-to-agent payments — Autonomous commerce
-- Trade & import/export — Global commerce and supply chains
-- Dispute resolution — Fair and transparent outcomes
-- Milestone payments — Project-based work and delivery
-- Digital services — Software, content and subscriptions
-- Freelance work — Services and gig economy
+The thesis:
+- Blockchain is good at moving value.
+- Commerce needs rules for when it moves.
+- We are building that layer.
 
-## 03 / Where we're looking
+Use cases:
+- Marketplaces: Embed settlement without building escrow
+- Agentic commerce: Agents prepare, people keep signing authority
+- Global trade: Programmable conditions for cross-border deals
+- Dispute resolution: Outcomes judged against agreed conditions
+- B2B transactions: Terms enforced by contract, not by invoice chasing
+- Digital services: Software, content and subscriptions
+- Services and milestone work: Release funds as milestones are met
 
-### Research today. Real-world impact tomorrow.
+The platform, built in stages:
+- 1. Hokan escrow MVP (in development)
+- 2. Embedded escrow APIs and SDKs (planned)
+- 3. Stablecoin settlement infrastructure (planned)
+- 4. Dispute and resolution infrastructure (planned)
+- 5. Programmable payment rails (planned)
+- 6. Agentic commerce infrastructure (planned)
+- 7. Additional networks and markets (planned)
 
-We're exploring the areas where blockchain, stablecoins and AI can unlock something that wasn't possible before.
+## 03 / Where we're going
 
-#### 01 Blockchain infrastructure
+### From escrow to programmable commerce.
 
-The plumbing underneath. Settlement, custody, and the tooling that makes on-chain systems usable by people who would rather not think about chains.
+We are building the infrastructure around programmable payments: the APIs, settlement rails and tooling that let products move value on conditions their users can verify.
 
-Keywords: Settlement, Custody, Multi-chain, Wallet UX
+#### 01 Payment infrastructure
 
-#### 02 AI escrow and payments
+APIs, SDKs and settlement infrastructure that hide blockchain complexity from the products built on top.
 
-Escrow and payments where one or both parties is an AI agent: agents that can commit funds, prove work was done, and get paid, with a human able to step in when it matters.
+Keywords: APIs, SDKs, Settlement, Wallet UX
 
-Keywords: Agent-to-agent, Proof of work done, Human override
+#### 02 Stablecoin settlement
 
-#### 03 Stablecoin payments
+Programmable movement of stable value across borders, applications and marketplaces.
 
-Moving value across borders for the cost of a message, and the product and regulatory questions that come with it.
+Keywords: USDM · USDCx, Cross-border, On and off ramps
 
-Keywords: USDM · USDCx, Cross-border, On/off ramps
+#### 03 Agentic payments
 
-## 04 / Who we are
+Payment infrastructure designed for a future where software agents increasingly negotiate, commission and coordinate economic activity.
 
-### Built by people who have been building on Cardano for years.
+Keywords: Agent-to-agent, Conditional settlement, Human authority
 
-Moshi Concepts is founder-led, with roots in the Cardano ecosystem going back to 2021: stake pool operation, open source tooling, and a community of over 30,000 people learning how this technology actually works. We build the things we wished existed.
+**Networks.** Cardano is our first settlement network. Expansion to additional networks is part of the longer-term roadmap.
 
-The company is incorporated in Delaware, and its research and engineering are carried out in Australia.
+**Usage-aligned revenue.** Hokan is designed to generate revenue from settled transactions and API access, aligning our growth with the economic activity built on the platform.
+
+## 04 / Company
+
+### Built from years of working on-chain.
+
+Moshi Concepts Inc. is a Delaware corporation with research and engineering carried out in Australia.
+
+Founder Peter Bui has been building in the Cardano ecosystem since 2021 across open-source software, infrastructure, education and community.
+
+That experience led to a simple observation: blockchain payments are good at moving value, but real commerce needs infrastructure for what happens before value should move. Hokan is our first answer to that problem.
 
 Peter Bui, Founder
 
-- Cardano builder since 2021
+- Building on Cardano since 2021
 - Open-source developer
+- Blockchain infrastructure operator
 - 30,000+ learner community
-- Stake pool operator
 
-## Let's build together
+## Early partners
 
-### Building something that needs trust?
+### Help us build the payment rails for programmable commerce.
 
-We're always open to conversations with builders, partners, and organisations exploring what's possible. Tell us what you're working on.
+Hokan is in active development and we are speaking with marketplaces, platforms, developers and organisations interested in early integrations and pilot deployments.
 
-Principles: Open systems · Real utility · Global impact
+If your product needs escrow, milestone payments or programmable settlement, we want to hear from you.
+
+Principles: Pilot partners · Integration partners · Developers
 
 The site does not publish an email address. Use the contact form at
 https://moshiconcepts.com/#contact to reach the team.
 
 ## Links
 
-- [Hokan](https://usehokan.com/)
+- [Explore Hokan](https://usehokan.com/)
 - [Backed by Draper Dragon](https://www.draperdragon.com/)
 - [Moshi Concepts on LinkedIn](https://www.linkedin.com/company/moshi-concepts/)
 - [Moshi Concepts on X](https://x.com/moshiconcepts)

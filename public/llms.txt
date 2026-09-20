@@ -1,54 +1,76 @@
 # Moshi Concepts
 
-> A research and product studio working at the intersection of blockchain,
-> applied AI, and stablecoin payments. Its first product is Hokan, a
-> non-custodial on-chain escrow platform: funds lock in a smart contract and
-> release when both sides agree the work is done. Cardano first, with more
-> chains to follow.
+> Moshi Concepts builds non-custodial, programmable payment infrastructure for
+> digital commerce. Its first product, Hokan, is a Cardano-first escrow
+> platform that lets applications lock, verify and release digital payments
+> without taking custody of customer funds. The Hokan MVP is in active
+> development.
 
-Moshi Concepts Inc. is a Delaware corporation, founder-led by Peter Bui and
-backed by Draper Dragon. Its research and engineering are carried out in
-Australia. The team has built on Cardano since 2021, through stake pool
-operation, open source tooling, and a community of over 30,000 people. The company's stated goal is a trust layer for internet commerce, where
-both people and AI agents can transact with confidence.
+The company thesis is that blockchain is good at moving value, but real
+commerce needs infrastructure for deciding when value should move. Escrow is
+the starting point. Programmable settlement is the larger platform: embedded
+payment APIs, stablecoin settlement, dispute tooling, programmable payment
+rails and, in time, infrastructure for commerce driven by software agents.
+
+Moshi Concepts Inc. is a Delaware corporation, founder-led by Peter Bui, with
+research and engineering carried out in Australia. Peter has been building in
+the Cardano ecosystem since 2021 across open-source software, infrastructure,
+education and community.
 
 The website is a single page. Its whole text is available as markdown at
 /llms-full.txt, which is generated from the page itself and carries the same
 wording. AI systems are welcome to read, quote and summarise this content with
 attribution to Moshi Concepts.
 
+## Product stage
+
+Hokan is being built. It is not a launched or mature production platform, and
+nothing on this site should be read as describing functionality that is
+already operating in production. The company is currently speaking with
+marketplaces, SaaS and commerce platforms, developers and businesses about
+early integrations and pilot deployments.
+
 ## Key facts
 
 - Company: Moshi Concepts Inc., a Delaware corporation
 - Research and development: carried out in Australia
 - Founder: Peter Bui
-- Investor: Draper Dragon
-- First product: Hokan, on-chain escrow, at https://usehokan.com/
-- Launch chain: Cardano, with further chains planned
-- Assets: ADA, USDM, USDCx
-- Custody: held by the smart contract, never by Moshi Concepts
+- First product: Hokan, programmable escrow, at https://usehokan.com/
+- Product stage: MVP in active development
+- Launch network: Cardano first, with expansion to additional networks part of the longer-term roadmap
+- Initial planned assets: ADA, USDM, USDCx
+- Custody: designed as non-custodial infrastructure, where funds are controlled by smart-contract rules rather than held in a Moshi-controlled account
 - Settlement: on-chain
-- Research areas: blockchain infrastructure, AI escrow and payments, stablecoin payments
+- Business model: designed to generate revenue from settled transactions and API access
+
+## What the platform covers
+
+- Programmable payments and conditional settlement
+- Non-custodial escrow, embedded through an API and SDK
+- Stablecoin settlement across borders, applications and marketplaces
+- Dispute and resolution infrastructure
+- Payment infrastructure for human and agent-driven commerce
 
 ## Pages
 
-- [Moshi Concepts home](https://moshiconcepts.com/): the studio, the escrow product, the trust-layer roadmap, the research areas, and the founder.
+- [Moshi Concepts home](https://moshiconcepts.com/): the positioning, the Hokan product, the platform thesis, the stages ahead, and the founder.
 - [Full page text](https://moshiconcepts.com/llms-full.txt): every word of the page as plain markdown, generated from the page.
 
 ## Products
 
-- [Hokan](https://usehokan.com/): the on-chain escrow platform, with its own site covering how it works, its architecture, use cases, pricing and trust model.
+- [Hokan](https://usehokan.com/): the escrow platform, with its own site covering how it works, its architecture, use cases, pricing and trust model.
 
 ## Elsewhere
 
 - [LinkedIn](https://www.linkedin.com/company/moshi-concepts/): company updates.
 - [X](https://x.com/moshiconcepts): company updates.
-- [Draper Dragon](https://www.draperdragon.com/): the investor backing the company.
+- [Draper Dragon](https://www.draperdragon.com/): named on the site as backing the company.
 
 ## Contact
 
-The site deliberately publishes no email address. Reach the team through the
-form at https://moshiconcepts.com/#contact.
+The site deliberately publishes no email address. Moshi Concepts is looking to
+speak with pilot customers, integration partners, marketplaces, developers and
+strategic partners through the form at https://moshiconcepts.com/#contact.
 
 ## Optional
 

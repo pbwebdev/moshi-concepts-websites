@@ -1,4 +1,4 @@
-# Moshi Concepts — https://moshiconcepts.com/
+# Moshi Concepts, https://moshiconcepts.com/
 # Everything on this site is open to crawlers, search engines and AI systems.
 # A summary for language models is at /llms.txt and the full page text, in
 # markdown, is at /llms-full.txt.

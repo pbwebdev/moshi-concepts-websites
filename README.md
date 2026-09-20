@@ -1,11 +1,14 @@
-# Moshi Concepts — Landing Page
+# Moshi Concepts , Landing Page
 
-Single-page marketing site for **Moshi Concepts**, a research and product studio
-working at the intersection of blockchain, applied AI, and stablecoin payments.
-Its first product is **Hokan**, an on-chain escrow platform: Cardano first, with
-more chains to follow. Hokan has its own site at
-[usehokan.com](https://usehokan.com/), which this page links out to from the nav,
-from section 01, and from the footer.
+Single-page marketing site for **Moshi Concepts**, which builds non-custodial,
+programmable payment infrastructure for digital commerce. Its first product is
+**Hokan**, a Cardano-first escrow platform, currently an **MVP in active
+development**. Hokan has its own site at [usehokan.com](https://usehokan.com/),
+which this page links out to from the hero, from section 01, from the closing
+call to action, and from the footer.
+
+The positioning the page has to carry: escrow is the wedge, programmable
+settlement is the platform, and the product is being built rather than shipped.
 
 **Outbound links.** Everything leaving the site opens in a new tab with
 `rel="noopener"`. Text links get a corner arrow; the Draper Dragon credit is a
@@ -18,9 +21,13 @@ Built as a static site (plain HTML + CSS) from the v2 design handoff, with a
 tiny Cloudflare Worker behind it for the contact form. No build step; the
 JavaScript on the page is progressive enhancement only.
 
-Sections, in order: nav · hero · **01** Our first product (escrow flow card) ·
-**02** The bigger picture (trust-layer diagram) · **03** Where we're looking (three
-cards) · **04** Who we are (founder) · dark CTA · footer.
+Sections, in order: nav · hero · **01** Our first product (Hokan, escrow flow
+card) · **02** The bigger picture (use-case ring and the staged progression) ·
+**03** Where we're going (three themes, network and revenue notes) · **04**
+Company (founder) · dark CTA · footer.
+
+Section ids are `#build`, `#platform`, `#vision`, `#company` and `#contact`.
+The nav labels them Hokan, Platform, Vision, Company and Talk to us.
 
 ## Structure
 
@@ -42,6 +49,7 @@ test/               # unit tests (`node --test test/*.test.mjs`)
   discoverability.test.mjs # robots, llms.txt, indexing meta
   csp.test.mjs      #   the content security policy vs what the page loads
   consent.test.mjs  #   the consent gate, including analytics run in a sandbox
+  positioning.test.mjs #  product stage, escrow terms, claims we must not make
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
@@ -61,13 +69,13 @@ three variables below in a local `.dev.vars` file (git-ignored).
 
 Hosted on **Cloudflare Workers**: `wrangler.jsonc` deploys `src/worker.mjs`
 with `public/` as its static assets. Pushes to `main` auto-deploy. The contact
-form needs three variables set in the Cloudflare dashboard — see
+form needs three variables set in the Cloudflare dashboard , see
 [`DEPLOY.md`](DEPLOY.md).
 
 ## Design fidelity
 
-Recreated from the two designed breakpoints — desktop (1440) and mobile (390)
-— as one responsive page with a single breakpoint at 960px (the point where the
+Recreated from the two designed breakpoints , desktop (1440) and mobile (390)
+, as one responsive page with a single breakpoint at 960px (the point where the
 full text nav fits). The site canvas is capped at 1440px and centered.
 
 **Corporate structure.** The site says the company is a Delaware corporation
@@ -86,11 +94,33 @@ pointing back at `#organization`. Until then, describing a subsidiary that
 does not exist would be a false statement about corporate structure on a page
 investors read.
 
-**Chain positioning.** Cardano is the launch chain, not the only one. The copy
-says so in three places rather than one: the hero eyebrow ("Cardano first"), the
-hero and section-01 intros ("with more chains to follow"), and the spec strip,
-where the network reads "Cardano first" on desktop and "Cardano" on mobile via
-`.spec__long`. Keep that phrasing in step if the roadmap changes.
+**Product stage.** Hokan is being built, and the site has to read that way.
+The stage badge (`.stage`) appears in the hero and again beside the section-01
+heading, the spec strip says "Initial planned assets" rather than "Assets", and
+the copy uses "is designed to" rather than the present tense for behaviour that
+is not yet running. `test/positioning.test.mjs` fails if any of that is lost.
+
+**Claims to keep out.** No absolute pre-launch safety, custody, audit or
+regulatory claims: no "funds can never be lost", no "cannot access funds", no
+"not a money transmitter". Custody is described by architecture, as
+non-custodial infrastructure where funds are controlled by smart-contract
+rules. The same test asserts these stay absent.
+
+**Chain positioning.** Cardano is the launch network, not the only one. The
+spec strip reads "Cardano first" on desktop and "Cardano" on mobile via
+`.spec__long`, and a note under section 03 says expansion is part of the
+longer-term roadmap without promising dates.
+
+**The progression** (`.rail`) draws the seven stages from the Hokan MVP through
+to additional networks, with only the first marked as underway and a line
+saying the rest describe direction rather than committed dates. It is a
+vertical timeline on mobile and a horizontal rail on desktop, and it spans both
+grid columns from 1200px up.
+
+**Renaming Hokan.** The name may have to change after trademark clearance, so
+nothing structural depends on it: no class, id, selector or asset filename
+contains it. Renaming is a find and replace across `public/index.html` and
+`public/llms.txt`, then `node tools/llms.mjs`. A test enforces that property.
 
 Design tokens live as CSS custom properties at the top of `styles.css`.
 Fonts are loaded from Google Fonts: `Zen Kaku Gothic New` (500, 700) and
@@ -101,7 +131,7 @@ so the copy and spacing stay editable.
 
 **The bigger picture (02)** follows design's mockup for the trust layer:
 copy on the left (eyebrow, headline, intro, and a "Global use cases" list) and
-the ecosystem diagram on the right — a black Moshi hub with a soft halo and
+the ecosystem diagram on the right , a black Moshi hub with a soft halo and
 seven use-case nodes on a gold dotted orbit, each labelled with a white pill
 placed to its outer side. It is real HTML/SVG rather than the low-res mockup
 crop: the seven line icons are inline SVG and the orbit is a generated SVG. The
@@ -132,8 +162,8 @@ stuck on, and `prefers-reduced-motion` drops the lift and the fades while
 keeping the colour change. The glow mixes `--accent-rgb`, which has to stay in
 step with `--accent` if the brand colour ever moves.
 
-**The dark CTA** carries the three pillars from the same reference — Open
-systems / Real utility / Global impact — on a gold rule in the right column,
+**The dark CTA** carries the three pillars from the same reference , Open
+systems / Real utility / Global impact , on a gold rule in the right column,
 over a generated dotted network wave (`assets/cta-wave.svg`).
 
 ## Analytics
@@ -212,8 +242,9 @@ with the submitter's address as `Reply-To`.
 
 ## SEO and social sharing
 
-The page targets *on-chain escrow contracts*, *Cardano* and *VC-backed
-(Draper Dragon)* through the metadata layer, leaving the designed copy intact:
+The page targets *programmable payments*, *non-custodial escrow*, *payment
+infrastructure*, *stablecoin settlement* and *Cardano escrow* through both the
+copy and the metadata:
 
 - `<title>`, meta description, canonical URL (`https://moshiconcepts.com/`),
   `robots` hints, and a full Open Graph + Twitter card set pointing at an
@@ -233,7 +264,7 @@ so nothing has to run JavaScript to read it.
 
 - `public/llms.txt` is the summary written for language models: what the
   company is, the key facts, and where to go next. Hand-written.
-- `public/llms-full.txt` is the whole page as markdown. **Generated** — run
+- `public/llms-full.txt` is the whole page as markdown. **Generated** , run
   `node tools/llms.mjs` after changing page copy, or the drift check in
   `test/discoverability.test.mjs` fails.
 - `robots.txt` names the AI crawlers explicitly and allows them. A crawler that
@@ -252,7 +283,7 @@ Mode or a WAF rule will stop crawlers before robots.txt is read. See
 it at 1200×630 (e.g. with Playwright) and saving as `public/assets/og.jpg`. It
 uses the site's own hero art and tokens; when Google Fonts aren't available to
 the renderer it falls back to a system sans, so for a pixel-perfect card render
-it on a machine with `Zen Kaku Gothic New` installed — or drop in a designer-made
+it on a machine with `Zen Kaku Gothic New` installed , or drop in a designer-made
 1200×630 JPG under the same filename. If the live domain changes, update the
 `https://moshiconcepts.com` URLs in `index.html`, `robots.txt` and `sitemap.xml`.
 
@@ -277,10 +308,10 @@ loads.
 | `assets/hero.avif` | Hero image | Served first; AVIF is ~30% smaller than the WebP at the same quality |
 | `assets/hero.webp` | Hero image fallback | Same art, for browsers without AVIF |
 | `assets/draper-dragon.png` | "Backed by Draper Dragon" credit | Red shield on white; `contain`. Used twice, in the hero and the footer |
-| `assets/step-payee.png` | Escrow step 1 · Payee | Shown unclipped — the art draws its own ring + badge |
+| `assets/step-payer.png` | Escrow step 1 · Payer | Shown unclipped: the art draws its own ring and badge |
 | `assets/step-lock.png` | Escrow step 2 · Funds locked | " |
-| `assets/step-validate.png` | Escrow step 3 · Contract validates | " |
-| `assets/step-release.png` | Escrow step 4 · Funds released | " |
+| `assets/step-validate.png` | Escrow step 3 · Conditions verified | " |
+| `assets/step-release.png` | Escrow step 4 · Receiver | " |
 | `assets/icon-blockchain.png` | Card 01 icon | `contain` |
 | `assets/icon-ai.png` | Card 02 icon | `contain` |
 | `assets/icon-stablecoin.png` | Card 03 icon | `contain` |
@@ -291,7 +322,7 @@ loads.
 
 **Step icons:** the four escrow-step icons were cut from the original composite
 flow illustration (the same artwork, at full resolution). If standalone exports
-become available, drop them in under the same filenames — nothing else changes.
+become available, drop them in under the same filenames , nothing else changes.
 
 To swap any image: place the new file in `assets/` and, if the extension
 differs, update the matching `src` in `index.html`. Keep large raster art
