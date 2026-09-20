@@ -30,6 +30,7 @@ public/             # the static site (served as-is)
   styles.css        #   all styles (mobile-first; desktop from 960px up)
   eco.js            #   trust-layer ring parallax (progressive enhancement)
   contact.js        #   contact form submit-in-place (progressive enhancement)
+  analytics.js      #   Google Analytics 4, loaded once the page is idle
   _headers          #   Cloudflare security + caching headers
   assets/           #   images
   llms.txt          #   summary for language models (hand-written)
@@ -38,6 +39,7 @@ src/worker.mjs      # Cloudflare Worker: serves public/, handles POST /api/conta
 test/               # unit tests (`node --test test/*.test.mjs`)
   worker.test.mjs   #   the contact-form worker
   discoverability.test.mjs # robots, llms.txt, indexing meta
+  csp.test.mjs      #   the content security policy vs what the page loads
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
@@ -131,6 +133,35 @@ step with `--accent` if the brand colour ever moves.
 **The dark CTA** carries the three pillars from the same reference — Open
 systems / Real utility / Global impact — on a gold rule in the right column,
 over a generated dotted network wave (`assets/cta-wave.svg`).
+
+## Analytics
+
+Google Analytics 4, measurement ID in `public/analytics.js`. Google's own
+snippet is an async tag in the head plus an inline `<script>` to configure it.
+Neither is used here, for two reasons.
+
+- **The inline block would cost the policy.** `script-src` has no
+  `'unsafe-inline'`, and adding it to admit six lines of configuration would
+  admit every injected script too. The configuration lives in `analytics.js`
+  instead, same-origin, which `'self'` already covers.
+- **gtag.js is big and runs on the main thread.** Fetching it during page load
+  competes with the hero image for bandwidth and adds work inside the window
+  Lighthouse scores. `analytics.js` queues the pageview immediately, then
+  fetches Google's script only once the page has loaded and the browser is
+  idle, or the moment the visitor scrolls, clicks or types. gtag.js replays
+  whatever is already on `dataLayer` when it arrives, so nothing is lost.
+
+Measured at 4x CPU throttling, adding this moved FCP and LCP by about 12ms,
+which is inside run-to-run noise, and cost one request and roughly 2 KB.
+gtag.js was not fetched before the load event in any run.
+
+The trade is that a visitor who leaves within a second or two may never
+trigger the load. If precise bounce counting ever matters more than the
+score, drop the idle wait in `analytics.js` and let it fire on `load`.
+
+**Consent.** The site has no cookie banner and GA4 sets cookies. That is a
+question for visitors in the EU and UK rather than a technical one, but it is
+worth a decision rather than an oversight.
 
 ## Contact form
 

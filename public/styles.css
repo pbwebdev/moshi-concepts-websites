@@ -334,8 +334,18 @@ a.backed:hover { color: var(--accent-hover); }
   gap: 12px;
   width: 100%;
 }
+/* Reading order for the mobile card list. This lived in a style attribute on
+   each node until the content security policy, which forbids inline styles,
+   started stripping it and quietly restoring DOM order. Same reason the ring
+   positions below are in the stylesheet rather than on the elements. */
+.eco__node:nth-child(1) { order: 1; }
+.eco__node:nth-child(2) { order: 3; }
+.eco__node:nth-child(3) { order: 5; }
+.eco__node:nth-child(4) { order: 7; }
+.eco__node:nth-child(5) { order: 6; }
+.eco__node:nth-child(6) { order: 4; }
+.eco__node:nth-child(7) { order: 2; }
 .eco__node {
-  order: var(--o);
   display: flex;
   align-items: center;
   gap: 16px;
