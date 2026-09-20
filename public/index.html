@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://moshiconcepts.com/assets/og.jpg?v=2">
   <meta name="twitter:image:alt" content="Moshi Concepts. Programmable trust for digital commerce: non-custodial payment infrastructure, launching on Cardano first.">
 
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon.svg?v=1" type="image/svg+xml">
 
   <!-- Fonts are same-origin, so the two faces above the fold start loading
        alongside the stylesheet instead of waiting for it to parse. -->
@@ -152,16 +152,27 @@
         </div>
         <a class="backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
           <picture>
-            <source srcset="assets/draper-dragon.avif" type="image/avif">
-            <img src="assets/draper-dragon.png" alt="" width="128" height="142">
+            <source srcset="assets/draper-dragon.avif?v=1" type="image/avif">
+            <img src="assets/draper-dragon.png?v=1" alt="" width="128" height="142">
           </picture>
           <span>Backed by Draper Dragon</span>
         </a>
       </div>
       <div class="hero__media">
+        <!-- The hero is the LCP element. It is offered at four widths so a
+             1x display downloads a quarter of what a 2x one does, instead of
+             everyone taking the 2x file. sizes mirrors the layout: half the
+             content width on desktop, full width below 960. -->
         <picture>
-          <source srcset="assets/hero.avif?v=2" type="image/avif">
-          <img src="assets/hero.webp?v=2" fetchpriority="high" alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco" width="1184" height="980">
+          <source type="image/avif"
+                  srcset="assets/hero-400.avif?v=1 400w, assets/hero-600.avif?v=1 600w, assets/hero-800.avif?v=1 800w, assets/hero-1184.avif?v=1 1184w"
+                  sizes="(min-width: 1440px) 600px, (min-width: 960px) calc((100vw - 240px) / 2), calc(100vw - 48px)">
+          <img src="assets/hero-1184.webp?v=1"
+               srcset="assets/hero-400.webp?v=1 400w, assets/hero-600.webp?v=1 600w, assets/hero-800.webp?v=1 800w, assets/hero-1184.webp?v=1 1184w"
+               sizes="(min-width: 1440px) 600px, (min-width: 960px) calc((100vw - 240px) / 2), calc(100vw - 48px)"
+               fetchpriority="high"
+               alt="A globe tracing payment routes between Singapore, Gold Coast, and San Francisco"
+               width="1184" height="980">
         </picture>
       </div>
     </header>
@@ -181,8 +192,8 @@
         <div class="flow__steps">
           <div class="step">
             <picture>
-              <source srcset="assets/step-payer.avif" type="image/avif">
-              <img class="step__icon" src="assets/step-payer.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+              <source srcset="assets/step-payer.avif?v=1" type="image/avif">
+              <img class="step__icon" src="assets/step-payer.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
             <div class="step__text">
               <h3>Payer / Depositor</h3>
@@ -193,8 +204,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
-              <source srcset="assets/step-lock.avif" type="image/avif">
-              <img class="step__icon" src="assets/step-lock.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+              <source srcset="assets/step-lock.avif?v=1" type="image/avif">
+              <img class="step__icon" src="assets/step-lock.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
             <div class="step__text">
               <h3>Funds locked</h3>
@@ -205,8 +216,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
-              <source srcset="assets/step-validate.avif" type="image/avif">
-              <img class="step__icon" src="assets/step-validate.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+              <source srcset="assets/step-validate.avif?v=1" type="image/avif">
+              <img class="step__icon" src="assets/step-validate.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
             <div class="step__text">
               <h3>Conditions verified</h3>
@@ -217,8 +228,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
-              <source srcset="assets/step-release.avif" type="image/avif">
-              <img class="step__icon" src="assets/step-release.png" loading="lazy" decoding="async" alt="" width="192" height="192">
+              <source srcset="assets/step-release.avif?v=1" type="image/avif">
+              <img class="step__icon" src="assets/step-release.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
             <div class="step__text">
               <h3>Receiver</h3>
@@ -412,8 +423,8 @@
               <h3>Payment infrastructure</h3>
             </div>
             <picture>
-              <source srcset="assets/icon-blockchain.avif" type="image/avif">
-              <img class="card__icon" src="assets/icon-blockchain.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+              <source srcset="assets/icon-blockchain.avif?v=1" type="image/avif">
+              <img class="card__icon" src="assets/icon-blockchain.png?v=1" loading="lazy" decoding="async" alt="" width="256" height="236">
             </picture>
           </div>
           <p>APIs, SDKs and settlement infrastructure that hide blockchain complexity from the products built on top.</p>
@@ -431,8 +442,8 @@
               <h3>Stablecoin settlement</h3>
             </div>
             <picture>
-              <source srcset="assets/icon-stablecoin.avif" type="image/avif">
-              <img class="card__icon" src="assets/icon-stablecoin.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+              <source srcset="assets/icon-stablecoin.avif?v=1" type="image/avif">
+              <img class="card__icon" src="assets/icon-stablecoin.png?v=1" loading="lazy" decoding="async" alt="" width="256" height="236">
             </picture>
           </div>
           <p>Programmable movement of stable value across borders, applications and marketplaces.</p>
@@ -449,8 +460,8 @@
               <h3>Agentic payments</h3>
             </div>
             <picture>
-              <source srcset="assets/icon-ai.avif" type="image/avif">
-              <img class="card__icon" src="assets/icon-ai.png" loading="lazy" decoding="async" alt="" width="256" height="236">
+              <source srcset="assets/icon-ai.avif?v=1" type="image/avif">
+              <img class="card__icon" src="assets/icon-ai.png?v=1" loading="lazy" decoding="async" alt="" width="256" height="236">
             </picture>
           </div>
           <p>Payment infrastructure designed for a future where software agents increasingly negotiate, commission and coordinate economic activity.</p>
@@ -484,7 +495,7 @@
         <p>That experience led to a simple observation: blockchain payments are good at moving value, but real commerce needs infrastructure for what happens before value should move. Hokan is our first answer to that problem.</p>
       </div>
       <div class="founder">
-        <img class="founder__photo" src="assets/founder.webp" loading="lazy" decoding="async" alt="Peter Bui, founder of Moshi Concepts" width="460" height="460">
+        <img class="founder__photo" src="assets/founder.webp?v=1" loading="lazy" decoding="async" alt="Peter Bui, founder of Moshi Concepts" width="460" height="460">
         <div class="founder__details">
           <div class="founder__id">
             <div class="founder__name">Peter Bui</div>
@@ -572,8 +583,8 @@
       </div>
       <a class="backed footer__backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
         <picture>
-          <source srcset="assets/draper-dragon.avif" type="image/avif">
-          <img src="assets/draper-dragon.png" alt="" width="128" height="142" loading="lazy" decoding="async">
+          <source srcset="assets/draper-dragon.avif?v=1" type="image/avif">
+          <img src="assets/draper-dragon.png?v=1" alt="" width="128" height="142" loading="lazy" decoding="async">
         </picture>
         <span>Backed by Draper Dragon</span>
       </a>

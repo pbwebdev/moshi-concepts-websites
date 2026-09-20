@@ -74,6 +74,31 @@ curl -sI -A "GPTBot/1.1"   https://moshiconcepts.com/llms.txt | head -1
 A `403`, a `503`, or an HTML challenge page means the edge is blocking, and
 nothing in this repo can undo that.
 
+## Cloudflare Web Analytics is now redundant
+
+The zone still injects Cloudflare's `beacon.min.js`. Since the site added
+Google Analytics 4, that is a second analytics tool measuring the same page,
+and PageSpeed charges for it three times over:
+
+| Finding | Cost |
+| --- | --- |
+| Transfer | 10 KiB |
+| Legacy JavaScript | 10.7 KiB of polyfills we do not need |
+| Longest critical request chain | 459 ms, through `/cdn-cgi/rum` |
+
+None of it can be fixed from this repository, because Cloudflare injects the
+script at the edge. Turn it off under the zone's **Analytics → Web Analytics**,
+or keep it and accept those three findings.
+
+There is a second reason to prefer one or the other. The cookie banner gates
+Google Analytics and nothing else, so Cloudflare's beacon runs regardless of
+what a visitor chooses. It is cookieless, which is the usual argument for
+leaving it outside consent, but it is worth deciding rather than inheriting.
+
+If you do turn it off, the content policy can drop
+`https://static.cloudflareinsights.com` from `script-src` and
+`https://cloudflareinsights.com` from `connect-src` in `public/_headers`.
+
 ## Notes
 
 - Moving the site into `public/` is what lets the Worker source, config and

@@ -230,7 +230,7 @@ byte. They now live in `public/assets/fonts/`, declared by `styles.css` itself,
 so there is no extra request at all, and the two faces above the fold are
 preloaded. Inter is the variable cut, which covers both weights in one file
 instead of two, and every file is subset to the Latin ranges the page and the
-contact form need. Total: 56 KB for three faces. The full story, and how to
+contact form need. Total: 48 KB for two faces. The full story, and how to
 rebuild them, is in [`tools/fonts.md`](tools/fonts.md).
 
 **Raster art ships as AVIF with a PNG fallback**, chosen by the browser through
@@ -239,13 +239,28 @@ it would have replaced, while AVIF cut the icon set from 106 KB to 41 KB. The
 wrapper carries `display: contents` so it disappears from layout and every rule
 that sizes the `<img>` as a flex child still applies.
 
+**The hero is offered at four widths** through `srcset` and `sizes`, so a 1x
+display takes 23 KB where a 2x one takes 71. Before this every device
+downloaded the 2x file. `sizes` has to keep describing the real layout, which
+is half the content width from 960px up and full width below it; get it wrong
+and the browser picks the wrong file.
+
 **Everything below the fold is lazy**, including the two decorative SVGs, one of
 which is 24 KB. The hero is the exception: it carries `fetchpriority="high"` and
 must never be made lazy, because it is the LCP element.
 
-Measured at 4x CPU throttling, median of five runs: FCP and LCP both 208ms,
-cumulative layout shift 0, total blocking time 31ms, and 50 KB over 19 requests
+**Every asset URL carries a `?v=` stamp**, which is what lets `/assets/*` be
+cached for a year as immutable. A changed file must get a changed stamp, or
+visitors hold the old one for a year. `test/performance.test.mjs` fails if an
+asset is referenced without a stamp.
+
+Measured at 4x CPU throttling, median of five runs: FCP and LCP both 188ms,
+cumulative layout shift 0, total blocking time 34ms, and 48 KB over 18 requests
 for the initial load.
+
+Cloudflare Web Analytics is still injected at the edge and accounts for the
+longest request chain on the page. See [`DEPLOY.md`](DEPLOY.md); it cannot be
+changed from here.
 
 Two things deliberately left alone. The page, stylesheet and scripts are served
 `no-cache` even though they carry `?v=` stamps that would allow year-long

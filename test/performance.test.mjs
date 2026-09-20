@@ -40,7 +40,7 @@ test("the policy allows no external style or font source", () => {
 
 test("every declared font face points at a file that exists", () => {
   const faces = [...css.matchAll(/@font-face\s*\{[^}]*?src:\s*url\(([^)]+)\)[^}]*\}/gs)].map((m) => m[1]);
-  assert.ok(faces.length >= 3, `expected at least three faces, found ${faces.length}`);
+  assert.ok(faces.length >= 2, `expected at least two faces, found ${faces.length}`);
   for (const src of faces) {
     assert.ok(existsSync(pub(src)), `@font-face points at a missing file: ${src}`);
   }
@@ -94,13 +94,13 @@ test("the wrappers do not disturb the layout they sit in", () => {
 });
 
 test("images below the fold are lazy, and the hero is not", () => {
-  const imgs = [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
-  const hero = imgs.find((t) => t.includes("hero."));
+  const imgs = [...html.matchAll(/<img\b[^>]*>/gs)].map((m) => m[0]);
+  const hero = imgs.find((t) => t.includes("hero-"));
   assert.ok(hero, "no hero image");
   assert.match(hero, /fetchpriority="high"/, "the LCP image should be prioritised");
   assert.doesNotMatch(hero, /loading="lazy"/, "the LCP image must not be lazy");
 
-  for (const tag of imgs.filter((t) => !t.includes("hero.") && !t.includes("draper-dragon"))) {
+  for (const tag of imgs.filter((t) => !t.includes("hero-") && !t.includes("draper-dragon"))) {
     assert.match(tag, /loading="lazy"/, `below-the-fold image is not lazy: ${tag.slice(0, 70)}`);
   }
 });
@@ -112,15 +112,40 @@ test("every image declares its dimensions, so nothing shifts while loading", () 
   }
 });
 
+test("the hero is offered at several widths, so 1x screens take less", () => {
+  // Without this every device downloads the 2x file. sizes has to describe
+  // the real layout or the browser picks the wrong one.
+  const picture = html.match(/<div class="hero__media">[\s\S]*?<\/picture>/)[0];
+  const widths = [...picture.matchAll(/hero-(\d+)\.avif\?v=\d+\s+(\d+)w/g)];
+  assert.ok(widths.length >= 3, `hero offered at only ${widths.length} widths`);
+  for (const [, file, declared] of widths) {
+    assert.equal(file, declared, "srcset width descriptor does not match the file");
+    assert.ok(existsSync(pub(`assets/hero-${file}.avif`)), `missing hero-${file}.avif`);
+    assert.ok(existsSync(pub(`assets/hero-${file}.webp`)), `missing hero-${file}.webp`);
+  }
+  assert.match(picture, /sizes="[^"]*min-width: 960px[^"]*"/, "sizes must describe the desktop column");
+});
+
+test("every asset the page loads carries a version stamp", () => {
+  // /assets/* is cached for a year as immutable, which is only safe while a
+  // changed file means a changed URL.
+  const refs = [...html.matchAll(/(?:src|href)="(assets\/[^"]+)"/g)].map((m) => m[1]);
+  const inSrcset = [...html.matchAll(/srcset="([^"]+)"/g)]
+    .flatMap((m) => m[1].split(",").map((c) => c.trim().split(/\s+/)[0]));
+  for (const url of [...refs, ...inSrcset]) {
+    if (url.includes("/fonts/")) continue; // cached by filename instead
+    assert.match(url, /\?v=\d+/, `asset referenced without a version stamp: ${url}`);
+  }
+});
+
 test("the asset budgets still hold", () => {
   // Numbers chosen with headroom over what is shipping. They are here to
   // catch a full-resolution export dropped in by mistake.
   const budgets = [
-    ["assets/hero.avif", 90],
-    ["assets/hero.webp", 120],
+    ["assets/hero-1184.avif", 90],
+    ["assets/hero-600.avif", 35],
     ["assets/og.jpg", 150],
     ["assets/fonts/inter-var.woff2", 60],
-    ["assets/fonts/zen-kaku-500.woff2", 20],
     ["assets/fonts/zen-kaku-700.woff2", 20],
   ];
   for (const [file, max] of budgets) {
@@ -129,5 +154,5 @@ test("the asset budgets still hold", () => {
 
   const fonts = readdirSync(pub("assets/fonts"));
   const total = fonts.reduce((sum, f) => sum + kb(`assets/fonts/${f}`), 0);
-  assert.ok(total <= 80, `fonts total ${total.toFixed(1)} KB, over the 80 KB budget`);
+  assert.ok(total <= 60, `fonts total ${total.toFixed(1)} KB, over the 60 KB budget`);
 });

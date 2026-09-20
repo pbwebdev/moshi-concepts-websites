@@ -14,13 +14,6 @@
 @font-face {
   font-family: 'Zen Kaku Gothic New';
   font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url(assets/fonts/zen-kaku-500.woff2) format('woff2');
-}
-@font-face {
-  font-family: 'Zen Kaku Gothic New';
-  font-style: normal;
   font-weight: 700;
   font-display: swap;
   src: url(assets/fonts/zen-kaku-700.woff2) format('woff2');
@@ -278,6 +271,7 @@ a.backed:hover { color: var(--accent-hover); }
    on desktop. No dates: only the first stage is claimed as underway. */
 .rail { margin-top: 40px; }
 .rail__title {
+  font-family: var(--font-body);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.12em;
