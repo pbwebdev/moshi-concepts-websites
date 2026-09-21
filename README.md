@@ -36,6 +36,7 @@ public/             # the static site (served as-is)
   index.html        #   the page
   styles.css        #   all styles (mobile-first; desktop from 960px up)
   eco.js            #   trust-layer ring parallax (progressive enhancement)
+  reveal.js         #   scroll fade fallback for browsers without CSS scroll timelines
   contact.js        #   contact form submit-in-place (progressive enhancement)
   analytics.js      #   Google Analytics 4, gated on consent, loaded when idle
   consent.js        #   the cookie banner, and the only thing that starts GA
@@ -51,6 +52,7 @@ test/               # unit tests (`node --test test/*.test.mjs`)
   performance.test.mjs #  fonts, image formats, preloads and asset budgets
   consent.test.mjs  #   the consent gate, including analytics run in a sandbox
   positioning.test.mjs #  product stage, escrow terms, claims we must not make
+  motion.test.mjs   #   the scroll reveal: what it hides, and when it must not
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
 ```
 
@@ -281,6 +283,41 @@ One thing deliberately left alone: the page, stylesheet and scripts are served
 `no-cache` even though they carry `?v=` stamps that would allow year-long
 caching. That trades one conditional request for the guarantee that a forgotten
 stamp can never serve a stale stylesheet for a year.
+
+## Motion
+
+Sections fade up as they scroll into view. It is built twice, because the
+better mechanism is not everywhere yet.
+
+**Where the browser has scroll-driven animations** the whole effect is CSS:
+`animation-timeline: view()` with `animation-range: entry 0% entry 28%`. The
+fade is tied to scroll position rather than to a timer, so it follows a reader
+who drags back up mid-section, it needs no script, and it starts in the same
+frame the section enters. It animates `opacity` and `transform` only, which is
+why layout shift stays at 0.
+
+**Everywhere else** `public/reveal.js` does the same job with an
+IntersectionObserver, adding `.reveal` and then `.reveal--in`. It returns
+immediately where the CSS applies, so the two never run together.
+
+Three rules hold the whole thing up, and each of them is a blank page when
+broken:
+
+- **Nothing is hidden unconditionally.** The CSS that can hold a section at
+  opacity 0 lives inside `@supports (animation-timeline: view())`, and the
+  `.reveal` class is only ever added by script. A visitor with JavaScript off,
+  or an older browser, gets the page exactly as it renders.
+- **Print is reset explicitly.** Paper has no scroll timeline, and a filled
+  animation would freeze every section on its first keyframe, printing a page
+  that is blank below the hero. The `@media print` block undoes it.
+- **Reduced motion means none.** Both paths check it, the CSS through
+  `prefers-reduced-motion: no-preference` and the script before it hides
+  anything.
+
+`reveal.js` also leaves alone whatever is already on screen when it runs.
+Hiding it at that point would be a visible flicker of content the visitor has
+already seen. `test/motion.test.mjs` runs the script against a stand-in browser
+and fails on any of the above.
 
 ## Contact form
 
