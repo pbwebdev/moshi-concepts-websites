@@ -36,7 +36,7 @@ public/             # the static site (served as-is)
   index.html        #   the page
   styles.css        #   all styles (mobile-first; desktop from 960px up)
   eco.js            #   trust-layer ring parallax (progressive enhancement)
-  reveal.js         #   scroll fade fallback for browsers without CSS scroll timelines
+  reveal.js         #   fades content blocks in as they scroll into view
   contact.js        #   contact form submit-in-place (progressive enhancement)
   analytics.js      #   Google Analytics 4, gated on consent, loaded when idle
   consent.js        #   the cookie banner, and the only thing that starts GA
@@ -286,38 +286,47 @@ stamp can never serve a stale stylesheet for a year.
 
 ## Motion
 
-Sections fade up as they scroll into view. It is built twice, because the
-better mechanism is not everywhere yet.
+Content blocks fade up as they come into view: 20px of lift over 620ms, with
+siblings staggered 70ms apart so a row of cards arrives one at a time rather
+than as a slab.
 
-**Where the browser has scroll-driven animations** the whole effect is CSS:
-`animation-timeline: view()` with `animation-range: entry 0% entry 28%`. The
-fade is tied to scroll position rather than to a timer, so it follows a reader
-who drags back up mid-section, it needs no script, and it starts in the same
-frame the section enters. It animates `opacity` and `transform` only, which is
-why layout shift stays at 0.
+**What fades is the thing to get right.** The first version animated whole
+sections and read as no animation at all. A section's box begins 138 to 193px
+above its first line of text, so the fade was spent on empty padding: by the
+time a heading appeared at the bottom of the screen it was already at 0.62 to
+0.84 opacity, and fully opaque before it was anywhere near readable. The
+animated blocks are now the ones a reader actually looks at, listed in `GROUPS`
+at the top of [`public/reveal.js`](public/reveal.js). Nothing in that list may
+be a whole section, and `test/motion.test.mjs` fails if one appears.
 
-**Everywhere else** `public/reveal.js` does the same job with an
-IntersectionObserver, adding `.reveal` and then `.reveal--in`. It returns
-immediately where the CSS applies, so the two never run together.
+**The fade is time-based, not scroll-linked.** CSS scroll-driven animation
+(`animation-timeline: view()`) is the more elegant mechanism and needs no
+script, but it advances only as far as the reader scrolls, so a flick of the
+wheel skips it. A transition always plays its full 620ms. That is the whole
+reason this costs a 1 KB script.
 
-Three rules hold the whole thing up, and each of them is a blank page when
-broken:
+**Two observers, not one.** The main one pulls the root up 12% from the bottom
+edge, so a block starts moving once it is properly on screen instead of while
+it is still clipped by the fold. That margin puts the foot of the document out
+of reach: when the page will not scroll any further, the last blocks sit inside
+that 12% and can never enter the root. A second observer at `threshold: 1`
+catches anything fully in view. Without it the footer stays invisible
+permanently, which is exactly what happened in testing.
 
-- **Nothing is hidden unconditionally.** The CSS that can hold a section at
-  opacity 0 lives inside `@supports (animation-timeline: view())`, and the
-  `.reveal` class is only ever added by script. A visitor with JavaScript off,
-  or an older browser, gets the page exactly as it renders.
-- **Print is reset explicitly.** Paper has no scroll timeline, and a filled
-  animation would freeze every section on its first keyframe, printing a page
-  that is blank below the hero. The `@media print` block undoes it.
-- **Reduced motion means none.** Both paths check it, the CSS through
-  `prefers-reduced-motion: no-preference` and the script before it hides
-  anything.
+Three things keep a failure from turning into a blank page, each of them tested:
 
-`reveal.js` also leaves alone whatever is already on screen when it runs.
-Hiding it at that point would be a visible flicker of content the visitor has
-already seen. `test/motion.test.mjs` runs the script against a stand-in browser
-and fails on any of the above.
+- **Nothing is hidden by CSS alone.** `.reveal` is added by the script, and
+  only to blocks still below the fold. With no JavaScript the page renders
+  complete. Anything already on screen is left alone, since hiding it then
+  would flicker content the visitor has already seen.
+- **Printing is reset.** Paper never scrolls, so whatever was hidden would
+  print blank.
+- **Reduced motion means none.** The script returns before it hides anything,
+  and the stylesheet exempts `.reveal` as well.
+
+Only `opacity` and `transform` are animated, so the work stays on the
+compositor and cumulative layout shift stays at 0, measured on mobile, tablet
+and desktop.
 
 ## Contact form
 
