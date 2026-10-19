@@ -54,6 +54,7 @@ test/               # unit tests (`node --test test/*.test.mjs`)
   positioning.test.mjs #  product stage, escrow terms, claims we must not make
   motion.test.mjs   #   the scroll reveal: what it hides, and when it must not
 wrangler.jsonc      # Worker + static-assets config used by `npx wrangler deploy`
+LAUNCH.md           # what changes on both sites when Hokan launches
 ```
 
 ## Running locally
