@@ -339,17 +339,36 @@ with the submitter's address as `Reply-To`.
 - **Configuration** lives only in the Cloudflare dashboard (Worker → Settings →
   Variables and Secrets): `RESEND_API_KEY` (secret), `CONTACT_TO` (where
   messages go) and `CONTACT_FROM` (a sender on a domain verified in Resend).
-  Until they're set the endpoint answers 503 and the form shows a friendly
-  "not configured yet" message.
-- **Spam:** a honeypot field bots fill and people can't see, and a timing check
-  (`contact.js` stamps the form on load; a submit within 3 s is dropped). Both
-  answer with a fake success so bots learn nothing. Add Cloudflare Turnstile if
-  volume ever warrants it.
-- **Without JavaScript** the form still works: a plain POST, and the worker
-  redirects back to `/#contact-sent` or `/#contact-error`, which reveal a
-  `:target` message in the form.
+  `FORM_SECRET` is optional; see below. Until they're set the endpoint answers
+  503 and the form says it is unavailable. Which variable is missing goes to
+  the Worker's logs, never to the visitor.
+- **Spam.** Every submission must carry a token the Worker signed. `contact.js`
+  fetches one from `/api/contact/token` the first time a visitor touches the
+  form, so a bot posting straight at the endpoint has none and cannot make one.
+  That is the check the November spam ("n / n@n.co / hellohello") got past:
+  the old timing field was stamped by the browser, sent blank by bots, and a
+  blank one skipped the check. The token also carries the timing check, now
+  signed: one used within 3 seconds of issue is a bot and gets a fake success,
+  as does anything that fills the hidden honeypot field. `contact.js` never
+  submits on a token that new, waiting out the difference instead, so a real
+  message cannot be mistaken for one.
+- **Rate limit.** 5 requests a minute per address, counted separately for
+  sending and for tokens, through the `CONTACT_LIMITER` binding in
+  `wrangler.jsonc`. Over it, the visitor is asked to wait a minute.
+- **Request checks.** A post naming another site's origin is refused (403);
+  bodies over 32 KB are refused before parsing (413); only JSON and urlencoded
+  bodies are accepted. Anything else under `/api/` is answered 404 by the
+  Worker without touching the static files. Errors say what the visitor can
+  do and nothing about the setup; the detail is in the Worker's logs.
+- **Without JavaScript** the form cannot get a token, so the Worker redirects
+  back to `/#contact-needs-js`, which says so. It does not pretend to send: a
+  person told their message failed can do something about it, a person told
+  it succeeded cannot. `/#contact-sent` and `/#contact-error` still exist for
+  the other outcomes.
 - The CSP allows same-origin `form-action` and `connect-src` for this; the
   Resend key never reaches the browser.
+- Dashboard settings that add to this (Bot Fight Mode, Turnstile if spam ever
+  returns) are in [`DEPLOY.md`](DEPLOY.md).
 
 ## SEO and social sharing
 

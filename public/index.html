@@ -545,7 +545,6 @@
         <div class="form__hp" aria-hidden="true">
           <label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
         </div>
-        <input type="hidden" name="ts" value="">
         <div class="form__actions">
           <button class="btn btn--lg btn--dark" type="submit">Discuss a pilot <span aria-hidden="true">→</span></button>
           <p class="form__status" role="status" aria-live="polite"></p>
@@ -553,6 +552,7 @@
         <!-- shown by the worker's redirect when JavaScript is off -->
         <p id="contact-sent" class="form__note form__note--ok">Thanks, your message is on its way. We will be in touch.</p>
         <p id="contact-error" class="form__note form__note--err">Something went wrong sending that. Please try again in a moment.</p>
+        <p id="contact-needs-js" class="form__note form__note--err">This form needs JavaScript turned on, which is how it keeps spam out. Please enable it and try again.</p>
       </form>
 
       <img class="cta__wave" src="assets/cta-wave.svg?v=1" loading="lazy" decoding="async" alt="" width="1440" height="260">
@@ -621,7 +621,7 @@
 
   <script src="reveal.js?v=2" defer></script>
   <script src="eco.js?v=1" defer></script>
-  <script src="contact.js?v=1" defer></script>
+  <script src="contact.js?v=2" defer></script>
   <script src="analytics.js?v=2" defer></script>
   <script src="consent.js?v=1" defer></script>
 </body>

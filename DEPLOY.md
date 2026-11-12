@@ -2,8 +2,8 @@
 
 The site runs on **Cloudflare Workers**. `wrangler.jsonc` describes the
 deployment: `src/worker.mjs` is the Worker and `public/` is served as static
-assets (the Worker only runs for `POST /api/contact`; everything else is served
-straight from the assets). The connected Git integration runs
+assets (the Worker runs for `/api/contact`, `/api/contact/token` and paths
+that match no file; everything else is served straight from the assets). The connected Git integration runs
 `npx wrangler deploy` on every push to **`main`**.
 
 - **Production branch:** `main` · **Build command:** none ·
@@ -17,8 +17,10 @@ repo; set these in the dashboard under the Worker → **Settings → Variables a
 Secrets** (add each as type **Secret** so they're encrypted and survive deploys).
 **Use the top-level "Variables and Secrets" panel — not the one inside
 Settings → Builds.** The Builds panel holds *build-time* secrets for
-`npx wrangler deploy`; the running Worker never sees those, and the form will
-report all three as missing:
+`npx wrangler deploy`; the running Worker never sees those. If the form says
+it is unavailable, the Worker's logs (Worker → **Logs**) name exactly which
+variables are missing and which it does have. The visitor is not told, since
+that would describe the setup to anyone probing it.
 
 | Name | Value |
 | --- | --- |
@@ -33,6 +35,29 @@ to the account owner's own address, which is fine for a first test.
 
 After saving the secrets there's nothing to redeploy: the running Worker reads
 them on the next request. Test by submitting the form on the live site.
+
+`FORM_SECRET` is optional. It signs the form's anti-spam tokens; without it they
+are signed with a key derived from `RESEND_API_KEY`. Set it (any long random
+string, as a Secret) only if you want to rotate one without the other.
+
+## Hardening in the Cloudflare dashboard
+
+The Worker defends itself (signed form tokens, a per-address rate limit, a
+honeypot, origin and size checks), so none of this is required. Each is a
+toggle, and each costs nothing:
+
+- **Security → Bots → Bot Fight Mode: on.** Challenges known bot networks at the
+  edge, before they reach the Worker.
+- **SSL/TLS → Edge Certificates → Always Use HTTPS: on**, and **Minimum TLS
+  Version: 1.2**.
+- If spam ever gets through again, it is a bot that runs the page's
+  JavaScript. The next step is **Cloudflare Turnstile** on the form; it needs a
+  site key from the dashboard and a CSP change for `challenges.cloudflare.com`.
+
+HSTS is sent from `public/_headers` without `includeSubDomains`, on purpose:
+`updates.moshiconcepts.com` is the Resend sending domain, and any subdomain
+without HTTPS would become unreachable. Widen it only once every subdomain
+serves HTTPS.
 
 ## Ongoing deploys
 

@@ -5,6 +5,13 @@
   "main": "src/worker.mjs",
   "compatibility_date": "2025-08-01",
   "assets": { "directory": "./public", "binding": "ASSETS" },
+  // Per-address limit on the contact form: 5 requests a minute, counted
+  // separately for sending and for fetching form tokens. A person needs one
+  // of each; a bot hammering either is cut off at the edge, before Resend.
+  // namespace_id is any number unique to this account's limiters.
+  "ratelimits": [
+    { "name": "CONTACT_LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }
+  ],
   // Don't let deploys wipe variables set in the dashboard.
   "keep_vars": true
   // Set in the Cloudflare dashboard (Worker → Settings → Variables and Secrets),
