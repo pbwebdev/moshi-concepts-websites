@@ -159,6 +159,9 @@ test("the asset budgets still hold", () => {
   const budgets = [
     ["assets/hero-1184.avif", 90],
     ["assets/hero-600.avif", 35],
+    // Dark mode swaps these in; same budgets as the light hero.
+    ["assets/hero-dark-1184.avif", 90],
+    ["assets/hero-dark-600.avif", 35],
     ["assets/og.jpg", 150],
     ["assets/fonts/inter-var.woff2", 60],
     ["assets/fonts/zen-kaku-700.woff2", 20],

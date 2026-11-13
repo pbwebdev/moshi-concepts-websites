@@ -6,7 +6,9 @@
   <title>Moshi Concepts | Programmable Payment Infrastructure</title>
   <meta name="description" content="Moshi Concepts builds non-custodial payment infrastructure for marketplaces, businesses and software agents. Hokan is our Cardano-first escrow platform.">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0C0A09">
   <link rel="canonical" href="https://moshiconcepts.com/">
   <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full page text for language models">
 
@@ -40,7 +42,7 @@
   <link rel="preload" href="assets/fonts/zen-kaku-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="styles.min.css?v=3">
+  <link rel="stylesheet" href="styles.min.css?v=4">
 
   <!-- Structured data (a data block: not executed, so the CSP does not apply) -->
   <script type="application/ld+json">
@@ -152,8 +154,8 @@
         </div>
         <a class="backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
           <picture>
-            <source srcset="assets/draper-dragon.avif?v=1" type="image/avif">
-            <img src="assets/draper-dragon.png?v=1" alt="" width="128" height="142">
+            <source srcset="assets/draper-dragon.avif?v=2" type="image/avif">
+            <img src="assets/draper-dragon.png?v=2" alt="" width="128" height="142">
           </picture>
           <span>Backed by Draper Dragon</span>
         </a>
@@ -164,6 +166,12 @@
              everyone taking the 2x file. sizes mirrors the layout: half the
              content width on desktop, full width below 960. -->
         <picture>
+          <source type="image/avif" media="(prefers-color-scheme: dark)"
+                  srcset="assets/hero-dark-400.avif?v=1 400w, assets/hero-dark-500.avif?v=1 500w, assets/hero-dark-600.avif?v=1 600w, assets/hero-dark-700.avif?v=1 700w, assets/hero-dark-800.avif?v=1 800w, assets/hero-dark-960.avif?v=1 960w, assets/hero-dark-1184.avif?v=1 1184w"
+                  sizes="(min-width: 1440px) 600px, (min-width: 960px) calc((100vw - 240px) / 2), calc(100vw - 48px)">
+          <source type="image/webp" media="(prefers-color-scheme: dark)"
+                  srcset="assets/hero-dark-400.webp?v=1 400w, assets/hero-dark-500.webp?v=1 500w, assets/hero-dark-600.webp?v=1 600w, assets/hero-dark-700.webp?v=1 700w, assets/hero-dark-800.webp?v=1 800w, assets/hero-dark-960.webp?v=1 960w, assets/hero-dark-1184.webp?v=1 1184w"
+                  sizes="(min-width: 1440px) 600px, (min-width: 960px) calc((100vw - 240px) / 2), calc(100vw - 48px)">
           <source type="image/avif"
                   srcset="assets/hero-400.avif?v=1 400w, assets/hero-500.avif?v=1 500w, assets/hero-600.avif?v=1 600w, assets/hero-700.avif?v=1 700w, assets/hero-800.avif?v=1 800w, assets/hero-960.avif?v=1 960w, assets/hero-1184.avif?v=1 1184w"
                   sizes="(min-width: 1440px) 600px, (min-width: 960px) calc((100vw - 240px) / 2), calc(100vw - 48px)">
@@ -192,6 +200,8 @@
         <div class="flow__steps">
           <div class="step">
             <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-payer-dark.avif?v=1" type="image/avif">
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-payer-dark.png?v=1" type="image/png">
               <source srcset="assets/step-payer.avif?v=1" type="image/avif">
               <img class="step__icon" src="assets/step-payer.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
@@ -204,6 +214,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-lock-dark.avif?v=1" type="image/avif">
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-lock-dark.png?v=1" type="image/png">
               <source srcset="assets/step-lock.avif?v=1" type="image/avif">
               <img class="step__icon" src="assets/step-lock.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
@@ -216,6 +228,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-validate-dark.avif?v=1" type="image/avif">
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-validate-dark.png?v=1" type="image/png">
               <source srcset="assets/step-validate.avif?v=1" type="image/avif">
               <img class="step__icon" src="assets/step-validate.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
@@ -228,6 +242,8 @@
           <svg class="flow__arrow flow__arrow--v" viewBox="0 0 24 40" width="24" height="40" aria-hidden="true"><path d="M12,4 V32 M5,25 L12,32 L19,25" fill="none" stroke="#F5A623" stroke-width="2"></path></svg>
           <div class="step">
             <picture>
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-release-dark.avif?v=1" type="image/avif">
+              <source media="(prefers-color-scheme: dark)" srcset="assets/step-release-dark.png?v=1" type="image/png">
               <source srcset="assets/step-release.avif?v=1" type="image/avif">
               <img class="step__icon" src="assets/step-release.png?v=1" loading="lazy" decoding="async" alt="" width="192" height="192">
             </picture>
@@ -283,7 +299,10 @@
 
       <div class="trust__media">
         <div class="eco">
-          <img class="eco__orbit" src="assets/eco-orbit.svg?v=3" loading="lazy" decoding="async" alt="" width="780" height="560">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="assets/eco-orbit-dark.svg?v=1" type="image/svg+xml">
+            <img class="eco__orbit" src="assets/eco-orbit.svg?v=3" loading="lazy" decoding="async" alt="" width="780" height="560">
+          </picture>
           <div class="eco__hub" aria-label="Moshi Concepts">
             <svg viewBox="0 0 100 100" aria-hidden="true">
             <path d="M18,50 L21.5,14 Q22,11 24,14 L45,33 Z" fill="#000000"></path>
@@ -583,8 +602,8 @@
       </div>
       <a class="backed footer__backed" href="https://www.draperdragon.com/" target="_blank" rel="noopener">
         <picture>
-          <source srcset="assets/draper-dragon.avif?v=1" type="image/avif">
-          <img src="assets/draper-dragon.png?v=1" alt="" width="128" height="142" loading="lazy" decoding="async">
+          <source srcset="assets/draper-dragon.avif?v=2" type="image/avif">
+          <img src="assets/draper-dragon.png?v=2" alt="" width="128" height="142" loading="lazy" decoding="async">
         </picture>
         <span>Backed by Draper Dragon</span>
       </a>

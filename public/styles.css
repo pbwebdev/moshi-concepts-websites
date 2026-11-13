@@ -26,19 +26,51 @@
    ============================================================ */
 
 :root {
+  /* The page follows the operating system's light or dark setting. Every
+     colour that changes between the two is a token here; the dark values
+     are in the block that follows. color-scheme lets form controls,
+     scrollbars and the canvas the browser paints before CSS arrives match. */
+  color-scheme: light dark;
+
   --page-bg: #FFFFFF;
+  --surface: #FFFFFF;   /* raised panels: diagram labels, mobile cards, the cookie banner */
   --ink: #000000;       /* headings */
   --body: #57534E;      /* body text */
+  --muted: #6B6560;     /* small print: rail dates and notes */
   --body-dark: #D6D3D1; /* body text on the dark section */
   --hairline: #E7E5E4;  /* borders */
   --accent: #F5A623;
   --accent-rgb: 245, 166, 35; /* keep in step with --accent */
   --accent-hover: #9A5A00; /* accent as text: 5.5:1 on white, 5.1:1 on the tint */
   --accent-press: #C97B0A; /* accent as a background, under black text */
+  --accent-deep: #9A5A00;  /* pressed button, under white text: the same in both themes */
+  --on-accent: #000000;    /* text on the accent: black in both themes, never --ink */
   --tint: #FDF6E9;      /* "Who we are" */
+  --hub-halo: rgba(255, 255, 255, 0.55); /* ring between the diagram's hub and its orbit */
+  --shadow-rgb: 0, 0, 0;
 
   --font-head: 'Zen Kaku Gothic New', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Dark: warm near-blacks from the same stone family as the light greys, so
+   the page keeps its temperature. The accent is unchanged. Text colours are
+   chosen against the darkest surface each sits on; test/theme.test.mjs
+   checks every pairing in both themes against WCAG AA. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg: #0C0A09;
+    --surface: #1C1917;
+    --ink: #FAFAF9;
+    --body: #B4AEA8;
+    --muted: #8E8780;
+    --hairline: #2E2925;
+    --accent-hover: #FFBA4A; /* accent as text: lighter, not darker, on dark */
+    --accent-press: #FFBE55; /* hover lifts the button rather than darkening it */
+    --tint: #17130E;
+    --hub-halo: rgba(23, 19, 14, 0.85);
+    --shadow-rgb: 0, 0, 0;
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -95,18 +127,22 @@ a { color: var(--accent-hover); text-decoration: none; }
   align-items: center;
   gap: 10px;
   background: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
   font-family: var(--font-body);
   font-weight: 500;
   border-radius: 4px;
+  /* The browser's own button border. Two of these are <button>s, and the
+     default border was never reset: a faint dark edge in light mode, a
+     bright white outline in dark. The outlined consent button sets its own. */
+  border: 0;
   white-space: nowrap;
 }
-.btn:hover { background: var(--accent-press); color: var(--ink); }
-.btn:active { background: var(--accent-hover); color: #FFFFFF; }
+.btn:hover { background: var(--accent-press); color: var(--on-accent); }
+.btn:active { background: var(--accent-deep); color: #FFFFFF; }
 .btn--nav { min-height: 44px; padding: 0 16px; font-size: 14px; }
 .btn--nav .btn__arrow { display: none; }
 .btn--lg { min-height: 48px; padding: 0 24px; font-size: 16px; }
-.btn--dark:hover { background: #FFFFFF; color: var(--ink); }
+.btn--dark:hover { background: #FFFFFF; color: var(--on-accent); }
 
 /* Section header: eyebrow + h2 on the left, intro paragraph on the right (desktop) */
 .section { border-top: 1px solid var(--hairline); }
@@ -168,6 +204,12 @@ a { color: var(--accent-hover); text-decoration: none; }
    PNG. display:contents removes the wrapper from layout, so every existing
    rule that sizes the <img> as a flex or grid child still applies. */
 picture { display: contents; }
+/* A <source> is not hidden by default: it renders as an empty box, and with
+   the picture's display: contents that box joins the surrounding flex layout
+   and takes a gap. The dark sources added a slot each, which moved the page.
+   They are hidden here. The original light sources still take their slot:
+   the spacing was tuned by eye with them in place, so they are left alone. */
+picture > source[media] { display: none; }
 
 .backed img { width: 32px; height: 32px; flex: none; object-fit: contain; }
 
@@ -198,7 +240,9 @@ a.backed:hover { color: var(--accent-hover); }
 /* The artwork is a complete composition: the globe with all three city
    labels inside its own margins. It is never cropped, so nothing can be
    cut off at an edge; it simply scales with the column. The art sits on
-   white, like the page, so its margins are invisible. */
+   white, like the page, so its margins are invisible. In dark mode the page
+   swaps in a version drawn on the dark page colour, made by
+   tools/dark-art.mjs, for the same reason. */
 .hero__media { margin-top: 16px; }
 .hero__media img { display: block; width: 100%; height: auto; }
 
@@ -210,7 +254,7 @@ a.backed:hover { color: var(--accent-hover); }
   padding: 56px 24px;
 }
 
-.flow { border: 1px solid var(--hairline); background: #FFFFFF; }
+.flow { border: 1px solid var(--hairline); background: var(--page-bg); }
 
 /* Steps: stacked rows on mobile, a 4-across row with arrows on desktop */
 .flow__steps {
@@ -313,10 +357,10 @@ a.backed:hover { color: var(--accent-hover); }
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #6B6560;
+  color: var(--muted);
 }
 .rail__step--now .rail__when { color: var(--accent-hover); }
-.rail__note { margin-top: 18px; font-size: 13px; color: #6B6560; }
+.rail__note { margin-top: 18px; font-size: 13px; color: var(--muted); }
 
 /* Short factual asides: network scope and how the product makes money. */
 .notes { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
@@ -495,16 +539,16 @@ a.backed:hover { color: var(--accent-hover); }
   align-items: center;
   gap: 16px;
   padding: 16px 18px;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 14px rgba(var(--shadow-rgb), 0.06);
 }
 .eco__icon {
   width: 56px;
   height: 56px;
   flex: none;
   border-radius: 50%;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--hairline);
   display: flex;
   align-items: center;
@@ -527,7 +571,7 @@ a.backed:hover { color: var(--accent-hover); }
   flex: none;
   border-radius: 50%;
   background: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -772,7 +816,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
   flex-direction: column;
   gap: 16px;
   padding: 20px;
-  background: #FFFFFF;
+  background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: 10px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
@@ -784,8 +828,8 @@ textarea.form__input { resize: vertical; min-height: 140px; }
 /* Both answers are the same size and equally easy to reach: a decline that is
    harder to find than an accept is not a real choice. */
 .consent__btn { flex: 1; min-height: 44px; padding: 0 20px; font-size: 15px; justify-content: center; }
-.consent__btn--no { background: transparent; border: 1px solid var(--ink); }
-.consent__btn--no:hover { background: var(--ink); color: #FFFFFF; }
+.consent__btn--no { background: transparent; border: 1px solid var(--ink); color: var(--ink); }
+.consent__btn--no:hover { background: var(--ink); color: var(--page-bg); }
 
 .footer__bottom { display: flex; flex-direction: column; gap: 14px; }
 .footer__social { display: flex; align-items: center; gap: 4px; }
@@ -1003,7 +1047,7 @@ textarea.form__input { resize: vertical; min-height: 140px; }
     width: 23.08cqw;
     height: 23.08cqw;
     transform: translate(-50%, -50%) translate(calc(var(--px, 0px) * 0.35), calc(var(--py, 0px) * 0.35));
-    box-shadow: 0 0 0 4.1cqw rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 0 4.1cqw var(--hub-halo);
     gap: 0.77cqw;
     font-size: clamp(14px, 2.31cqw, 18px);
   }
@@ -1044,9 +1088,9 @@ textarea.form__input { resize: vertical; min-height: 140px; }
     display: block;
     flex: none;
     min-width: 0;
-    background: #FFFFFF;
+    background: var(--surface);
     border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 14px rgba(var(--shadow-rgb), 0.06);
     padding: clamp(6px, 1.03cqw, 8px) clamp(10px, 1.79cqw, 14px);
     white-space: nowrap;
   }
