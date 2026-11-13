@@ -71,13 +71,17 @@ test("fonts are cached hard, because their names change when they do", () => {
 test("raster art is offered in a modern format with a fallback", () => {
   // Every PNG the page loads should sit inside a <picture> that offers AVIF,
   // and the AVIF should be the smaller of the two or there is no point.
-  const pngs = [...html.matchAll(/<img[^>]*src="assets\/([^"]+)\.png"/g)].map((m) => m[1]);
+  const pngs = [...html.matchAll(/<img\b[^>]*\bsrc="assets\/([^"?]+)\.png(?:\?v=\d+)?"/g)].map((m) => m[1]);
+  assert.ok(pngs.length > 0, "found no PNG <img> tags; the pattern has gone stale");
+  const avifSources = [...html.matchAll(/<source\b[^>]*>/g)]
+    .map((m) => m[0])
+    .filter((tag) => /\btype="image\/avif"/.test(tag));
   for (const name of new Set(pngs)) {
     const avif = `assets/${name}.avif`;
     assert.ok(existsSync(pub(avif)), `${name}.png has no AVIF alternative`);
-    assert.match(
-      html,
-      new RegExp(`<source srcset="assets/${name}\\.avif" type="image/avif">`),
+    const srcset = new RegExp(`\\bsrcset="assets/${name}\\.avif(?:\\?v=\\d+)?"`);
+    assert.ok(
+      avifSources.some((tag) => srcset.test(tag)),
       `${name} is not offered as AVIF`,
     );
     assert.ok(
